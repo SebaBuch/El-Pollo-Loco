@@ -1,11 +1,4 @@
-class MovableObject {
-    x = 120;
-    y = 280;
-    height = 150;
-    width = 100;
-    img;
-    imageCache = {};
-    currentImage = 0;
+class MovableObject extends DrawableObject {
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
@@ -24,12 +17,6 @@ class MovableObject {
 
     isAboveGround() {
         return this.y < 150;
-    }
-
-
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path
     }
 
     draw(ctx) {
