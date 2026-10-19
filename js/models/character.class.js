@@ -3,6 +3,7 @@ class Character extends MovableObject {
     height = 250;
     width = 127;
     y = 180;
+    x = 120;
     speed = 5;
     lastMove = new Date().getTime();
     offset = {

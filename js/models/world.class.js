@@ -14,7 +14,6 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
         this.run();
     }
 
@@ -34,44 +33,37 @@ class World {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
         }
-    };
+    }
 
     checkCollisions() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+        for (let i = 0; i < this.level.enemies.length; i++) {
+            let enemy = this.level.enemies[i];
+            if (this.character.isColliding(enemy) && !this.character.isHurt()) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
             }
-        });
+        }
     }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.ctx.translate(this.camera_x, 0);
-
         this.addObjectsToMap(this.level.backgroundObjects);
-        this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.statusBar);
-        this.ctx.translate(this.camera_x, 0);
+        this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.throwableObjects);
         this.ctx.translate(-this.camera_x, 0);
-
-
-
-        let self = this
-        requestAnimationFrame(function () {
-            self.draw();
+        this.addToMap(this.statusBar);
+        requestAnimationFrame(() => {
+            this.draw();
         });
     }
 
     addObjectsToMap(objects) {
-        objects.forEach(o => {
-            this.addToMap(o);
-        });
+        for (let i = 0; i < objects.length; i++) {
+            this.addToMap(objects[i]);
+        }
     }
 
     addToMap(mo) {
@@ -79,11 +71,10 @@ class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
-
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
+        mo.drawFrame(this.ctx);
     }
 
     flipImage(mo) {
@@ -94,7 +85,7 @@ class World {
     }
 
     flipImageBack(mo) {
-        mo.x = mo.x * -1
+        mo.x = mo.x * -1;
         this.ctx.restore();
     }
 }
