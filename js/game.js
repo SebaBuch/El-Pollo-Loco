@@ -8,55 +8,39 @@ function init() {
     world = new World(canvas, keyboard);
 }
 
-window.addEventListener("keydown", (e) => {
-    if (e.keyCode == 39) {
-        keyboard.RIGHT = true;
-    }
-
-    if (e.keyCode == 37) {
-        keyboard.LEFT = true;
-    }
-
-    if (e.keyCode == 38) {
-        keyboard.UP = true;
-    }
-
-    if (e.keyCode == 40) {
-        keyboard.DOWN = true;
-    }
-
-    if (e.keyCode == 32) {
-        keyboard.SPACE = true;
-    }
-
-    if (e.keyCode == 68) {
-        keyboard.D = true;
-    }
-
+window.addEventListener('keydown', (e) => {
+    setKey(e.keyCode, true);
 });
 
-window.addEventListener("keyup", (e) => {
-    if (e.keyCode == 39) {
-        keyboard.RIGHT = false;
-    }
-
-    if (e.keyCode == 37) {
-        keyboard.LEFT = false;
-    }
-
-    if (e.keyCode == 38) {
-        keyboard.UP = false;
-    }
-
-    if (e.keyCode == 40) {
-        keyboard.DOWN = false;
-    }
-
-    if (e.keyCode == 32) {
-        keyboard.SPACE = false;
-    }
-
-    if (e.keyCode == 68) {
-        keyboard.D = false;
-    }
+window.addEventListener('keydown', (e) => {
+    setKey(e.keyCode, true);
 });
+
+function setKey(keyCode, isPressed) {
+    setArrowKeys(keyCode, isPressed);
+    setActionKeys(keyCode, isPressed);
+}
+
+function setArrowKeys(keyCode, isPressed) {
+    if (keyCode == 39) {
+        keyboard.RIGHT = isPressed;
+    }
+    if (keyCode == 37) {
+        keyboard.LEFT = isPressed;
+    }
+    if (keyCode == 38) {
+        keyboard.UP = isPressed;
+    }
+    if (keyCode == 40) {
+        keyboard.DOWN = isPressed;
+    }
+}
+
+function setActionKeys(keyCode, isPressed) {
+    if (keyCode == 32) {
+        keyboard.SPACE = isPressed;
+    }
+    if (keyCode == 68) {
+        keyboard.D = isPressed;
+    }
+}
