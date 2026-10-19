@@ -12,8 +12,8 @@ window.addEventListener('keydown', (e) => {
     setKey(e.keyCode, true);
 });
 
-window.addEventListener('keydown', (e) => {
-    setKey(e.keyCode, true);
+window.addEventListener('keyup', (e) => {
+    setKey(e.keyCode, false);
 });
 
 function setKey(keyCode, isPressed) {
