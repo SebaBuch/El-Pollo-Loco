@@ -23,7 +23,7 @@ class Character extends MovableObject {
         'assets/img/2_character_pepe/1_idle/idle/I-7.png',
         'assets/img/2_character_pepe/1_idle/idle/I-8.png',
         'assets/img/2_character_pepe/1_idle/idle/I-9.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-10.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-10.png'
     ];
 
     IMAGES_LONG_IDLE = [
@@ -36,7 +36,7 @@ class Character extends MovableObject {
         'assets/img/2_character_pepe/1_idle/long_idle/I-17.png',
         'assets/img/2_character_pepe/1_idle/long_idle/I-18.png',
         'assets/img/2_character_pepe/1_idle/long_idle/I-19.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-20.png',
+        'assets/img/2_character_pepe/1_idle/long_idle/I-20.png'
     ];
 
     IMAGES_WALKING = [
@@ -63,7 +63,7 @@ class Character extends MovableObject {
     IMAGES_HURT = [
         'assets/img/2_character_pepe/4_hurt/H-41.png',
         'assets/img/2_character_pepe/4_hurt/H-42.png',
-        'assets/img/2_character_pepe/4_hurt/H-43.png',
+        'assets/img/2_character_pepe/4_hurt/H-43.png'
     ];
 
     IMAGES_DEAD = [
@@ -91,7 +91,6 @@ class Character extends MovableObject {
     }
 
     animate() {
-
         setInterval(() => {
             this.moveCharacter();
         }, 1000 / 60);
