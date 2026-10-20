@@ -15,10 +15,15 @@ class SmallChicken extends Chicken {
         'assets/img/3_enemies_chicken/chicken_small/1_walk/3_w.png'
     ];
 
+    IMAGES_DEAD = [
+        'assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png'
+    ];
+
     constructor(x) {
         super(x);
         this.loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_DEAD);
         this.speed = 1 + Math.random() * 0.8;
     }
 }
