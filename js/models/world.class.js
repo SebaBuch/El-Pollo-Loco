@@ -24,6 +24,9 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisions();
+        }, 1000 / 60);
+
+        setInterval(() => {
             this.checkThrowObjects();
         }, 200);
     }
@@ -38,10 +41,19 @@ class World {
     checkCollisions() {
         for (let i = 0; i < this.level.enemies.length; i++) {
             let enemy = this.level.enemies[i];
-            if (this.character.isColliding(enemy) && !this.character.isHurt()) {
-                this.character.hit();
-                this.statusBar.setPercentage(this.character.energy);
+            if (!enemy.isDead()) {
+                this.checkEnemyCollision(enemy);
             }
+        }
+    }
+
+    checkEnemyCollision(enemy) {
+        if (enemy instanceof Chicken && this.character.isJumpingOn(enemy)) {
+            enemy.die();
+            this.character.bounce();
+        } else if (this.character.isColliding(enemy) && !this.character.isHurt()) {
+            this.character.hit();
+            this.statusBar.setPercentage(this.character.energy);
         }
     }
 

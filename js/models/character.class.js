@@ -155,6 +155,16 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_IDLE);
         }
     }
+
+    isJumpingOn(enemy) {
+        let characterBottom = this.y + this.height - this.offset.bottom;
+        let enemyTop = enemy.y + enemy.offset.top;
+        return this.isColliding(enemy) && this.speedY < 0 && characterBottom < enemyTop + 25;
+    }
+
+    bounce() {
+        this.speedY = 15;
+    }
 }
 
 
