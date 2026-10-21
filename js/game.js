@@ -9,38 +9,38 @@ function init() {
 }
 
 window.addEventListener('keydown', (e) => {
-    setKey(e.keyCode, true);
+    setKey(e.code, true);
 });
 
 window.addEventListener('keyup', (e) => {
-    setKey(e.keyCode, false);
+    setKey(e.code, false);
 });
 
-function setKey(keyCode, isPressed) {
-    setArrowKeys(keyCode, isPressed);
-    setActionKeys(keyCode, isPressed);
+function setKey(code, isPressed) {
+    setArrowKeys(code, isPressed);
+    setActionKeys(code, isPressed);
 }
 
-function setArrowKeys(keyCode, isPressed) {
-    if (keyCode == 39) {
+function setArrowKeys(code, isPressed) {
+    if (code == 'ArrowRight') {
         keyboard.RIGHT = isPressed;
     }
-    if (keyCode == 37) {
+    if (code == 'ArrowLeft') {
         keyboard.LEFT = isPressed;
     }
-    if (keyCode == 38) {
+    if (code == 'ArrowUp') {
         keyboard.UP = isPressed;
     }
-    if (keyCode == 40) {
+    if (code == 'ArrowDown') {
         keyboard.DOWN = isPressed;
     }
 }
 
-function setActionKeys(keyCode, isPressed) {
-    if (keyCode == 32) {
+function setActionKeys(code, isPressed) {
+    if (code == 'Space') {
         keyboard.SPACE = isPressed;
     }
-    if (keyCode == 68) {
+    if (code == 'KeyD') {
         keyboard.D = isPressed;
     }
 }
