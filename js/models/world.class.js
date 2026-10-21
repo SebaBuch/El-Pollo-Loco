@@ -39,6 +39,11 @@ class World {
     }
 
     checkCollisions() {
+        this.checkEnemyCollisions();
+        this.checkCoinCollisions();
+    }
+
+    checkEnemyCollisions() {
         for (let i = 0; i < this.level.enemies.length; i++) {
             let enemy = this.level.enemies[i];
             if (!enemy.isDead()) {
@@ -54,6 +59,15 @@ class World {
         } else if (this.character.isColliding(enemy) && !this.character.isHurt()) {
             this.character.hit();
             this.statusBar.setPercentage(this.character.energy);
+        }
+    }
+
+    checkCoinCollisions() {
+        for (let i = 0; i < this.level.coins.length; i++) {
+            if (this.character.isColliding(this.level.coins[i])) {
+                this.level.coins.splice(i, 1);
+                this.character.coins++;
+            }
         }
     }
 
