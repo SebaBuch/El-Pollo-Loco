@@ -7,7 +7,7 @@ class World {
     camera_x = 0;
     healthBar = new StatusBar('health', 0, 100);
     coinBar = new StatusBar('coin', 45, 0);
-    totalCoins = this.level.coins.lenght;
+    totalCoins = this.level.coins.length;
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -69,8 +69,14 @@ class World {
             if (this.character.isColliding(this.level.coins[i])) {
                 this.level.coins.splice(i, 1);
                 this.character.coins++;
+                this.updateCoinBar();
             }
         }
+    }
+
+    updateCoinBar() {
+        let percentage = this.character.coins / this.totalCoins * 100;
+        this.coinBar.setPercentage(percentage);
     }
 
     draw() {
