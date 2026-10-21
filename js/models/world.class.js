@@ -5,7 +5,9 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    statusBar = new StatusBar();
+    healthBar = new StatusBar('health', 0, 100);
+    coinBar = new StatusBar('coin', 45, 0);
+    totalCoins = this.level.coins.lenght;
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -58,7 +60,7 @@ class World {
             this.character.bounce();
         } else if (this.character.isColliding(enemy) && !this.character.isHurt()) {
             this.character.hit();
-            this.statusBar.setPercentage(this.character.energy);
+            this.healthBar.setPercentage(this.character.energy);
         }
     }
 
@@ -81,7 +83,8 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
         this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.statusBar);
+        this.addToMap(this.healthBar);
+        this.addToMap(this.coinBar);
         requestAnimationFrame(() => {
             this.draw();
         });
