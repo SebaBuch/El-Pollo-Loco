@@ -16,6 +16,16 @@ class StatusBar extends DrawableObject {
         'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/80.png',
         'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/100.png'
     ];
+
+    IMAGES_BOTTLE = [
+        'assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
+        'assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/20.png',
+        'assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/40.png',
+        'assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/60.png',
+        'assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/80.png',
+        'assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png'
+    ];
+
     IMAGES;
     percentage = 100;
 
@@ -33,6 +43,8 @@ class StatusBar extends DrawableObject {
     selectImages(type) {
         if (type == 'coin') {
             return this.IMAGES_COIN;
+        } else if (type == 'bottle') {
+            return this.IMAGES_BOTTLE;
         }
         return this.IMAGES_HEALTH;
     }
