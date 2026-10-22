@@ -9,7 +9,7 @@ class World {
     coinBar = new StatusBar('coin', 45, 0);
     totalCoins = this.level.coins.length;
     bottleBar = new StatusBar('bottle', 90, 0);
-    totalBottles = this.level.bottles.lenght;
+    totalBottles = this.level.bottles.length;
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -97,12 +97,12 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.coins);
-        this.this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.level.bottles);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
         this.ctx.translate(-this.camera_x, 0);
-        this.drawStatusBar();
+        this.drawStatusBars();
         requestAnimationFrame(() => {
             this.draw();
         });
