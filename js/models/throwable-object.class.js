@@ -14,7 +14,7 @@ class ThrowableObject extends MovableObject {
         'assets/img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
         'assets/img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
         'assets/img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png'
-    ]
+    ];
 
     constructor(x, y, otherDirection) {
         super().loadImage(this.IMAGES_ROTATION[0]);
@@ -34,7 +34,7 @@ class ThrowableObject extends MovableObject {
 
         setInterval(() => {
             this.playAnimation(this.IMAGES_ROTATION);
-        }, 60)
+        }, 60);
     }
 
     moveInDirection() {

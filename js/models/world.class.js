@@ -53,10 +53,11 @@ class World {
         this.updateBottleBar();
         this.lastThrow = new Date().getTime();
     }
+
     checkCollisions() {
         this.checkEnemyCollisions();
         this.checkCoinCollisions();
-        this.checkBottleCollision();
+        this.checkBottleCollisions();
     }
 
     checkEnemyCollisions() {
@@ -93,7 +94,7 @@ class World {
         this.coinBar.setPercentage(percentage);
     }
 
-    checkBottleCollision() {
+    checkBottleCollisions() {
         for (let i = 0; i < this.level.bottles.length; i++) {
             if (this.character.isColliding(this.level.bottles[i])) {
                 this.level.bottles.splice(i, 1);
