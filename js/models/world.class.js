@@ -45,13 +45,14 @@ class World {
     }
 
     throwBottle() {
-        let bottle = new ThrowableObject(this.character.x + 80, this.character.y + 100);
+        let direction = this.character.otherDirection;
+        let x = direction ? this.character.x - 10 : this.character.x + 80;
+        let bottle = new ThrowableObject(x, this.character.y + 100, direction);
         this.throwableObjects.push(bottle);
         this.character.bottles--;
         this.updateBottleBar();
         this.lastThrow = new Date().getTime();
     }
-
     checkCollisions() {
         this.checkEnemyCollisions();
         this.checkCoinCollisions();
