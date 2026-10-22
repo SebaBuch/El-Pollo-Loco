@@ -8,6 +8,8 @@ class World {
     healthBar = new StatusBar('health', 0, 100);
     coinBar = new StatusBar('coin', 45, 0);
     totalCoins = this.level.coins.length;
+    bottleBar = new StatusBar('bottle', 90, 0);
+    totalBottles = this.level.bottles.lenght;
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -109,6 +111,7 @@ class World {
     drawStatusBars() {
         this.addToMap(this.healthBar);
         this.addToMap(this.coinBar);
+        this.addToMap(this.bottleBar);
     }
 
     addObjectsToMap(objects) {
