@@ -5,10 +5,10 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    healthBar = new StatusBar('health', 0, 100);
-    coinBar = new StatusBar('coin', 45, 0);
+    healthBar = new StatusBar('health', 20, 0, 100);
+    coinBar = new StatusBar('coin', 20, 45, 0);
     totalCoins = this.level.coins.length;
-    bottleBar = new StatusBar('bottle', 90, 0);
+    bottleBar = new StatusBar('bottle', 20, 90, 0);
     totalBottles = this.level.bottles.length;
     throwableObjects = [];
     lastThrow = 0;
