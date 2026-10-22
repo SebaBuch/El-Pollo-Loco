@@ -2,6 +2,7 @@ class ThrowableObject extends MovableObject {
     width = 60;
     height = 60;
     speed = 10;
+    isSplashed = false;
     offset = {
         top: 10,
         left: 10,
@@ -29,12 +30,27 @@ class ThrowableObject extends MovableObject {
         this.speedY = 20;
         this.applyGravity();
         setInterval(() => {
-            this.moveInDirection();
+            this.moveBottle();
         }, 25);
 
         setInterval(() => {
             this.playAnimation(this.IMAGES_ROTATION);
         }, 60);
+    }
+
+    moveBottle() {
+        if (this.isSplashed) {
+            return;
+        }
+        this.moveInDirection();
+        if (this.y >= 370) {
+            this.splash();
+        }
+    }
+
+    splash() {
+        this.isSplashed = true;
+        this.speedY = 0;
     }
 
     moveInDirection() {

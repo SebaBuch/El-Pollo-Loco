@@ -26,7 +26,7 @@ class MovableObject extends DrawableObject {
 
     isAboveGround() {
         if (this instanceof ThrowableObject) {
-            return true;
+            return !this.isSplashed;
         } else {
             return this.y < this.groundY;
         }
