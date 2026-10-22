@@ -36,10 +36,20 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-            this.throwableObjects.push(bottle);
+        if (this.keyboard.D && this.canThrow()) {
+            this.throwBottle();
         }
+    }
+
+    canThrow() {
+        return this.character.bottles > 0 && !this.character.isDead();
+    }
+
+    throwBottle() {
+        let bottle = new ThrowableObject(this.character.x + 80, this.character.y + 100);
+        this.throwableObjects.push(bottle);
+        this.character.bottles--;
+        this.updateBottleBar();
     }
 
     checkCollisions() {
