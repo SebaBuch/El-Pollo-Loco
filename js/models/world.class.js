@@ -43,6 +43,7 @@ class World {
     checkCollisions() {
         this.checkEnemyCollisions();
         this.checkCoinCollisions();
+        this.checkBottleCollision();
     }
 
     checkEnemyCollisions() {
@@ -85,15 +86,20 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.coins);
+        this.this.addObjectsToMap(this.level.bottles);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
         this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.healthBar);
-        this.addToMap(this.coinBar);
+        this.drawStatusBar();
         requestAnimationFrame(() => {
             this.draw();
         });
+    }
+
+    drawStatusBars() {
+        this.addToMap(this.healthBar);
+        this.addToMap(this.coinBar);
     }
 
     addObjectsToMap(objects) {

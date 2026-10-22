@@ -56,5 +56,18 @@ const level1 = new Level(
         new Coin(2350, 170),
         new Coin(2450, 170),
         new Coin(2650, 280)
+    ],
+
+    [
+        new Bottle(400),
+        new Bottle(750),
+        new Bottle(1050),
+        new Bottle(1300),
+        new Bottle(1550),
+        new Bottle(1800),
+        new Bottle(2000),
+        new Bottle(2250),
+        new Bottle(2500),
+        new Bottle(2700)
     ]
 );
