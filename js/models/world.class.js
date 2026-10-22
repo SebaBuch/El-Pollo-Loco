@@ -11,6 +11,7 @@ class World {
     bottleBar = new StatusBar('bottle', 90, 0);
     totalBottles = this.level.bottles.length;
     throwableObjects = [];
+    lastThrow = 0;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -28,11 +29,8 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisions();
-        }, 1000 / 60);
-
-        setInterval(() => {
             this.checkThrowObjects();
-        }, 200);
+        }, 1000 / 60);
     }
 
     checkThrowObjects() {
@@ -42,7 +40,8 @@ class World {
     }
 
     canThrow() {
-        return this.character.bottles > 0 && !this.character.isDead();
+        let timepassed = new Date().getTime() - this.lastThrow;
+        return this.character.bottles > 0 && timepassed > 800 && !this.character.isDead();
     }
 
     throwBottle() {
@@ -50,6 +49,7 @@ class World {
         this.throwableObjects.push(bottle);
         this.character.bottles--;
         this.updateBottleBar();
+        this.lastThrow = new Date().getTime();
     }
 
     checkCollisions() {
