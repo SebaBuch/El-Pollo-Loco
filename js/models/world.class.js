@@ -30,6 +30,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
+            this.removeSplashedBottles();
         }, 1000 / 60);
     }
 
@@ -52,6 +53,14 @@ class World {
         this.character.bottles--;
         this.updateBottleBar();
         this.lastThrow = new Date().getTime();
+    }
+
+    removeSplashedBottles() {
+        for (let i = 0; i < this.throwableObjects.length; i++) {
+            if (this.throwableObjects[i].isSplashFinished()) {
+                this.throwableObjects.splice(i, 1);
+            }
+        }
     }
 
     checkCollisions() {

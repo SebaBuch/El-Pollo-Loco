@@ -72,6 +72,10 @@ class ThrowableObject extends MovableObject {
         }
     }
 
+    isSplashFinished() {
+        return this.isSplashed && this.currentImage >= this.IMAGES_SPLASH.length;
+    }
+
     moveInDirection() {
         if (this.otherDirection) {
             this.moveLeft();
