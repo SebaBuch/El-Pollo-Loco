@@ -80,6 +80,15 @@ class World {
         this.coinBar.setPercentage(percentage);
     }
 
+    checkBottleCollision() {
+        for (let i = 0; i < this.level.bottles.length; i++) {
+            if (this.character.isColliding(this.level.bottles[i])) {
+                this.level.bottles.splice(i, 1);
+                this.character.bottles++;
+            }
+        }
+    }
+
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
