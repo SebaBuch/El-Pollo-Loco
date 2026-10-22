@@ -87,8 +87,14 @@ class World {
             if (this.character.isColliding(this.level.bottles[i])) {
                 this.level.bottles.splice(i, 1);
                 this.character.bottles++;
+                this.updateBottleBar();
             }
         }
+    }
+
+    updateBottleBar() {
+        let percentage = this.character.bottles / this.totalBottles * 100;
+        this.bottleBar.setPercentage(percentage);
     }
 
     draw() {
