@@ -1,6 +1,7 @@
 class World {
     character = new Character();
     level = level1;
+    endboss = this.findEndboss();
     canvas;
     ctx;
     keyboard;
@@ -26,11 +27,26 @@ class World {
         this.character.world = this;
     }
 
+    findEndboss() {
+        for (let i = 0; i < this.level.enemies.length; i++) {
+            if (this.level.enemies[i] instanceof Endboss) {
+                return this.level.enemies[i];
+            }
+        }
+    }
+
+    checkEndbossContact() {
+        if (this.character.x > 2350) {
+            this.endboss.hadFirstContact = true;
+        }
+    }
+
     run() {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
             this.removeSplashedBottles();
+            this.checkEndbossContact();
         }, 1000 / 60);
     }
 
