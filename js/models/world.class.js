@@ -11,6 +11,7 @@ class World {
     totalCoins = this.level.coins.length;
     bottleBar = new StatusBar('bottle', 20, 90, 0);
     totalBottles = this.level.bottles.length;
+    endbossBar = new StatusBar('endboss', 500, 0, 100);
     throwableObjects = [];
     lastThrow = 0;
 
@@ -155,6 +156,9 @@ class World {
         this.addToMap(this.healthBar);
         this.addToMap(this.coinBar);
         this.addToMap(this.bottleBar);
+        if (this.endboss.hadFirstContact) {
+            this.addToMap(this.endbossBar)
+        }
     }
 
     addObjectsToMap(objects) {
