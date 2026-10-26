@@ -84,6 +84,7 @@ class World {
         this.checkEnemyCollisions();
         this.checkCoinCollisions();
         this.checkBottleCollisions();
+        this.checkBottleHits();
     }
 
     checkEnemyCollisions() {
@@ -135,6 +136,21 @@ class World {
         this.bottleBar.setPercentage(percentage);
     }
 
+    checkBottleHits() {
+        for (let i = 0; i < this.throwableObjects.length; i++) {
+            let bottle = this.throwableObjects[i];
+            if (!bottle.isSplashed && !this.endboss.isDead() && bottle.isColliding(this.endboss)) {
+                this.hitEndbossWithBottle(bottle);
+            }
+        }
+    }
+
+    hitEndbossWithBottle(bottle) {
+        bottle.splash();
+        this.endboss.hit();
+        this.endbossBar.setPercentage(this.endboss.energy);
+    }
+
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
@@ -157,7 +173,7 @@ class World {
         this.addToMap(this.coinBar);
         this.addToMap(this.bottleBar);
         if (this.endboss.hadFirstContact) {
-            this.addToMap(this.endbossBar)
+            this.addToMap(this.endbossBar);
         }
     }
 

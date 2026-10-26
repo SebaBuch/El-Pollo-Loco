@@ -54,8 +54,8 @@ class StatusBar extends DrawableObject {
             return this.IMAGES_COIN;
         } else if (type == 'bottle') {
             return this.IMAGES_BOTTLE;
-        }else if (type == 'endboss'){
-            return this.IMAGES_ENDBOSS
+        } else if (type == 'endboss') {
+            return this.IMAGES_ENDBOSS;
         }
         return this.IMAGES_HEALTH;
     }
