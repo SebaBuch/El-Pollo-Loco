@@ -148,6 +148,9 @@ class World {
 
     hitEndbossWithBottle(bottle) {
         bottle.splash();
+        if (this.endboss.isInvulnerable()) {
+            return;
+        }
         this.endboss.hit(bottle.damage);
         this.endbossBar.setPercentage(this.endboss.energy);
     }

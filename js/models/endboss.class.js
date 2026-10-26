@@ -86,7 +86,7 @@ class Endboss extends MovableObject {
     walkTowardsCharacter() {
         let characterCenter = this.world.character.x + this.world.character.width / 2;
         let endbossCenter = this.x + this.width / 2;
-        this.speed = this.isNearCharacter() ? 4 : 1.5;
+        this.speed = this.isAttacking() ? 4 : 1.5;
         if (characterCenter < endbossCenter) {
             this.moveLeft();
             this.otherDirection = false;
@@ -102,12 +102,28 @@ class Endboss extends MovableObject {
         return Math.abs(characterCenter - endbossCenter) < 300;
     }
 
+    timeSinceLastHit() {
+        return new Date().getTime() - this.lastHit;
+    }
+
+    isCounterAttacking() {
+        return this.timeSinceLastHit() < 3000;
+    }
+
+    isInvulnerable() {
+        return this.timeSinceLastHit() < 3000;
+    }
+
+    isAttacking() {
+        return this.isNearCharacter() || this.isCounterAttacking();
+    }
+
     playEndbossAnimation() {
         if (this.isDead()) {
             this.playAnimationOnce(this.IMAGES_DEAD);
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
-        } else if (this.hadFirstContact && this.isNearCharacter()) {
+        } else if (this.hadFirstContact && this.isAttacking()) {
             this.playAnimation(this.IMAGES_ATTACK);
         } else if (this.hadFirstContact) {
             this.playAnimation(this.IMAGES_WALKING);
