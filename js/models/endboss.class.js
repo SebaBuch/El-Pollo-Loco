@@ -6,6 +6,7 @@ class Endboss extends MovableObject {
     speed = 1.5;
     damage = 40;
     hadFirstContact = false;
+    world;
     offset = {
         top: 70,
         left: 25,
@@ -64,11 +65,21 @@ class Endboss extends MovableObject {
     }
 
     moveEndboss() {
-        if (this.isDead()) {
+        if (this.isDead() || this.isHurt() || !this.hadFirstContact) {
             return;
         }
-        if (this.hadFirstContact) {
+        this.walkTowardsCharacter();
+    }
+
+    walkTowardsCharacter() {
+        let characterCenter = this.world.character.x + this.world.character.width / 2;
+        let endbossCenter = this.x + this.width / 2;
+        if (characterCenter < endbossCenter) {
             this.moveLeft();
+            this.otherDirection = false;
+        } else {
+            this.moveRight();
+            this.otherDirection = true;
         }
     }
 
