@@ -18,9 +18,24 @@
         <div id="startScreen" class="overlay start-screen">
             <div class="button-row">
                 <button class="game-button" onclick="startGame()">Start</button>
+                <button class="game-button" onclick="openDialog()">How to play</button>
             </div>
         </div>
     </div>
+
+    <dialog id="howToPlayDialog" onclick="closeDialogOnBackdrop(event)">
+        <div class="dialog-content">
+            <button class="close-button" onclick="closeDialog()">X</button>
+            <h2>How to play</h2>
+            <p>Help Pepe cross the desert and defeat the giant chicken.</p>
+            <ul>
+                <li><b>Arrow left / right:</b> Walk</li>
+                <li><b>Space:</b> Jump</li>
+                <li><b>D:</b> Throw bottle</li>
+            </ul>
+            <p>Jump on chickens to defeat them. Collect bottles to fight the boss and grab coins on your way.</p>
+        </div>
+    </dialog>
 
     <script src="js/models/drawable-object.class.js"></script>
     <script src="js/models/movable-object.class.js"></script>

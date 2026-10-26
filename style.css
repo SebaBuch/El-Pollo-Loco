@@ -60,6 +60,32 @@ canvas {
     background-color: #ffa800;
 }
 
+dialog {
+    max-width: 400px;
+    padding: 0;
+    border: none;
+    border-radius: 12px;
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.dialog-content {
+    position: relative;
+    padding: 24px;
+}
+
+.close-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    border: none;
+    background: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
 .d-none {
     display: none;
 }

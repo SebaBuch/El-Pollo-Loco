@@ -50,3 +50,19 @@ function setActionKeys(code, isPressed) {
         keyboard.D = isPressed;
     }
 }
+
+function openDialog() {
+    document.getElementById('howToPlayDialog').showModal();
+}
+
+
+function closeDialog() {
+    document.getElementById('howToPlayDialog').close();
+}
+
+
+function closeDialogOnBackdrop(event) {
+    if (event.target.id == 'howToPlayDialog') {
+        closeDialog();
+    }
+}
