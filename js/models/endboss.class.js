@@ -32,6 +32,17 @@ class Endboss extends MovableObject {
         'assets/img/4_enemie_boss_chicken/2_alert/G12.png'
     ];
 
+    IMAGES_ATTACK = [
+        'assets/img/4_enemie_boss_chicken/3_attack/G13.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G14.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G15.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G16.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G17.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G18.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G19.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G20.png'
+    ];
+
     IMAGES_HURT = [
         'assets/img/4_enemie_boss_chicken/4_hurt/G21.png',
         'assets/img/4_enemie_boss_chicken/4_hurt/G22.png',
@@ -48,6 +59,7 @@ class Endboss extends MovableObject {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERT);
+        this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.x = 3000;
@@ -74,6 +86,7 @@ class Endboss extends MovableObject {
     walkTowardsCharacter() {
         let characterCenter = this.world.character.x + this.world.character.width / 2;
         let endbossCenter = this.x + this.width / 2;
+        this.speed = this.isNearCharacter() ? 4 : 1.5;
         if (characterCenter < endbossCenter) {
             this.moveLeft();
             this.otherDirection = false;
@@ -83,11 +96,19 @@ class Endboss extends MovableObject {
         }
     }
 
+    isNearCharacter() {
+        let characterCenter = this.world.character.x + this.world.character.width / 2;
+        let endbossCenter = this.x + this.width / 2;
+        return Math.abs(characterCenter - endbossCenter) < 300;
+    }
+
     playEndbossAnimation() {
         if (this.isDead()) {
             this.playAnimationOnce(this.IMAGES_DEAD);
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
+        } else if (this.hadFirstContact && this.isNearCharacter()) {
+            this.playAnimation(this.IMAGES_ATTACK);
         } else if (this.hadFirstContact) {
             this.playAnimation(this.IMAGES_WALKING);
         } else {
