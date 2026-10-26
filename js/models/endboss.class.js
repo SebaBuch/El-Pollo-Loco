@@ -67,13 +67,14 @@ class Endboss extends MovableObject {
     }
 
     animate() {
-        setInterval(() => {
+        let moveId = setInterval(() => {
             this.moveEndboss();
         }, 1000 / 60);
 
-        setInterval(() => {
+        let animationId = setInterval(() => {
             this.playEndbossAnimation();
         }, 150);
+        intervalIds.push(moveId, animationId);
     }
 
     moveEndboss() {

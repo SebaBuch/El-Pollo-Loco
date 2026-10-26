@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let intervalIds = [];
 
 
 function init() {
@@ -55,14 +56,20 @@ function openDialog() {
     document.getElementById('howToPlayDialog').showModal();
 }
 
-
 function closeDialog() {
     document.getElementById('howToPlayDialog').close();
 }
-
 
 function closeDialogOnBackdrop(event) {
     if (event.target.id == 'howToPlayDialog') {
         closeDialog();
     }
+}
+
+function stopGame() {
+    for (let i = 0; i < intervalIds.length; i++) {
+        clearInterval(intervalIds[i]);
+    }
+    intervalIds = [];
+    cancelAnimationFrame(world.animationFrameId);
 }

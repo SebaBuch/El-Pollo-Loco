@@ -14,6 +14,8 @@ class World {
     endbossBar = new StatusBar('endboss', 500, 0, 100);
     throwableObjects = [];
     lastThrow = 0;
+    animationFrameId;
+    isGameOver = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -44,12 +46,32 @@ class World {
     }
 
     run() {
-        setInterval(() => {
+        let runId = setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
             this.removeSplashedBottles();
             this.checkEndbossContact();
+            this.checkGameOver();
         }, 1000 / 60);
+        intervalIds.push(runId);
+    }
+
+    checkGameOver() {
+        if (this.isGameOver) {
+            return;
+        }
+        if (this.character.isDead()) {
+            this.endGame();
+        } else if (this.endboss.isDead()) {
+            this.endGame();
+        }
+    }
+
+    endGame() {
+        this.isGameOver = true;
+        setTimeout(() => {
+            stopGame();
+        }, 1500);
     }
 
     checkThrowObjects() {
@@ -167,7 +189,7 @@ class World {
         this.addObjectsToMap(this.throwableObjects);
         this.ctx.translate(-this.camera_x, 0);
         this.drawStatusBars();
-        requestAnimationFrame(() => {
+        this.animationFrameId = requestAnimationFrame(() => {
             this.draw();
         });
     }
