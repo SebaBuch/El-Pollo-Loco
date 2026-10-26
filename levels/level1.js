@@ -1,51 +1,57 @@
-const level1 = new Level(
-    [
-        new Chicken(700),
-        new SmallChicken(950),
-        new Chicken(1200),
-        new SmallChicken(1450),
-        new Chicken(1700),
-        new SmallChicken(1950),
-        new Chicken(2200),
-        new SmallChicken(2450),
-        new Chicken(2700),
-        new SmallChicken(2950),
-        new Chicken(3200),
-        new SmallChicken(3450),
-        new Endboss()
-    ],
+let level1;
 
-    [
+
+function initLevel() {
+    level1 = new Level(
+        createEnemies(),
+        createClouds(),
+        createBackgroundObjects(),
+        createCoins(),
+        createBottles()
+    );
+}
+
+
+function createEnemies() {
+    let enemies = [];
+    for (let i = 0; i < 12; i++) {
+        let x = 700 + i * 250;
+        if (i % 2 == 0) {
+            enemies.push(new Chicken(x));
+        } else {
+            enemies.push(new SmallChicken(x));
+        }
+    }
+    enemies.push(new Endboss());
+    return enemies;
+}
+
+
+function createClouds() {
+    return [
         new Cloud('assets/img/5_background/layers/4_clouds/1.png', 0),
         new Cloud('assets/img/5_background/layers/4_clouds/2.png', 853),
         new Cloud('assets/img/5_background/layers/4_clouds/1.png', 853 * 2),
         new Cloud('assets/img/5_background/layers/4_clouds/2.png', 853 * 3)
-    ],
+    ];
+}
 
-    [
-        new BackgroundObject('assets/img/5_background/layers/air.png', -853),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', -853),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', -853),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', -853),
-        new BackgroundObject('assets/img/5_background/layers/air.png', 0),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 0),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 0),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 0),
-        new BackgroundObject('assets/img/5_background/layers/air.png', 853),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 853),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 853),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 853),
-        new BackgroundObject('assets/img/5_background/layers/air.png', 853 * 2),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 853 * 2),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 853 * 2),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 853 * 2),
-        new BackgroundObject('assets/img/5_background/layers/air.png', 853 * 3),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 853 * 3),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 853 * 3),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 853 * 3)
-    ],
 
-    [
+function createBackgroundObjects() {
+    let backgroundObjects = [];
+    for (let i = -1; i < 4; i++) {
+        let imageNumber = i % 2 == 0 ? 1 : 2;
+        backgroundObjects.push(new BackgroundObject('assets/img/5_background/layers/air.png', 853 * i));
+        backgroundObjects.push(new BackgroundObject('assets/img/5_background/layers/3_third_layer/' + imageNumber + '.png', 853 * i));
+        backgroundObjects.push(new BackgroundObject('assets/img/5_background/layers/2_second_layer/' + imageNumber + '.png', 853 * i));
+        backgroundObjects.push(new BackgroundObject('assets/img/5_background/layers/1_first_layer/' + imageNumber + '.png', 853 * i));
+    }
+    return backgroundObjects;
+}
+
+
+function createCoins() {
+    return [
         new Coin(450, 280),
         new Coin(850, 170),
         new Coin(950, 170),
@@ -56,9 +62,12 @@ const level1 = new Level(
         new Coin(2350, 170),
         new Coin(2450, 170),
         new Coin(2650, 280)
-    ],
+    ];
+}
 
-    [
+
+function createBottles() {
+    return [
         new Bottle(400),
         new Bottle(750),
         new Bottle(1050),
@@ -69,5 +78,5 @@ const level1 = new Level(
         new Bottle(2250),
         new Bottle(2500),
         new Bottle(2700)
-    ]
-);
+    ];
+}
