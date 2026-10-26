@@ -4,6 +4,7 @@ class Endboss extends MovableObject {
     width = 343;
     y = 30;
     speed = 1.5;
+    damage = 40;
     hadFirstContact = false;
     offset = {
         top: 70,

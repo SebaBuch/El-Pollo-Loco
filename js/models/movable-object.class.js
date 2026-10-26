@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
     groundY = 180;
     energy = 100;
     lastHit = 0;
+    damage = 20;
 
     applyGravity() {
         setInterval(() => {
@@ -43,7 +44,7 @@ class MovableObject extends DrawableObject {
         if (this.isDead()) {
             return;
         }
-        this.energy -= 20;
+        this.energy -= damage;
         if (this.energy <= 0) {
             this.energy = 0;
             this.currentImage = 0;

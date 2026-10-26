@@ -101,7 +101,7 @@ class World {
             enemy.die();
             this.character.bounce();
         } else if (this.character.isColliding(enemy) && !this.character.isHurt()) {
-            this.character.hit();
+            this.character.hit(enemy.damage);
             this.healthBar.setPercentage(this.character.energy);
         }
     }
@@ -147,7 +147,7 @@ class World {
 
     hitEndbossWithBottle(bottle) {
         bottle.splash();
-        this.endboss.hit();
+        this.endboss.hit(bottle.damage);
         this.endbossBar.setPercentage(this.endboss.energy);
     }
 
