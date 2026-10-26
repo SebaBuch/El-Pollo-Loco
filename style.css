@@ -1,9 +1,65 @@
+html {
+    font-size: 16px;
+}
+
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0;
+}
+
+.game-container {
+    position: relative;
+    width: 720px;
+    height: 480px;
 }
 
 canvas {
+    display: block;
     background-color: black;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    box-sizing: border-box;
+}
+
+.start-screen {
+    justify-content: flex-end;
+    padding-bottom: 40px;
+    background-image: url('assets/img/9_intro_outro_screens/start/startscreen_1.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.button-row {
+    display: flex;
+    gap: 16px;
+}
+
+.game-button {
+    padding: 10px 24px;
+    font-size: 1.25rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #ffcd00;
+    cursor: pointer;
+}
+
+.game-button:hover {
+    background-color: #ffa800;
+}
+
+.d-none {
+    display: none;
 }

@@ -12,7 +12,15 @@
 
     <h1>El Pollo Loco</h1>
 
-    <canvas id="canvas" width="720" height="480"></canvas>
+    <div class="game-container">
+        <canvas id="canvas" width="720" height="480"></canvas>
+
+        <div id="startScreen" class="overlay start-screen">
+            <div class="button-row">
+                <button class="game-button" onclick="startGame()">Start</button>
+            </div>
+        </div>
+    </div>
 
     <script src="js/models/drawable-object.class.js"></script>
     <script src="js/models/movable-object.class.js"></script>
