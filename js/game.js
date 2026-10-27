@@ -84,3 +84,8 @@ function showEndScreen(isWon) {
     }
     document.getElementById('endScreen').classList.remove('d-none');
 }
+
+function restartGame() {
+    document.getElementById('endScreen').classList.add('d-none');
+    startGame();
+}
