@@ -3,7 +3,10 @@ let isMuted = false;
 let sounds = {
     background: createLoopSound('assets/audio/background.mp3', 0.1),
     throw: createSound('assets/audio/throw.mp3', 0.6),
-    bottleSmash: createSound('assets/audio/bottle-smash.mp3', 0.4)
+    bottleSmash: createSound('assets/audio/bottle-smash.mp3', 0.4),
+    characterHit: createSound('assets/audio/character-hit.mp3', 0.4),
+    bigChicken: createSound('assets/audio/big-chicken.mp3', 0.4),
+    smallChicken: createSound('assets/audio/small-chicken.mp3', 0.3)
 };
 
 

@@ -2,6 +2,7 @@ class Chicken extends MovableObject {
     y = 360;
     height = 70;
     width = 71;
+    deathSound = sounds.bigChicken
     offset = {
         top: 5,
         left: 5,
@@ -40,7 +41,7 @@ class Chicken extends MovableObject {
         }, 100);
         intervalIds.push(moveId, animationId);
     }
-    
+
     playChickenAnimation() {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
@@ -51,5 +52,6 @@ class Chicken extends MovableObject {
 
     die() {
         this.energy = 0;
+        playSound(this.deathSound);
     }
 }

@@ -126,6 +126,7 @@ class World {
             this.character.bounce();
         } else if (this.character.isColliding(enemy) && !this.character.isHurt()) {
             this.character.hit(enemy.damage);
+            playSound(sounds.characterHit);
             this.healthBar.setPercentage(this.character.energy);
         }
     }
