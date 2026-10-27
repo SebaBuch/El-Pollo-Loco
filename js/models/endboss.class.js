@@ -79,8 +79,10 @@ class Endboss extends MovableObject {
 
     moveEndboss() {
         if (this.isDead() || this.isHurt() || !this.hadFirstContact) {
+            sounds.endbossWalks.pause();
             return;
         }
+        playLoop(sounds.endbossWalks);
         this.walkTowardsCharacter();
     }
 

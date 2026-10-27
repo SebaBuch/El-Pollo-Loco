@@ -42,6 +42,7 @@ class World {
     checkEndbossContact() {
         if (this.character.x > 2350) {
             this.endboss.hadFirstContact = true;
+            playSound(sounds.endbossFirstContact);
         }
     }
 
