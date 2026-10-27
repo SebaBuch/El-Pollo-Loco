@@ -3,7 +3,7 @@ let isMuted = false;
 let sounds = {
     background: createLoopSound('assets/audio/background.mp3', 0.1),
     characterWalking: createLoopSound('assets/audio/character-walking.mp3', 0.4),
-    endbossWalks: createLoopSound('assets/audio/endboss-walks.mp3', 0.2),
+    endbossWalks: createLoopSound('assets/audio/endboss-walks.mp3', 0.9),
     throw: createSound('assets/audio/throw.mp3', 0.6),
     bottleSmash: createSound('assets/audio/bottle-smash.mp3', 0.4),
     characterHit: createSound('assets/audio/character-hit.mp3', 0.4),

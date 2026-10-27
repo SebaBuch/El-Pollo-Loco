@@ -6,6 +6,7 @@ class Endboss extends MovableObject {
     speed = 1.5;
     damage = 40;
     hadFirstContact = false;
+    firstContactTime = 0;
     world;
     offset = {
         top: 70,
@@ -78,12 +79,24 @@ class Endboss extends MovableObject {
     }
 
     moveEndboss() {
-        if (this.isDead() || this.isHurt() || !this.hadFirstContact) {
+        if (this.isDead() || this.isHurt() || !this.hadFirstContact || this.isAlerting()) {
             sounds.endbossWalks.pause();
             return;
         }
         playLoop(sounds.endbossWalks);
         this.walkTowardsCharacter();
+    }
+
+    startAlert() {
+        this.hadFirstContact = true;
+        this.firstContactTime = new Date().getTime();
+        this.currentImage = 0;
+        playSound(sounds.endbossFirstContact);
+    }
+
+    isAlerting() {
+        let timepassed = new Date().getTime() - this.firstContactTime;
+        return timepassed < 1500;
     }
 
     walkTowardsCharacter() {
@@ -126,12 +139,12 @@ class Endboss extends MovableObject {
             this.playAnimationOnce(this.IMAGES_DEAD);
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
-        } else if (this.hadFirstContact && this.isAttacking()) {
-            this.playAnimation(this.IMAGES_ATTACK);
-        } else if (this.hadFirstContact) {
-            this.playAnimation(this.IMAGES_WALKING);
-        } else {
+        } else if (!this.hadFirstContact || this.isAlerting()) {
             this.playAnimation(this.IMAGES_ALERT);
+        } else if (this.isAttacking()) {
+            this.playAnimation(this.IMAGES_ATTACK);
+        } else {
+            this.playAnimation(this.IMAGES_WALKING);
         }
     }
 }
