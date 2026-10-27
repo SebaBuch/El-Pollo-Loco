@@ -5,6 +5,7 @@ class SoundManager {
 
     static sounds = {
         background: SoundManager.createLoopSound('assets/audio/background.mp3', 0.1),
+        menu: SoundManager.createLoopSound('assets/audio/menu.mp3', 0.1),
         characterWalking: SoundManager.createLoopSound('assets/audio/character-walking.mp3', 0.4),
         endbossWalks: SoundManager.createLoopSound('assets/audio/endboss-walks.mp3', 0.5),
         throw: SoundManager.createSound('assets/audio/throw.mp3', 0.6),
@@ -26,7 +27,7 @@ class SoundManager {
 
     static init() {
         this.sounds.lost.onended = () => this.playLoop(this.sounds.lostOutro);
-        this.menuMusic = this.sounds.intro1;
+        this.menuMusic = this.sounds.menu;
         this.currentMusic = this.menuMusic;
         this.loadMuteState();
     }
