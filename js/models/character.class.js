@@ -8,6 +8,7 @@ class Character extends MovableObject {
     coins = 0;
     bottles = 0;
     lastMove = new Date().getTime();
+    isInAir = false;
     offset = {
         top: 100,
         left: 20,
@@ -112,9 +113,20 @@ class Character extends MovableObject {
         this.walkLeft();
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
+            SoundManager.playSound(SoundManager.sounds.jumping);
         }
         this.checkIfActive();
         this.world.camera_x = -this.x + 100;
+    }
+
+    stopAtGround() {
+        super.stopAtGround();
+        if (this.isAboveGround()) {
+            this.isInAir = true;
+        } else if (this.isInAir) {
+            this.isInAir = false;
+            SoundManager.playSound(SoundManager.sounds.landing);
+        }
     }
 
     updateWalkingSound() {

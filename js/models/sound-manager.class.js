@@ -7,6 +7,8 @@ class SoundManager {
         background: SoundManager.createLoopSound('assets/audio/background.mp3', 0.1),
         menu: SoundManager.createLoopSound('assets/audio/menu.mp3', 0.1),
         characterWalking: SoundManager.createLoopSound('assets/audio/character-walking.mp3', 0.4),
+        jumping: SoundManager.createSound('assets/audio/jumping.mp3', 0.3),
+        landing: SoundManager.createSound('assets/audio/landing.mp3', 0.3),
         endbossWalks: SoundManager.createLoopSound('assets/audio/endboss-walks.mp3', 0.5),
         throw: SoundManager.createSound('assets/audio/throw.mp3', 0.6),
         bottleSmash: SoundManager.createSound('assets/audio/bottle-smash.mp3', 0.4),
