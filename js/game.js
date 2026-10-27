@@ -88,6 +88,7 @@ function showEndScreen(isWon) {
     } else {
         image.src = 'assets/img/You won, you lost/Game Over.png';
     }
+    playSound(isWon ? sounds.winScreen : sounds.lost);
     document.getElementById('endScreen').classList.remove('d-none');
 }
 
