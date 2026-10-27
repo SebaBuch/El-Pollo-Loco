@@ -104,6 +104,7 @@ class Character extends MovableObject {
     }
 
     moveCharacter() {
+        this.updateWalkingSound();
         if (this.isDead()) {
             return;
         }
@@ -114,6 +115,19 @@ class Character extends MovableObject {
         }
         this.checkIfActive();
         this.world.camera_x = -this.x + 100;
+    }
+
+    updateWalkingSound() {
+        if (this.isWalking()) {
+            playLoop(sounds.characterWalking);
+        } else {
+            sounds.characterWalking.pause();
+        }
+    }
+
+    isWalking() {
+        let keyboard = this.world.keyboard;
+        return (keyboard.RIGHT || keyboard.LEFT) && !this.isAboveGround() && !this.isDead();
     }
 
     walkRight() {
