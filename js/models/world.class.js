@@ -137,6 +137,7 @@ class World {
             if (this.character.isColliding(this.level.coins[i])) {
                 this.level.coins.splice(i, 1);
                 this.character.coins++;
+                SoundManager.playSound(SoundManager.sounds.coin);
                 this.updateCoinBar();
             }
         }
@@ -152,6 +153,7 @@ class World {
             if (this.character.isColliding(this.level.bottles[i])) {
                 this.level.bottles.splice(i, 1);
                 this.character.bottles++;
+                SoundManager.playSound(SoundManager.sounds.bottleCollect);
                 this.updateBottleBar();
             }
         }
