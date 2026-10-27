@@ -7,6 +7,7 @@ class SoundManager {
         background: SoundManager.createLoopSound('assets/audio/background.mp3', 0.1),
         menu: SoundManager.createLoopSound('assets/audio/menu.mp3', 0.1),
         characterWalking: SoundManager.createLoopSound('assets/audio/character-walking.mp3', 0.4),
+        snoring: SoundManager.createLoopSound('assets/audio/snoring.mp3', 0.1),
         jumping: SoundManager.createSound('assets/audio/jumping.mp3', 0.3),
         landing: SoundManager.createSound('assets/audio/landing.mp3', 0.3),
         endbossWalks: SoundManager.createLoopSound('assets/audio/endboss-walks.mp3', 0.5),
@@ -19,7 +20,7 @@ class SoundManager {
         bigChicken: SoundManager.createSound('assets/audio/big-chicken.mp3', 0.4),
         smallChicken: SoundManager.createSound('assets/audio/small-chicken.mp3', 0.3),
         endbossFirstContact: SoundManager.createSound('assets/audio/endboss-hadfirstcontact.mp3', 0.3),
-        endbossDies: SoundManager.createSound('assets/audio/endboss-dies.mp3', 0.5),
+        characterDies: SoundManager.createSound('assets/audio/character-dies.mp3', 0.5),
         winScreen: SoundManager.createSound('assets/audio/win-screen.mp3', 0.4),
         lost: SoundManager.createSound('assets/audio/lost.mp3', 0.5),
         lostOutro: SoundManager.createLoopSound('assets/audio/lost-outro.mp3', 0.3),
@@ -93,6 +94,7 @@ class SoundManager {
     static stopLoopSounds() {
         this.stopSound(this.sounds.background);
         this.stopSound(this.sounds.characterWalking);
+        this.stopSound(this.sounds.snoring);
         this.stopSound(this.sounds.endbossWalks);
         this.currentMusic = null;
     }

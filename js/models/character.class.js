@@ -105,7 +105,7 @@ class Character extends MovableObject {
     }
 
     moveCharacter() {
-        this.updateWalkingSound();
+        this.updateSounds();
         if (this.isDead()) {
             return;
         }
@@ -129,6 +129,11 @@ class Character extends MovableObject {
         }
     }
 
+    updateSounds() {
+        this.updateWalkingSound();
+        this.updateSnoringSound();
+    }
+
     updateWalkingSound() {
         if (this.isWalking()) {
             SoundManager.playLoop(SoundManager.sounds.characterWalking);
@@ -140,6 +145,14 @@ class Character extends MovableObject {
     isWalking() {
         let keyboard = this.world.keyboard;
         return (keyboard.RIGHT || keyboard.LEFT) && !this.isAboveGround() && !this.isDead();
+    }
+
+    updateSnoringSound() {
+        if (this.isSleeping() && !this.isDead()) {
+            SoundManager.playLoop(SoundManager.sounds.snoring);
+        } else {
+            SoundManager.sounds.snoring.pause();
+        }
     }
 
     walkRight() {
@@ -165,7 +178,7 @@ class Character extends MovableObject {
 
     isSleeping() {
         let timepassed = new Date().getTime() - this.lastMove;
-        return timepassed > 10000;
+        return timepassed > 8000;
     }
 
     playCharacterAnimations() {
