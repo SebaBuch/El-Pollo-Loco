@@ -13,8 +13,11 @@ let sounds = {
     characterDies: createSound('assets/audio/character-dies.mp3', 0.5),
     endbossDies: createSound('assets/audio/endboss-dies.mp3', 0.5),
     winScreen: createSound('assets/audio/win-screen.mp3', 0.4),
-    lost: createSound('assets/audio/lost.mp3', 0.5)
+    lost: createSound('assets/audio/lost.mp3', 0.5),
+    lostOutro: createLoopSound('assets/audio/lost-outro.mp3', 0.3)
 };
+
+sounds.lost.onended = () => playSound(sounds.lostOutro);
 
 function createSound(path, volume) {
     let sound = new Audio(path);
