@@ -40,11 +40,20 @@ class SoundManager {
     static createLoopSound(path, volume) {
         let sound = this.createSound(path, volume);
         sound.loop = true;
+        sound.oncanplaythrough = () => {
+            if (sound == this.currentMusic) {
+                this.playLoop(sound);
+            }
+        };
         return sound;
     }
 
+    static isReady(sound) {
+        return sound.readyState == 4;
+    }
+
     static playSound(sound) {
-        if (this.isMuted) {
+        if (this.isMuted || !this.isReady(sound)) {
             return;
         }
         sound.currentTime = 0;
@@ -52,7 +61,7 @@ class SoundManager {
     }
 
     static playLoop(sound) {
-        if (!this.isMuted && sound.paused) {
+        if (!this.isMuted && sound.paused && this.isReady(sound)) {
             sound.play();
         }
     }
