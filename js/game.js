@@ -6,6 +6,7 @@ let intervalIds = [];
 
 function init() {
     canvas = document.getElementById('canvas');
+    loadMuteState();
 }
 
 function startGame() {

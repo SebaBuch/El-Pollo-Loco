@@ -71,6 +71,7 @@ function stopAllSounds() {
 
 function toggleMute() {
     isMuted = !isMuted;
+    localStorage.setItem('isMuted', isMuted);
     updateMusic();
     updateMuteButton();
 }
@@ -87,4 +88,9 @@ function updateMuteButton() {
     let icon = document.getElementById('muteIcon');
     icon.src = isMuted ? 'assets/icons/sound-off.svg' : 'assets/icons/sound-on.svg';
     document.getElementById('muteButton').blur();
+}
+
+function loadMuteState() {
+    isMuted = localStorage.getItem('isMuted') == 'true';
+    updateMuteButton();
 }
