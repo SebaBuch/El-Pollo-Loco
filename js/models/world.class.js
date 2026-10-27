@@ -90,6 +90,7 @@ class World {
         let x = direction ? this.character.x - 10 : this.character.x + 80;
         let bottle = new ThrowableObject(x, this.character.y + 100, direction);
         this.throwableObjects.push(bottle);
+        playSound(sounds.throw);
         this.character.bottles--;
         this.updateBottleBar();
         this.lastThrow = new Date().getTime();

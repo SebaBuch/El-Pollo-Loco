@@ -48,7 +48,7 @@ class ThrowableObject extends MovableObject {
         }, 60);
         intervalIds.push(moveId, animationId);
     }
-    
+
     moveBottle() {
         if (this.isSplashed) {
             return;
@@ -63,6 +63,7 @@ class ThrowableObject extends MovableObject {
         this.isSplashed = true;
         this.speedY = 0;
         this.currentImage = 0;
+        playSound(sounds.bottleSmash);
     }
 
     playBottleAnimation() {
