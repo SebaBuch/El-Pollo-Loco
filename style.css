@@ -47,6 +47,24 @@ canvas {
     gap: 16px;
 }
 
+.menu-links {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    display: flex;
+    gap: 12px;
+}
+
+.menu-link {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 0.875rem;
+    text-decoration: underline;
+    text-shadow: 0 0 4px black;
+    cursor: pointer;
+}
+
 .end-screen {
     background-color: rgba(0, 0, 0, 0.7);
 }

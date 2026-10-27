@@ -20,6 +20,10 @@
                 <button class="game-button" onclick="startGame()">Start</button>
                 <button class="game-button" onclick="openDialog('howToPlayDialog', sounds.intro3)">How to play</button>
             </div>
+            <div class="menu-links">
+                <button class="menu-link" onclick="openDialog('imprintDialog', sounds.intro2)">Imprint</button>
+                <button class="menu-link" onclick="openDialog('creditsDialog', sounds.intro4)">Credits</button>
+            </div>
         </div>
         <div id="endScreen" class="overlay end-screen d-none">
             <img id="endScreenImage" class="end-screen-image" src="" alt="End screen">
@@ -47,6 +51,34 @@
                 <li><b>M:</b> Mute / unmute</li>
             </ul>
             <p>Jump on chickens to defeat them. Collect bottles to fight the boss and grab coins on your way.</p>
+        </div>
+    </dialog>
+
+    <dialog id="imprintDialog" onclick="closeDialogOnBackdrop(event)" onclose="setMenuMusic(sounds.intro1)">
+        <div class="dialog-content">
+            <button class="close-button" onclick="closeDialog('imprintDialog')">X</button>
+            <h2>Imprint</h2>
+            <p>Information according to § 5 DDG</p>
+            <p>
+                Sebastian Buchholz<br>
+                Bahnweg 6a<br>
+                53773 Hennef
+            </p>
+            <h3>Contact</h3>
+            <p>Email: sebastian.buchholz98@gmail.com</p>
+        </div>
+    </dialog>
+
+    <dialog id="creditsDialog" onclick="closeDialogOnBackdrop(event)" onclose="setMenuMusic(sounds.intro1)">
+        <div class="dialog-content">
+            <button class="close-button" onclick="closeDialog('creditsDialog')">X</button>
+            <h2>Credits</h2>
+            <h3>Game</h3>
+            <p>Developed by Sebastian Buchholz</p>
+            <h3>Graphics</h3>
+            <p>Developer Akademie</p>
+            <h3>Sounds and music</h3>
+            <p>https://pixabay.com/de/</p>
         </div>
     </dialog>
 
