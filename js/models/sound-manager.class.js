@@ -19,7 +19,6 @@ class SoundManager {
         bigChicken: SoundManager.createSound('assets/audio/big-chicken.mp3', 0.4),
         smallChicken: SoundManager.createSound('assets/audio/small-chicken.mp3', 0.3),
         endbossFirstContact: SoundManager.createSound('assets/audio/endboss-hadfirstcontact.mp3', 0.3),
-        characterDies: SoundManager.createSound('assets/audio/character-dies.mp3', 0.5),
         endbossDies: SoundManager.createSound('assets/audio/endboss-dies.mp3', 0.5),
         winScreen: SoundManager.createSound('assets/audio/win-screen.mp3', 0.4),
         lost: SoundManager.createSound('assets/audio/lost.mp3', 0.5),

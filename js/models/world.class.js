@@ -69,7 +69,9 @@ class World {
 
     endGame(isWon) {
         this.isGameOver = true;
-        SoundManager.playSound(isWon ? SoundManager.sounds.endbossDies : SoundManager.sounds.characterDies);
+        if (!isWon) {
+            SoundManager.playSound(SoundManager.sounds.characterDies);
+        }
         setTimeout(() => {
             showEndScreen(isWon);
         }, 1500);
