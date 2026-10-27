@@ -84,7 +84,7 @@ function updateMusic() {
 }
 
 function updateMuteButton() {
-    let button = document.getElementById('muteButton');
-    button.innerHTML = isMuted ? 'Unmute' : 'Mute';
-    button.blur();
+    let icon = document.getElementById('muteIcon');
+    icon.src = isMuted ? 'assets/icons/sound-off.svg' : 'assets/icons/sound-on.svg';
+    document.getElementById('muteButton').blur();
 }

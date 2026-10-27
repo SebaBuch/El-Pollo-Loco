@@ -27,7 +27,9 @@
                 <button class="game-button" onclick="restartGame()">Restart</button>
             </div>
         </div>
-        <button id="muteButton" class="mute-button" onclick="toggleMute()">Mute</button>
+        <button id="muteButton" class="mute-button" onclick="toggleMute()">
+            <img id="muteIcon" class="mute-icon" src="assets/icons/sound-on.svg" alt="Toggle sound">
+        </button>
     </div>
 
     <dialog id="howToPlayDialog" onclick="closeDialogOnBackdrop(event)">
@@ -39,6 +41,7 @@
                 <li><b>Arrow left / right:</b> Walk</li>
                 <li><b>Space:</b> Jump</li>
                 <li><b>D:</b> Throw bottle</li>
+                <li><b>M:</b> Mute / unmute</li>
             </ul>
             <p>Jump on chickens to defeat them. Collect bottles to fight the boss and grab coins on your way.</p>
         </div>

@@ -19,6 +19,9 @@ function startGame() {
 
 window.addEventListener('keydown', (e) => {
     setKey(e.code, true);
+    if (e.code == 'KeyM' && !e.repeat) {
+        toggleMute();
+    }
 });
 
 window.addEventListener('keyup', (e) => {
