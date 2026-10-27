@@ -10,6 +10,11 @@ function init() {
     initMenuMusic();
 }
 
+function enterMenu() {
+    document.getElementById('introScreen').classList.add('d-none');
+    playMenuMusic();
+}
+
 function startGame() {
     document.getElementById('startScreen').classList.add('d-none');
     keyboard = new Keyboard();
@@ -21,7 +26,6 @@ function startGame() {
 
 window.addEventListener('keydown', (e) => {
     setKey(e.code, true);
-    playMenuMusic();
     if (e.code == 'KeyM' && !e.repeat) {
         toggleMute();
     }

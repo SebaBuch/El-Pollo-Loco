@@ -8,7 +8,7 @@
     <title>El Pollo Loco</title>
 </head>
 
-<body onload="init()" onclick="playMenuMusic()">
+<body onload="init()">
 
     <h1>El Pollo Loco</h1>
 
@@ -26,6 +26,9 @@
             <div class="button-row">
                 <button class="game-button" onclick="restartGame()">Restart</button>
             </div>
+        </div>
+        <div id="introScreen" class="overlay intro-screen" onclick="enterMenu()">
+            <p class="intro-text">Click here to start</p>
         </div>
         <button id="muteButton" class="mute-button" onclick="toggleMute()">
             <img id="muteIcon" class="mute-icon" src="assets/icons/sound-on.svg" alt="Toggle sound">
