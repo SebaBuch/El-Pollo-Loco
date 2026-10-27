@@ -18,7 +18,7 @@
         <div id="startScreen" class="overlay start-screen">
             <div class="button-row">
                 <button class="game-button" onclick="startGame()">Start</button>
-                <button class="game-button" onclick="openDialog()">How to play</button>
+                <button class="game-button" onclick="openDialog('howToPlayDialog', sounds.intro3)">How to play</button>
             </div>
         </div>
         <div id="endScreen" class="overlay end-screen d-none">
@@ -37,7 +37,7 @@
 
     <dialog id="howToPlayDialog" onclick="closeDialogOnBackdrop(event)" onclose="setMenuMusic(sounds.intro1)">
         <div class="dialog-content">
-            <button class="close-button" onclick="closeDialog()">X</button>
+            <button class="close-button" onclick="closeDialog('howToPlayDialog')">X</button>
             <h2>How to play</h2>
             <p>Help Pepe cross the desert and defeat the giant chicken.</p>
             <ul>

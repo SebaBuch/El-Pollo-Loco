@@ -64,18 +64,18 @@ function setActionKeys(code, isPressed) {
     }
 }
 
-function openDialog() {
-    document.getElementById('howToPlayDialog').showModal();
-    setMenuMusic(sounds.intro3);
+function openDialog(id, music) {
+    document.getElementById(id).showModal();
+    setMenuMusic(music);
 }
 
-function closeDialog() {
-    document.getElementById('howToPlayDialog').close();
+function closeDialog(id) {
+    document.getElementById(id).close();
 }
 
 function closeDialogOnBackdrop(event) {
-    if (event.target.id == 'howToPlayDialog') {
-        closeDialog();
+    if (event.target.tagName == 'DIALOG') {
+        event.target.close();
     }
 }
 
