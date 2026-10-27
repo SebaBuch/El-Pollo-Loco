@@ -1,4 +1,5 @@
 let isMuted = false;
+let currentMusic = null;
 
 let sounds = {
     background: createLoopSound('assets/audio/background.mp3', 0.1),
@@ -17,7 +18,7 @@ let sounds = {
     lostOutro: createLoopSound('assets/audio/lost-outro.mp3', 0.3)
 };
 
-sounds.lost.onended = () => playSound(sounds.lostOutro);
+sounds.lost.onended = () => playLoop(sounds.lostOutro);
 
 function createSound(path, volume) {
     let sound = new Audio(path);
@@ -45,6 +46,11 @@ function playLoop(sound) {
     }
 }
 
+function playMusic(music) {
+    currentMusic = music;
+    playLoop(music);
+}
+
 function stopSound(sound) {
     sound.pause();
     sound.currentTime = 0;
@@ -54,10 +60,31 @@ function stopLoopSounds() {
     stopSound(sounds.background);
     stopSound(sounds.characterWalking);
     stopSound(sounds.endbossWalks);
+    currentMusic = null;
 }
 
 function stopAllSounds() {
     for (let key in sounds) {
         stopSound(sounds[key]);
     }
+}
+
+function toggleMute() {
+    isMuted = !isMuted;
+    updateMusic();
+    updateMuteButton();
+}
+
+function updateMusic() {
+    if (isMuted) {
+        stopAllSounds();
+    } else if (currentMusic) {
+        playLoop(currentMusic);
+    }
+}
+
+function updateMuteButton() {
+    let button = document.getElementById('muteButton');
+    button.innerHTML = isMuted ? 'Unmute' : 'Mute';
+    button.blur();
 }

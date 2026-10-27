@@ -2,7 +2,6 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let intervalIds = [];
-let isGameRunning = false;
 
 
 function init() {
@@ -14,9 +13,8 @@ function startGame() {
     keyboard = new Keyboard();
     initLevel();
     world = new World(canvas, keyboard);
-    isGameRunning = true;
     stopAllSounds();
-    playLoop(sounds.background);
+    playMusic(sounds.background);
 }
 
 window.addEventListener('keydown', (e) => {
@@ -76,7 +74,6 @@ function stopGame() {
     }
     intervalIds = [];
     cancelAnimationFrame(world.animationFrameId);
-    isGameRunning = false;
     stopLoopSounds();
 }
 
@@ -87,6 +84,7 @@ function showEndScreen(isWon) {
         image.src = 'assets/img/You won, you lost/You won A.png';
     } else {
         image.src = 'assets/img/You won, you lost/Game Over.png';
+        currentMusic = sounds.lostOutro;
     }
     playSound(isWon ? sounds.winScreen : sounds.lost);
     document.getElementById('endScreen').classList.remove('d-none');
