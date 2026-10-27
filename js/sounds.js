@@ -1,5 +1,6 @@
 let isMuted = false;
 let currentMusic = null;
+let menuMusic = null;
 
 let sounds = {
     background: createLoopSound('assets/audio/background.mp3', 0.1),
@@ -15,7 +16,11 @@ let sounds = {
     endbossDies: createSound('assets/audio/endboss-dies.mp3', 0.5),
     winScreen: createSound('assets/audio/win-screen.mp3', 0.4),
     lost: createSound('assets/audio/lost.mp3', 0.5),
-    lostOutro: createLoopSound('assets/audio/lost-outro.mp3', 0.3)
+    lostOutro: createLoopSound('assets/audio/lost-outro.mp3', 0.3),
+    intro1: createLoopSound('assets/audio/intro1.mp3', 0.15),
+    intro2: createLoopSound('assets/audio/intro2.mp3', 0.15),
+    intro3: createLoopSound('assets/audio/intro3.mp3', 0.15),
+    intro4: createLoopSound('assets/audio/intro4.mp3', 0.15)
 };
 
 sounds.lost.onended = () => playLoop(sounds.lostOutro);
@@ -93,4 +98,22 @@ function updateMuteButton() {
 function loadMuteState() {
     isMuted = localStorage.getItem('isMuted') == 'true';
     updateMuteButton();
+}
+
+function initMenuMusic() {
+    menuMusic = sounds.intro1;
+    currentMusic = menuMusic;
+}
+
+function playMenuMusic() {
+    if (currentMusic == menuMusic) {
+        playLoop(menuMusic);
+    }
+}
+
+function setMenuMusic(music) {
+    stopSound(menuMusic);
+    menuMusic = music;
+    currentMusic = music;
+    playLoop(music);
 }

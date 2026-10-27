@@ -7,6 +7,7 @@ let intervalIds = [];
 function init() {
     canvas = document.getElementById('canvas');
     loadMuteState();
+    initMenuMusic();
 }
 
 function startGame() {
@@ -20,6 +21,7 @@ function startGame() {
 
 window.addEventListener('keydown', (e) => {
     setKey(e.code, true);
+    playMenuMusic();
     if (e.code == 'KeyM' && !e.repeat) {
         toggleMute();
     }
@@ -60,6 +62,7 @@ function setActionKeys(code, isPressed) {
 
 function openDialog() {
     document.getElementById('howToPlayDialog').showModal();
+    setMenuMusic(sounds.intro3);
 }
 
 function closeDialog() {
