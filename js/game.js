@@ -2,6 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let intervalIds = [];
+let isGameRunning = false;
 
 
 function init() {
@@ -13,6 +14,9 @@ function startGame() {
     keyboard = new Keyboard();
     initLevel();
     world = new World(canvas, keyboard);
+    isGameRunning = true;
+    stopAllSounds();
+    playLoop(sounds.background);
 }
 
 window.addEventListener('keydown', (e) => {
@@ -72,6 +76,8 @@ function stopGame() {
     }
     intervalIds = [];
     cancelAnimationFrame(world.animationFrameId);
+    isGameRunning = false;
+    stopLoopSounds();
 }
 
 function showEndScreen(isWon) {
