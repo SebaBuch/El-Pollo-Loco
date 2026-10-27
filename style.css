@@ -92,11 +92,20 @@ canvas {
 }
 
 .intro-screen {
+    justify-content: flex-end;
+    padding-bottom: 24px;
     background-color: black;
+    background-image: url('assets/img/intro-screen.jpg');
+    background-size: cover;
+    background-position: center;
     cursor: pointer;
 }
 
 .intro-text {
+    margin: 0;
+    padding: 8px 24px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.6);
     color: white;
     font-size: 2rem;
     animation: pulse 1.5s infinite;
