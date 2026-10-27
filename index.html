@@ -18,7 +18,8 @@
         <div id="startScreen" class="overlay start-screen">
             <div class="button-row">
                 <button class="game-button" onclick="startGame()">Start</button>
-                <button class="game-button" onclick="openDialog('howToPlayDialog', 'intro3')">How to play</button>
+                <button class="game-button" onclick="openDialog('difficultyDialog', 'intro3')">Difficulty</button>
+                <button class="game-button" onclick="openDialog('howToPlayDialog', 'intro1')">How to play</button>
             </div>
             <div class="menu-links">
                 <button class="menu-link" onclick="openDialog('imprintDialog', 'intro2')">Imprint</button>
@@ -38,6 +39,20 @@
             <img id="muteIcon" class="mute-icon" src="assets/icons/sound-on.svg" alt="Toggle sound">
         </button>
     </div>
+
+    <dialog id="difficultyDialog" onclick="closeDialogOnBackdrop(event)" onclose="SoundManager.setMenuMusic('menu')">
+        <div class="dialog-content">
+            <button class="close-button" onclick="closeDialog('difficultyDialog')">X</button>
+            <h2>Difficulty</h2>
+            <div class="button-row">
+                <button id="easyButton" class="game-button selected-difficulty"
+                    onclick="selectDifficulty('easy')">Easy</button>
+                <button id="impossibleButton" class="game-button impossible-button"
+                    onclick="selectDifficulty('impossible')">Impossible</button>
+            </div>
+            <p>Easy: the normal game.<br>Impossible: expect the unexpected.</p>
+        </div>
+    </dialog>
 
     <dialog id="howToPlayDialog" onclick="closeDialogOnBackdrop(event)" onclose="SoundManager.setMenuMusic('menu')">
         <div class="dialog-content">

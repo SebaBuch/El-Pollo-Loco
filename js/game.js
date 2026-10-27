@@ -2,6 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let intervalIds = [];
+let difficulty = 'easy';
 
 
 function init() {
@@ -21,6 +22,14 @@ function startGame() {
     world = new World(canvas, keyboard);
     SoundManager.stopAllSounds();
     SoundManager.playMusic(SoundManager.sounds.background);
+}
+
+function selectDifficulty(level) {
+    difficulty = level;
+    document.getElementById('easyButton').classList.remove('selected-difficulty');
+    document.getElementById('impossibleButton').classList.remove('selected-difficulty');
+    document.getElementById(level + 'Button').classList.add('selected-difficulty');
+    closeDialog('difficultyDialog');
 }
 
 window.addEventListener('keydown', (e) => {

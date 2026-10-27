@@ -112,6 +112,20 @@ canvas {
     background-color: #ffa800;
 }
 
+.impossible-button {
+    background-color: #d62828;
+    color: white;
+}
+
+.impossible-button:hover {
+    background-color: #a4161a;
+}
+
+.selected-difficulty {
+    outline: 3px solid black;
+    outline-offset: 2px;
+}
+
 dialog {
     max-width: 400px;
     padding: 0;
