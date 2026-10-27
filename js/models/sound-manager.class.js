@@ -10,6 +10,7 @@ class SoundManager {
         jumping: SoundManager.createSound('assets/audio/jumping.mp3', 0.3),
         landing: SoundManager.createSound('assets/audio/landing.mp3', 0.3),
         endbossWalks: SoundManager.createLoopSound('assets/audio/endboss-walks.mp3', 0.5),
+        endbossHurt: SoundManager.createSound('assets/audio/endboss-hurt.mp3', 0.5),
         throw: SoundManager.createSound('assets/audio/throw.mp3', 0.6),
         bottleSmash: SoundManager.createSound('assets/audio/bottle-smash.mp3', 0.4),
         coin: SoundManager.createSound('assets/audio/coin.mp3', 0.3),

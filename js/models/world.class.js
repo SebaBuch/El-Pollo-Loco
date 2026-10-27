@@ -180,6 +180,9 @@ class World {
         }
         this.endboss.hit(bottle.damage);
         this.endbossBar.setPercentage(this.endboss.energy);
+        if (!this.endboss.isDead()) {
+            SoundManager.playSound(SoundManager.sounds.endbossHurt);
+        }
     }
 
     draw() {
