@@ -40,6 +40,7 @@ class Chicken extends MovableObject {
         }, 100);
         intervalIds.push(moveId, animationId);
     }
+    
     playChickenAnimation() {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);

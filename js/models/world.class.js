@@ -61,16 +61,16 @@ class World {
             return;
         }
         if (this.character.isDead()) {
-            this.endGame();
+            this.endGame(false);
         } else if (this.endboss.isDead()) {
-            this.endGame();
+            this.endGame(true);
         }
     }
 
-    endGame() {
+    endGame(isWon) {
         this.isGameOver = true;
         setTimeout(() => {
-            stopGame();
+            showEndScreen(isWon);
         }, 1500);
     }
 

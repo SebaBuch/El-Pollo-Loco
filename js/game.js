@@ -73,3 +73,14 @@ function stopGame() {
     intervalIds = [];
     cancelAnimationFrame(world.animationFrameId);
 }
+
+function showEndScreen(isWon) {
+    stopGame();
+    let image = document.getElementById('endScreenImage');
+    if (isWon) {
+        image.src = 'assets/img/You won, you lost/You won A.png';
+    } else {
+        image.src = 'assets/img/You won, you lost/Game Over.png';
+    }
+    document.getElementById('endScreen').classList.remove('d-none');
+}

@@ -47,6 +47,15 @@ canvas {
     gap: 16px;
 }
 
+.end-screen {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.end-screen-image {
+    max-width: 80%;
+    max-height: 60%;
+}
+
 .game-button {
     padding: 10px 24px;
     font-size: 1.25rem;
