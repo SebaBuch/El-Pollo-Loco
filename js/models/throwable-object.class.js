@@ -63,7 +63,7 @@ class ThrowableObject extends MovableObject {
         this.isSplashed = true;
         this.speedY = 0;
         this.currentImage = 0;
-        playSound(sounds.bottleSmash);
+        SoundManager.playSound(SoundManager.sounds.bottleSmash);
     }
 
     playBottleAnimation() {

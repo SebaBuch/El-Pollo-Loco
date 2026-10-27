@@ -69,7 +69,7 @@ class World {
 
     endGame(isWon) {
         this.isGameOver = true;
-        playSound(isWon ? sounds.endbossDies : sounds.characterDies);
+        SoundManager.playSound(isWon ? SoundManager.sounds.endbossDies : SoundManager.sounds.characterDies);
         setTimeout(() => {
             showEndScreen(isWon);
         }, 1500);
@@ -91,7 +91,7 @@ class World {
         let x = direction ? this.character.x - 10 : this.character.x + 80;
         let bottle = new ThrowableObject(x, this.character.y + 100, direction);
         this.throwableObjects.push(bottle);
-        playSound(sounds.throw);
+        SoundManager.playSound(SoundManager.sounds.throw);
         this.character.bottles--;
         this.updateBottleBar();
         this.lastThrow = new Date().getTime();
@@ -127,7 +127,7 @@ class World {
             this.character.bounce();
         } else if (this.character.isColliding(enemy) && !this.character.isHurt()) {
             this.character.hit(enemy.damage);
-            playSound(sounds.characterHit);
+            SoundManager.playSound(SoundManager.sounds.characterHit);
             this.healthBar.setPercentage(this.character.energy);
         }
     }

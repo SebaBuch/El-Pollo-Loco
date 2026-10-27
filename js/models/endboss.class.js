@@ -80,10 +80,10 @@ class Endboss extends MovableObject {
 
     moveEndboss() {
         if (this.isDead() || this.isHurt() || !this.hadFirstContact || this.isAlerting()) {
-            sounds.endbossWalks.pause();
+            SoundManager.sounds.endbossWalks.pause();
             return;
         }
-        playLoop(sounds.endbossWalks);
+        SoundManager.playLoop(SoundManager.sounds.endbossWalks);
         this.walkTowardsCharacter();
     }
 
@@ -91,7 +91,7 @@ class Endboss extends MovableObject {
         this.hadFirstContact = true;
         this.firstContactTime = new Date().getTime();
         this.currentImage = 0;
-        playSound(sounds.endbossFirstContact);
+        SoundManager.playSound(SoundManager.sounds.endbossFirstContact);
     }
 
     isAlerting() {

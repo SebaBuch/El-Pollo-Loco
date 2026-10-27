@@ -119,9 +119,9 @@ class Character extends MovableObject {
 
     updateWalkingSound() {
         if (this.isWalking()) {
-            playLoop(sounds.characterWalking);
+            SoundManager.playLoop(SoundManager.sounds.characterWalking);
         } else {
-            sounds.characterWalking.pause();
+            SoundManager.sounds.characterWalking.pause();
         }
     }
 

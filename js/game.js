@@ -6,13 +6,12 @@ let intervalIds = [];
 
 function init() {
     canvas = document.getElementById('canvas');
-    loadMuteState();
-    initMenuMusic();
+    SoundManager.init();
 }
 
 function enterMenu() {
     document.getElementById('introScreen').classList.add('d-none');
-    playMenuMusic();
+    SoundManager.playMenuMusic();
 }
 
 function startGame() {
@@ -20,14 +19,14 @@ function startGame() {
     keyboard = new Keyboard();
     initLevel();
     world = new World(canvas, keyboard);
-    stopAllSounds();
-    playMusic(sounds.background);
+    SoundManager.stopAllSounds();
+    SoundManager.playMusic(SoundManager.sounds.background);
 }
 
 window.addEventListener('keydown', (e) => {
     setKey(e.code, true);
     if (e.code == 'KeyM' && !e.repeat) {
-        toggleMute();
+        SoundManager.toggleMute();
     }
 });
 
@@ -64,9 +63,9 @@ function setActionKeys(code, isPressed) {
     }
 }
 
-function openDialog(id, music) {
+function openDialog(id, musicName) {
     document.getElementById(id).showModal();
-    setMenuMusic(music);
+    SoundManager.setMenuMusic(musicName);
 }
 
 function closeDialog(id) {
@@ -85,7 +84,7 @@ function stopGame() {
     }
     intervalIds = [];
     cancelAnimationFrame(world.animationFrameId);
-    stopLoopSounds();
+    SoundManager.stopLoopSounds();
 }
 
 function showEndScreen(isWon) {
@@ -95,9 +94,8 @@ function showEndScreen(isWon) {
         image.src = 'assets/img/You won, you lost/You won A.png';
     } else {
         image.src = 'assets/img/You won, you lost/Game Over.png';
-        currentMusic = sounds.lostOutro;
     }
-    playSound(isWon ? sounds.winScreen : sounds.lost);
+    SoundManager.playEndSound(isWon);
     document.getElementById('endScreen').classList.remove('d-none');
 }
 

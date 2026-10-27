@@ -2,7 +2,7 @@ class SmallChicken extends Chicken {
     y = 380;
     height = 50;
     width = 56;
-    deathSound = sounds.smallChicken;
+    deathSound = SoundManager.sounds.smallChicken;
     offset = {
         top: 5,
         left: 5,
