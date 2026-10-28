@@ -23,8 +23,9 @@ h1 {
 .game-container {
     position: relative;
     top: 8px;
-    width: 720px;
-    height: 480px;
+    width: min(720px, 100vw, 150vh);
+    aspect-ratio: 3 / 2;
+    box-sizing: border-box;
     border: 4px solid #3b1a3a;
     border-radius: 12px;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
@@ -32,6 +33,8 @@ h1 {
 
 canvas {
     display: block;
+    width: 100%;
+    height: 100%;
     background-color: black;
     border-radius: 8px;
 }
@@ -201,4 +204,14 @@ dialog::backdrop {
 
 .d-none {
     display: none;
+}
+
+@media (max-height: 600px) {
+    h1 {
+        display: none;
+    }
+
+    .game-container {
+        top: 0;
+    }
 }
