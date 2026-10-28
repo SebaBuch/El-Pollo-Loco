@@ -11,7 +11,7 @@ class World {
     totalCoins = this.level.coins.length;
     bottleBar = new StatusBar('bottle', 20, 90, 0);
     totalBottles = this.level.bottles.length;
-    endbossBar = new StatusBar('endboss', 500, 0, 100);
+    endbossBar = new StatusBar('endboss', 460, 0, 100);
     throwableObjects = [];
     lastThrow = 0;
     animationFrameId;

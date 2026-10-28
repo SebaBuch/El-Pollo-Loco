@@ -18,60 +18,67 @@
         <p>Please rotate your device to play.</p>
     </div>
 
-    <div id="gameContainer" class="game-container">
+    <div id="fullscreenWrapper" class="fullscreen-wrapper">
+        <div id="gameContainer" class="game-container">
 
-        <canvas id="canvas" width="720" height="480"></canvas>
+            <canvas id="canvas" width="720" height="480"></canvas>
 
-        <div class="mobile-controls">
-            <div class="control-group">
-                <button class="control-button" onpointerdown="pressKey(event, 'LEFT')"
-                    onpointerup="releaseKey(event, 'LEFT')" onpointerleave="releaseKey(event, 'LEFT')"
-                    oncontextmenu="return false">&larr;</button>
-                <button class="control-button" onpointerdown="pressKey(event, 'RIGHT')"
-                    onpointerup="releaseKey(event, 'RIGHT')" onpointerleave="releaseKey(event, 'RIGHT')"
-                    oncontextmenu="return false">&rarr;</button>
+            <div class="mobile-controls">
+                <div class="control-group">
+                    <button class="control-button" onpointerdown="pressKey(event, 'LEFT')"
+                        onpointerup="releaseKey(event, 'LEFT')" onpointerleave="releaseKey(event, 'LEFT')"
+                        oncontextmenu="return false">&larr;</button>
+                    <button class="control-button" onpointerdown="pressKey(event, 'RIGHT')"
+                        onpointerup="releaseKey(event, 'RIGHT')" onpointerleave="releaseKey(event, 'RIGHT')"
+                        oncontextmenu="return false">&rarr;</button>
+                </div>
+
+                <div class="control-group">
+                    <button class="control-button" onpointerdown="pressKey(event, 'SPACE')"
+                        onpointerup="releaseKey(event, 'SPACE')" onpointerleave="releaseKey(event, 'SPACE')"
+                        oncontextmenu="return false">&uarr;</button>
+                    <button class="control-button" onpointerdown="pressKey(event, 'D')"
+                        onpointerup="releaseKey(event, 'D')" onpointerleave="releaseKey(event, 'D')"
+                        oncontextmenu="return false">
+                        <img class="control-icon" src="assets/img/7_statusbars/3_icons/icon_salsa_bottle.png"
+                            alt="Throw">
+                    </button>
+                </div>
             </div>
 
-            <div class="control-group">
-                <button class="control-button" onpointerdown="pressKey(event, 'SPACE')"
-                    onpointerup="releaseKey(event, 'SPACE')" onpointerleave="releaseKey(event, 'SPACE')"
-                    oncontextmenu="return false">&uarr;</button>
-                <button class="control-button" onpointerdown="pressKey(event, 'D')" onpointerup="releaseKey(event, 'D')"
-                    onpointerleave="releaseKey(event, 'D')" oncontextmenu="return false">
-                    <img class="control-icon" src="assets/img/7_statusbars/3_icons/icon_salsa_bottle.png" alt="Throw">
-                </button>
+            <div id="startScreen" class="overlay start-screen">
+                <div class="button-row">
+                    <button class="game-button" onclick="startGame()">Start</button>
+                    <button class="game-button" onclick="openDialog('difficultyDialog', 'intro3')">Difficulty</button>
+                    <button class="game-button" onclick="openDialog('howToPlayDialog', 'intro1')">How to play</button>
+                </div>
+
+                <div class="menu-links">
+                    <button id="controlModeButton" class="menu-link control-mode-button"
+                        onclick="toggleControlMode()">Controls: Keyboard</button>
+                    <button class="menu-link" onclick="openDialog('imprintDialog', 'intro2')">Imprint</button>
+                    <button class="menu-link" onclick="openDialog('creditsDialog', 'intro4')">Credits</button>
+                </div>
             </div>
+
+            <div id="endScreen" class="overlay end-screen d-none">
+                <img id="endScreenImage" class="end-screen-image" src="" alt="End screen">
+                <div class="button-row">
+                    <button class="game-button" onclick="restartGame()">Restart</button>
+                </div>
+            </div>
+
+            <div id="introScreen" class="overlay intro-screen" onclick="enterMenu()">
+                <p class="intro-text">Click here to start</p>
+            </div>
+
+            <button id="muteButton" class="mute-button" onclick="SoundManager.toggleMute()">
+                <img id="muteIcon" class="mute-icon" src="assets/icons/sound-on.svg" alt="Toggle sound">
+            </button>
+            <button id="fullscreenButton" class="fullscreen-button" onclick="toggleFullscreen()">
+                <img class="mute-icon" src="assets/icons/fullscreen.svg" alt="Toggle fullscreen">
+            </button>
         </div>
-
-        <div id="startScreen" class="overlay start-screen">
-            <div class="button-row">
-                <button class="game-button" onclick="startGame()">Start</button>
-                <button class="game-button" onclick="openDialog('difficultyDialog', 'intro3')">Difficulty</button>
-                <button class="game-button" onclick="openDialog('howToPlayDialog', 'intro1')">How to play</button>
-            </div>
-
-            <div class="menu-links">
-                <button id="controlModeButton" class="menu-link control-mode-button"
-                    onclick="toggleControlMode()">Controls: Keyboard</button>
-                <button class="menu-link" onclick="openDialog('imprintDialog', 'intro2')">Imprint</button>
-                <button class="menu-link" onclick="openDialog('creditsDialog', 'intro4')">Credits</button>
-            </div>
-        </div>
-
-        <div id="endScreen" class="overlay end-screen d-none">
-            <img id="endScreenImage" class="end-screen-image" src="" alt="End screen">
-            <div class="button-row">
-                <button class="game-button" onclick="restartGame()">Restart</button>
-            </div>
-        </div>
-
-        <div id="introScreen" class="overlay intro-screen" onclick="enterMenu()">
-            <p class="intro-text">Click here to start</p>
-        </div>
-
-        <button id="muteButton" class="mute-button" onclick="SoundManager.toggleMute()">
-            <img id="muteIcon" class="mute-icon" src="assets/icons/sound-on.svg" alt="Toggle sound">
-        </button>
     </div>
 
     <dialog id="difficultyDialog" onclick="closeDialogOnBackdrop(event)" onclose="SoundManager.setMenuMusic('menu')">

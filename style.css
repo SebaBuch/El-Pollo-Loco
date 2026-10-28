@@ -1,9 +1,9 @@
 @font-face {
-  font-display: swap;
-  font-family: 'Boogaloo';
-  font-style: normal;
-  font-weight: 400;
-  src: url('assets/fonts/boogaloo-v25-latin-regular.woff2') format('woff2');
+    font-display: swap;
+    font-family: 'Boogaloo';
+    font-style: normal;
+    font-weight: 400;
+    src: url('assets/fonts/boogaloo-v25-latin-regular.woff2') format('woff2');
 }
 
 html {
@@ -214,8 +214,31 @@ dialog::backdrop {
     opacity: 0.7;
 }
 
-.mute-button:hover .mute-icon {
+.mute-button:hover .mute-icon,
+.fullscreen-button:hover .mute-icon {
     opacity: 1;
+}
+
+.fullscreen-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 4px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.fullscreen-wrapper:fullscreen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+.fullscreen-wrapper:fullscreen .game-container {
+    top: 0;
+    width: min(100vw, 150vh);
 }
 
 .mobile-controls {

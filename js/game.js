@@ -9,6 +9,9 @@ function init() {
     canvas = document.getElementById('canvas');
     SoundManager.init();
     loadControlMode();
+    if (!document.fullscreenEnabled) {
+        document.getElementById('fullscreenButton').classList.add('d-none');
+    }
 }
 
 function enterMenu() {
@@ -154,4 +157,13 @@ function updateControlMode() {
         container.classList.remove('touch-mode');
     }
     button.innerHTML = isTouchMode ? 'Controls: Touch' : 'Controls: Keyboard';
+}
+
+function toggleFullscreen() {
+    if (document.fullscreenElement) {
+        document.exitFullscreen();
+    } else {
+        document.getElementById('fullscreenWrapper').requestFullscreen();
+    }
+    document.getElementById('fullscreenButton').blur();
 }
