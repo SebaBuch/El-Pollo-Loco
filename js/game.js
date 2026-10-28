@@ -101,9 +101,9 @@ function showEndScreen(isWon) {
     stopGame();
     let image = document.getElementById('endScreenImage');
     if (isWon) {
-        image.src = 'assets/img/You won, you lost/You won A.png';
+        image.src = 'assets/img/end_screens/you_won_a.png';
     } else {
-        image.src = 'assets/img/You won, you lost/Game Over.png';
+        image.src = 'assets/img/end_screens/game_over.png';
     }
     SoundManager.playEndSound(isWon);
     document.getElementById('endScreen').classList.remove('d-none');
