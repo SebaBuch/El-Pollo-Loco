@@ -60,6 +60,10 @@ class MovableObject extends DrawableObject {
         return timepassed < 1;
     }
 
+    timeSinceLastHit() {
+        return new Date().getTime() - this.lastHit;
+    }
+
     isDead() {
         return this.energy == 0;
     }

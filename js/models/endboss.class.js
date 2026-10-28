@@ -118,10 +118,6 @@ class Endboss extends MovableObject {
         return Math.abs(characterCenter - endbossCenter) < 300;
     }
 
-    timeSinceLastHit() {
-        return new Date().getTime() - this.lastHit;
-    }
-
     isCounterAttacking() {
         return this.timeSinceLastHit() < 3000;
     }

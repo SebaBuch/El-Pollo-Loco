@@ -127,7 +127,7 @@ class World {
         if (enemy instanceof Chicken && this.character.isJumpingOn(enemy)) {
             enemy.die();
             this.character.bounce();
-        } else if (this.character.isColliding(enemy) && !this.character.isHurt()) {
+        } else if (this.character.isColliding(enemy) && !this.character.isInvulnerable()) {
             this.character.hit(enemy.damage);
             SoundManager.playSound(SoundManager.sounds.characterHit);
             this.healthBar.setPercentage(this.character.energy);

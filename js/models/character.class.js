@@ -207,6 +207,10 @@ class Character extends MovableObject {
     bounce() {
         this.speedY = 15;
     }
+
+    isInvulnerable() {
+        return this.timeSinceLastHit() < 1500;
+    }
 }
 
 
