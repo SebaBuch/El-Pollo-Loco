@@ -202,6 +202,43 @@ dialog::backdrop {
     opacity: 1;
 }
 
+.mobile-controls {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    width: 100%;
+    display: none;
+    justify-content: space-between;
+    padding: 0 12px;
+    box-sizing: border-box;
+}
+
+.control-group {
+    display: flex;
+    gap: 12px;
+}
+
+.control-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 56px;
+    height: 56px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.6);
+    font-size: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.control-icon {
+    width: 32px;
+    pointer-events: none;
+}
+
 .d-none {
     display: none;
 }
@@ -235,5 +272,11 @@ dialog::backdrop {
 
     .game-container {
         display: none;
+    }
+}
+
+@media (max-width: 1024px) {
+    .mobile-controls {
+        display: flex;
     }
 }

@@ -17,7 +17,26 @@
     </div>
 
     <div class="game-container">
+
         <canvas id="canvas" width="720" height="480"></canvas>
+
+        <div class="mobile-controls">
+            <div class="control-group">
+                <button class="control-button" ontouchstart="pressKey(event, 'LEFT')"
+                    ontouchend="releaseKey(event, 'LEFT')" oncontextmenu="return false">&larr;</button>
+                <button class="control-button" ontouchstart="pressKey(event, 'RIGHT')"
+                    ontouchend="releaseKey(event, 'RIGHT')" oncontextmenu="return false">&rarr;</button>
+            </div>
+
+            <div class="control-group">
+                <button class="control-button" ontouchstart="pressKey(event, 'SPACE')"
+                    ontouchend="releaseKey(event, 'SPACE')" oncontextmenu="return false">&uarr;</button>
+                <button class="control-button" ontouchstart="pressKey(event, 'D')" ontouchend="releaseKey(event, 'D')"
+                    oncontextmenu="return false">
+                    <img class="control-icon" src="assets/img/7_statusbars/3_icons/icon_salsa_bottle.png" alt="Throw">
+                </button>
+            </div>
+        </div>
 
         <div id="startScreen" class="overlay start-screen">
             <div class="button-row">
@@ -25,20 +44,24 @@
                 <button class="game-button" onclick="openDialog('difficultyDialog', 'intro3')">Difficulty</button>
                 <button class="game-button" onclick="openDialog('howToPlayDialog', 'intro1')">How to play</button>
             </div>
+
             <div class="menu-links">
                 <button class="menu-link" onclick="openDialog('imprintDialog', 'intro2')">Imprint</button>
                 <button class="menu-link" onclick="openDialog('creditsDialog', 'intro4')">Credits</button>
             </div>
         </div>
+
         <div id="endScreen" class="overlay end-screen d-none">
             <img id="endScreenImage" class="end-screen-image" src="" alt="End screen">
             <div class="button-row">
                 <button class="game-button" onclick="restartGame()">Restart</button>
             </div>
         </div>
+
         <div id="introScreen" class="overlay intro-screen" onclick="enterMenu()">
             <p class="intro-text">Click here to start</p>
         </div>
+
         <button id="muteButton" class="mute-button" onclick="SoundManager.toggleMute()">
             <img id="muteIcon" class="mute-icon" src="assets/icons/sound-on.svg" alt="Toggle sound">
         </button>
@@ -69,6 +92,7 @@
                 <li><b>D:</b> Throw bottle</li>
                 <li><b>M:</b> Mute / unmute</li>
             </ul>
+            <p>On mobile, use the buttons at the bottom of the screen.</p>
             <p>Jump on chickens to defeat them. Collect bottles to fight the boss and grab coins on your way.</p>
         </div>
     </dialog>

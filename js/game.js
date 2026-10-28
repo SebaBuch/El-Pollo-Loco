@@ -112,3 +112,13 @@ function restartGame() {
     document.getElementById('endScreen').classList.add('d-none');
     startGame();
 }
+
+function pressKey(event, key) {
+    event.preventDefault();
+    keyboard[key] = true;
+}
+
+function releaseKey(event, key) {
+    event.preventDefault();
+    keyboard[key] = false;
+}
