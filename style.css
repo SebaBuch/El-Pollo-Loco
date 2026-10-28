@@ -276,8 +276,16 @@ dialog::backdrop {
     }
 }
 
-@media (max-width: 1024px) {
+.touch-mode .mobile-controls {
+    display: flex;
+}
+
+@media (max-height: 500px) {
     .mobile-controls {
         display: flex;
+    }
+
+    .control-mode-button {
+        display: none;
     }
 }

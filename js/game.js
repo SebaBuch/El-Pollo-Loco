@@ -3,11 +3,12 @@ let world;
 let keyboard = new Keyboard();
 let intervalIds = [];
 let difficulty = 'easy';
-
+let isTouchMode = false;
 
 function init() {
     canvas = document.getElementById('canvas');
     SoundManager.init();
+    loadControlMode();
 }
 
 function enterMenu() {
@@ -125,4 +126,32 @@ function releaseKey(event, key) {
         event.preventDefault();
     }
     keyboard[key] = false;
+}
+
+function loadControlMode() {
+    let savedMode = localStorage.getItem('isTouchMode');
+    if (savedMode == null) {
+        isTouchMode = window.matchMedia('(hover: none)').matches;
+    } else {
+        isTouchMode = savedMode == 'true';
+    }
+    updateControlMode();
+}
+
+function toggleControlMode() {
+    isTouchMode = !isTouchMode;
+    localStorage.setItem('isTouchMode', isTouchMode);
+    updateControlMode();
+    document.getElementById('controlModeButton').blur();
+}
+
+function updateControlMode() {
+    let container = document.getElementById('gameContainer');
+    let button = document.getElementById('controlModeButton');
+    if (isTouchMode) {
+        container.classList.add('touch-mode');
+    } else {
+        container.classList.remove('touch-mode');
+    }
+    button.innerHTML = isTouchMode ? 'Controls: Touch' : 'Controls: Keyboard';
 }
