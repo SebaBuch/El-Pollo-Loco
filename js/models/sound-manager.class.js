@@ -59,7 +59,7 @@ class SoundManager {
     }
 
     static playSound(sound) {
-        if (this.isMuted || !this.isReady(sound)) {
+        if (!this.isReady(sound)) {
             return;
         }
         sound.currentTime = 0;
@@ -67,7 +67,7 @@ class SoundManager {
     }
 
     static playLoop(sound) {
-        if (!this.isMuted && sound.paused && this.isReady(sound)) {
+        if (sound.paused && this.isReady(sound)) {
             sound.play();
         }
     }
@@ -121,15 +121,13 @@ class SoundManager {
     static toggleMute() {
         this.isMuted = !this.isMuted;
         localStorage.setItem('isMuted', this.isMuted);
-        this.updateMusic();
+        this.applyMute();
         this.updateMuteButton();
     }
 
-    static updateMusic() {
-        if (this.isMuted) {
-            this.stopAllSounds();
-        } else if (this.currentMusic) {
-            this.playLoop(this.currentMusic);
+    static applyMute() {
+        for (let key in this.sounds) {
+            this.sounds[key].muted = this.isMuted;
         }
     }
 
@@ -141,6 +139,7 @@ class SoundManager {
 
     static loadMuteState() {
         this.isMuted = localStorage.getItem('isMuted') == 'true';
+        this.applyMute();
         this.updateMuteButton();
     }
 }
