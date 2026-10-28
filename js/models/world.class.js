@@ -100,7 +100,7 @@ class World {
     }
 
     removeSplashedBottles() {
-        for (let i = 0; i < this.throwableObjects.length; i++) {
+        for (let i = this.throwableObjects.length - 1; i >= 0; i--) {
             if (this.throwableObjects[i].isSplashFinished()) {
                 this.throwableObjects.splice(i, 1);
             }
@@ -135,7 +135,7 @@ class World {
     }
 
     checkCoinCollisions() {
-        for (let i = 0; i < this.level.coins.length; i++) {
+        for (let i = this.level.coins.length - 1; i >= 0; i--) {
             if (this.character.isColliding(this.level.coins[i])) {
                 this.level.coins.splice(i, 1);
                 this.character.coins++;
@@ -151,7 +151,7 @@ class World {
     }
 
     checkBottleCollisions() {
-        for (let i = 0; i < this.level.bottles.length; i++) {
+        for (let i = this.level.bottles.length - 1; i >= 0; i--) {
             if (this.character.isColliding(this.level.bottles[i])) {
                 this.level.bottles.splice(i, 1);
                 this.character.bottles++;
