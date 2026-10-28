@@ -60,108 +60,107 @@
                     <button class="menu-link" onclick="openDialog('imprintDialog', 'intro2')">Imprint</button>
                     <button class="menu-link" onclick="openDialog('creditsDialog', 'intro4')">Credits</button>
                 </div>
-
-                <div id="endScreen" class="overlay end-screen d-none">
-                    <img id="endScreenImage" class="end-screen-image" src="" alt="End screen">
-                    <div class="button-row">
-                        <button class="game-button" onclick="restartGame()">Restart</button>
-                    </div>
-                </div>
-
-                <div id="introScreen" class="overlay intro-screen" onclick="enterMenu()">
-                    <p class="intro-text">Click here to start</p>
-                </div>
-
-                <button id="muteButton" class="mute-button" onclick="SoundManager.toggleMute()">
-                    <img id="muteIcon" class="mute-icon" src="assets/icons/sound-on.svg" alt="Toggle sound">
-                </button>
-                <button id="fullscreenButton" class="fullscreen-button" onclick="toggleFullscreen()">
-                    <img class="mute-icon" src="assets/icons/fullscreen.svg" alt="Toggle fullscreen">
-                </button>
             </div>
-        </div>
 
-        <dialog id="difficultyDialog" onclick="closeDialogOnBackdrop(event)"
-            onclose="SoundManager.setMenuMusic('menu')">
-            <div class="dialog-content">
-                <button class="close-button" onclick="closeDialog('difficultyDialog')">X</button>
-                <h2>Difficulty</h2>
+            <div id="endScreen" class="overlay end-screen d-none">
+                <img id="endScreenImage" class="end-screen-image" src="" alt="End screen">
                 <div class="button-row">
-                    <button id="easyButton" class="game-button selected-difficulty"
-                        onclick="selectDifficulty('easy')">Easy</button>
-                    <button id="impossibleButton" class="game-button impossible-button"
-                        onclick="selectDifficulty('impossible')">Impossible</button>
+                    <button class="game-button" onclick="restartGame()">Restart</button>
                 </div>
-                <p>Easy: the normal game.<br>Impossible: expect the unexpected.</p>
             </div>
-        </dialog>
 
-        <dialog id="howToPlayDialog" onclick="closeDialogOnBackdrop(event)" onclose="SoundManager.setMenuMusic('menu')">
-            <div class="dialog-content">
-                <button class="close-button" onclick="closeDialog('howToPlayDialog')">X</button>
-                <h2>How to play</h2>
-                <p>Help Pepe cross the desert and defeat the giant chicken.</p>
-                <ul>
-                    <li><b>Arrow left / right:</b> Walk</li>
-                    <li><b>Space:</b> Jump</li>
-                    <li><b>D:</b> Throw bottle</li>
-                    <li><b>M:</b> Mute / unmute</li>
-                    <li><b>F:</b> Fullscreen</li>
-                </ul>
-                </ul>
-                <p>On mobile, use the buttons at the bottom of the screen.</p>
-                <p>Jump on chickens to defeat them. Collect bottles to fight the boss and grab coins on your way.</p>
+            <div id="introScreen" class="overlay intro-screen" onclick="enterMenu()">
+                <p class="intro-text">Click here to start</p>
             </div>
-        </dialog>
 
-        <dialog id="imprintDialog" onclick="closeDialogOnBackdrop(event)" onclose="SoundManager.setMenuMusic('menu')">
-            <div class="dialog-content">
-                <button class="close-button" onclick="closeDialog('imprintDialog')">X</button>
-                <h2>Imprint</h2>
-                <p>Information according to § 5 DDG</p>
-                <p>
-                    Sebastian Buchholz<br>
-                    Bahnweg 6a<br>
-                    53773 Hennef
-                </p>
-                <h3>Contact</h3>
-                <p>Email: sebastian.buchholz98@gmail.com</p>
+            <button id="muteButton" class="mute-button" onclick="SoundManager.toggleMute()">
+                <img id="muteIcon" class="mute-icon" src="assets/icons/sound-on.svg" alt="Toggle sound">
+            </button>
+            <button id="fullscreenButton" class="fullscreen-button" onclick="toggleFullscreen()">
+                <img class="mute-icon" src="assets/icons/fullscreen.svg" alt="Toggle fullscreen">
+            </button>
+        </div>
+    </div>
+
+    <dialog id="difficultyDialog" onclick="closeDialogOnBackdrop(event)" onclose="SoundManager.setMenuMusic('menu')">
+        <div class="dialog-content">
+            <button class="close-button" onclick="closeDialog('difficultyDialog')">X</button>
+            <h2>Difficulty</h2>
+            <div class="button-row">
+                <button id="easyButton" class="game-button selected-difficulty"
+                    onclick="selectDifficulty('easy')">Easy</button>
+                <button id="impossibleButton" class="game-button impossible-button"
+                    onclick="selectDifficulty('impossible')">Impossible</button>
             </div>
-        </dialog>
+            <p>Easy: the normal game.<br>Impossible: expect the unexpected.</p>
+        </div>
+    </dialog>
 
-        <dialog id="creditsDialog" onclick="closeDialogOnBackdrop(event)" onclose="SoundManager.setMenuMusic('menu')">
-            <div class="dialog-content">
-                <button class="close-button" onclick="closeDialog('creditsDialog')">X</button>
-                <h2>Credits</h2>
-                <h3>Game</h3>
-                <p>Developed by Sebastian Buchholz</p>
-                <h3>Graphics</h3>
-                <p>Developer Akademie</p>
-                <h3>Sounds and music</h3>
-                <p>https://pixabay.com/de/</p>
-                <h3>Intro Image</h3>
-                <p>ChatGPT</p>
-            </div>
-        </dialog>
+    <dialog id="howToPlayDialog" onclick="closeDialogOnBackdrop(event)" onclose="SoundManager.setMenuMusic('menu')">
+        <div class="dialog-content">
+            <button class="close-button" onclick="closeDialog('howToPlayDialog')">X</button>
+            <h2>How to play</h2>
+            <p>Help Pepe cross the desert and defeat the giant chicken.</p>
+            <ul>
+                <li><b>Arrow left / right:</b> Walk</li>
+                <li><b>Space:</b> Jump</li>
+                <li><b>D:</b> Throw bottle</li>
+                <li><b>M:</b> Mute / unmute</li>
+                <li><b>F:</b> Fullscreen</li>
+            </ul>
+            <p>On mobile, use the buttons at the bottom of the screen.</p>
+            <p>Jump on chickens to defeat them. Collect bottles to fight the boss and grab coins on your way.</p>
+        </div>
+    </dialog>
 
-        <script src="js/models/sound-manager.class.js"></script>
-        <script src="js/models/drawable-object.class.js"></script>
-        <script src="js/models/movable-object.class.js"></script>
-        <script src="js/models/character.class.js"></script>
-        <script src="js/models/chicken.class.js"></script>
-        <script src="js/models/small-chicken.class.js"></script>
-        <script src="js/models/endboss.class.js"></script>
-        <script src="js/models/cloud.class.js"></script>
-        <script src="js/models/background-object.class.js"></script>
-        <script src="js/models/coin.class.js"></script>
-        <script src="js/models/bottle.class.js"></script>
-        <script src="js/models/status-bar.class.js"></script>
-        <script src="js/models/throwable-object.class.js"></script>
-        <script src="js/models/keyboard.class.js"></script>
-        <script src="js/models/level.class.js"></script>
-        <script src="js/models/world.class.js"></script>
-        <script src="levels/level1.js"></script>
-        <script src="js/game.js"></script>
+    <dialog id="imprintDialog" onclick="closeDialogOnBackdrop(event)" onclose="SoundManager.setMenuMusic('menu')">
+        <div class="dialog-content">
+            <button class="close-button" onclick="closeDialog('imprintDialog')">X</button>
+            <h2>Imprint</h2>
+            <p>Information according to § 5 DDG</p>
+            <p>
+                Sebastian Buchholz<br>
+                Bahnweg 6a<br>
+                53773 Hennef
+            </p>
+            <h3>Contact</h3>
+            <p>Email: sebastian.buchholz98@gmail.com</p>
+        </div>
+    </dialog>
+
+    <dialog id="creditsDialog" onclick="closeDialogOnBackdrop(event)" onclose="SoundManager.setMenuMusic('menu')">
+        <div class="dialog-content">
+            <button class="close-button" onclick="closeDialog('creditsDialog')">X</button>
+            <h2>Credits</h2>
+            <h3>Game</h3>
+            <p>Developed by Sebastian Buchholz</p>
+            <h3>Graphics</h3>
+            <p>Developer Akademie</p>
+            <h3>Sounds and music</h3>
+            <p>https://pixabay.com/de/</p>
+            <h3>Intro Image</h3>
+            <p>ChatGPT</p>
+        </div>
+    </dialog>
+
+    <script src="js/models/sound-manager.class.js"></script>
+    <script src="js/models/drawable-object.class.js"></script>
+    <script src="js/models/movable-object.class.js"></script>
+    <script src="js/models/character.class.js"></script>
+    <script src="js/models/chicken.class.js"></script>
+    <script src="js/models/small-chicken.class.js"></script>
+    <script src="js/models/endboss.class.js"></script>
+    <script src="js/models/cloud.class.js"></script>
+    <script src="js/models/background-object.class.js"></script>
+    <script src="js/models/coin.class.js"></script>
+    <script src="js/models/bottle.class.js"></script>
+    <script src="js/models/status-bar.class.js"></script>
+    <script src="js/models/throwable-object.class.js"></script>
+    <script src="js/models/keyboard.class.js"></script>
+    <script src="js/models/level.class.js"></script>
+    <script src="js/models/world.class.js"></script>
+    <script src="levels/level1.js"></script>
+    <script src="js/game.js"></script>
 </body>
 
 </html>
