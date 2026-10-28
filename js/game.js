@@ -41,6 +41,9 @@ window.addEventListener('keydown', (e) => {
     if (e.code == 'KeyM' && !e.repeat) {
         SoundManager.toggleMute();
     }
+    if (e.code == 'KeyF' && !e.repeat && document.fullscreenEnabled) {
+        toggleFullscreen();
+    }
 });
 
 window.addEventListener('keyup', (e) => {
