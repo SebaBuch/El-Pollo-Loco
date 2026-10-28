@@ -150,7 +150,13 @@ canvas {
     border: none;
     border-radius: 8px;
     background-color: #ffcd00;
+    box-shadow: 0 4px 0 #b37400;
     cursor: pointer;
+}
+
+.game-button:active {
+    box-shadow: 0 1px 0 #b37400;
+    transform: translateY(3px);
 }
 
 .game-button:hover {
@@ -174,8 +180,22 @@ canvas {
 dialog {
     max-width: 400px;
     padding: 0;
-    border: none;
+    border: 4px solid #3b1a3a;
     border-radius: 12px;
+    background-color: #fff3d6;
+    color: #3b1a3a;
+    font-family: 'Boogaloo', sans-serif;
+    font-size: 1.125rem;
+}
+
+dialog h2 {
+    margin-top: 0;
+    font-size: 2rem;
+    color: #d62828;
+}
+
+dialog h3 {
+    margin-bottom: 4px;
 }
 
 dialog::backdrop {
@@ -193,8 +213,13 @@ dialog::backdrop {
     right: 8px;
     border: none;
     background: none;
+    color: #3b1a3a;
     font-size: 1.5rem;
     cursor: pointer;
+}
+
+.close-button:hover {
+    color: #d62828;
 }
 
 .mute-button {
