@@ -62,12 +62,6 @@ function setArrowKeys(code, isPressed) {
     if (code == 'ArrowLeft') {
         keyboard.LEFT = isPressed;
     }
-    if (code == 'ArrowUp') {
-        keyboard.UP = isPressed;
-    }
-    if (code == 'ArrowDown') {
-        keyboard.DOWN = isPressed;
-    }
 }
 
 function setActionKeys(code, isPressed) {
