@@ -114,11 +114,15 @@ function restartGame() {
 }
 
 function pressKey(event, key) {
-    event.preventDefault();
+    if (event.cancelable) {
+        event.preventDefault();
+    }
     keyboard[key] = true;
 }
 
 function releaseKey(event, key) {
-    event.preventDefault();
+    if (event.cancelable) {
+        event.preventDefault();
+    }
     keyboard[key] = false;
 }
