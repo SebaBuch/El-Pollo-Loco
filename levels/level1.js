@@ -12,7 +12,7 @@ function createEasyLevel() {
     return new Level(
         createEnemies(),
         createClouds(),
-        createBackgroundObjects(),
+        createBackgroundObjects(5),
         createCoins(),
         createBottles(),
         [],
@@ -44,9 +44,9 @@ function createClouds() {
     ];
 }
 
-function createBackgroundObjects() {
+function createBackgroundObjects(count) {
     let backgroundObjects = [];
-    for (let i = -1; i < 5; i++) {
+    for (let i = -1; i < count; i++) {
         let imageNumber = i % 2 == 0 ? 1 : 2;
         backgroundObjects.push(new BackgroundObject('assets/img/5_background/layers/air.png', 853 * i));
         backgroundObjects.push(new BackgroundObject('assets/img/5_background/layers/3_third_layer/' + imageNumber + '.png', 853 * i));

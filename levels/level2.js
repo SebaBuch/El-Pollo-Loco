@@ -1,15 +1,17 @@
 function createImpossibleLevel() {
     let coins = createImpossibleCoins();
     let bottles = [new FleeingBottle(2800, 300)];
-    return new Level(
+    let level = new Level(
         createImpossibleEnemies(),
         createClouds(),
-        createBackgroundObjects(),
+        createBackgroundObjects(7),
         coins,
         bottles,
         createImpossibleTraps(coins, bottles),
         [new Hole(2100, 250, 450)]
     );
+    level.level_end_x = 4500;
+    return level;
 }
 
 
