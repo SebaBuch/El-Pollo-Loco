@@ -8,10 +8,11 @@ class World {
     camera_x = 0;
     healthBar = new StatusBar('health', 20, 0, 100);
     coinBar = new StatusBar('coin', 20, 45, 0);
-    totalCoins = this.level.coins.length;
+    maxCoins = 10;
     bottleBar = new StatusBar('bottle', 20, 90, 0);
-    totalBottles = this.level.bottles.length;
+    maxBottles = 10;
     endbossBar = new StatusBar('endboss', 460, 0, 100);
+    lifeIcon = this.createLifeIcon();
     throwableObjects = [];
     lastThrow = 0;
     bottlePrice = 2;
@@ -35,7 +36,9 @@ class World {
 
     setWorld() {
         this.character.world = this;
-        this.endboss.world = this;
+        if (this.endboss) {
+            this.endboss.world = this;
+        }
     }
 
     findEndboss() {
@@ -47,7 +50,7 @@ class World {
     }
 
     checkEndbossContact() {
-        if (this.character.x > 2400 && !this.endboss.hadFirstContact) {
+        if (this.endboss && this.character.x > 2400 && !this.endboss.hadFirstContact) {
             this.endboss.startAlert();
         }
     }
@@ -83,9 +86,16 @@ class World {
         this.stats.frames++;
         if (this.character.isDead()) {
             this.endGame(false);
-        } else if (this.endboss.isDead()) {
+        } else if (this.isLevelWon()) {
             this.endGame(true);
         }
+    }
+
+    isLevelWon() {
+        if (this.endboss) {
+            return this.endboss.isDead();
+        }
+        return this.character.x >= this.level.level_end_x;
     }
 
     endGame(isWon) {
@@ -94,7 +104,7 @@ class World {
             SoundManager.playSound(SoundManager.sounds.characterDies);
         }
         setTimeout(() => {
-            showEndScreen(isWon);
+            handleGameEnd(isWon);
         }, 1500);
     }
 
@@ -138,7 +148,7 @@ class World {
     }
 
     canBuyBottle() {
-        let hasSpace = this.character.bottles < this.totalBottles;
+        let hasSpace = this.character.bottles < this.maxBottles;
         return this.character.coins >= this.bottlePrice && hasSpace;
     }
 
@@ -215,6 +225,9 @@ class World {
     }
 
     damageCharacter(damage) {
+        if (difficulty == 'impossible') {
+            damage = this.character.energy;
+        }
         this.character.hit(damage);
         SoundManager.playSound(SoundManager.sounds.characterHit);
         this.healthBar.setPercentage(this.character.energy);
@@ -233,13 +246,13 @@ class World {
     }
 
     updateCoinBar() {
-        let percentage = this.character.coins / this.totalCoins * 100;
+        let percentage = this.character.coins / this.maxCoins * 100;
         this.coinBar.setPercentage(percentage);
     }
 
     checkBottleCollisions() {
         for (let i = this.level.bottles.length - 1; i >= 0; i--) {
-            let hasSpace = this.character.bottles < this.totalBottles;
+            let hasSpace = this.character.bottles < this.maxBottles;
             if (hasSpace && this.character.isColliding(this.level.bottles[i])) {
                 this.level.bottles.splice(i, 1);
                 this.character.bottles++;
@@ -250,11 +263,14 @@ class World {
     }
 
     updateBottleBar() {
-        let percentage = this.character.bottles / this.totalBottles * 100;
+        let percentage = this.character.bottles / this.maxBottles * 100;
         this.bottleBar.setPercentage(percentage);
     }
 
     checkBottleHits() {
+        if (!this.endboss) {
+            return;
+        }
         for (let i = 0; i < this.throwableObjects.length; i++) {
             let bottle = this.throwableObjects[i];
             if (!bottle.isSplashed && !this.endboss.isDead() && bottle.isColliding(this.endboss)) {
@@ -294,11 +310,31 @@ class World {
     }
 
     drawStatusBars() {
+        if (difficulty == 'impossible') {
+            this.drawLives();
+            return;
+        }
         this.addToMap(this.healthBar);
         this.addToMap(this.coinBar);
         this.addToMap(this.bottleBar);
-        if (this.endboss.hadFirstContact) {
+        if (this.endboss && this.endboss.hadFirstContact) {
             this.addToMap(this.endbossBar);
+        }
+    }
+
+    createLifeIcon() {
+        let icon = new DrawableObject();
+        icon.loadImage('assets/img/7_statusbars/3_icons/icon_health.png');
+        icon.y = 10;
+        icon.width = 40;
+        icon.height = 40;
+        return icon;
+    }
+
+    drawLives() {
+        for (let i = 0; i < lives; i++) {
+            this.lifeIcon.x = 20 + i * 45;
+            this.addToMap(this.lifeIcon);
         }
     }
 

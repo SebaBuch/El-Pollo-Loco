@@ -6,6 +6,7 @@ let difficulty = 'easy';
 let isTouchMode = false;
 let isPaused = false;
 let isGameRunning = false;
+let lives = 1;
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -24,6 +25,11 @@ function enterMenu() {
 function startGame() {
     document.activeElement.blur();
     document.getElementById('startScreen').classList.add('d-none');
+    lives = difficulty == 'impossible' ? 3 : 1;
+    startLevel();
+}
+
+function startLevel() {
     keyboard = new Keyboard();
     initLevel();
     world = new World(canvas, keyboard);
@@ -142,6 +148,16 @@ function resumeGame() {
     document.getElementById('pauseScreen').classList.add('d-none');
     world.character.lastMove = new Date().getTime();
     SoundManager.playLoop(SoundManager.sounds.background);
+}
+
+function handleGameEnd(isWon) {
+    if (!isWon && lives > 1) {
+        lives--;
+        stopGame();
+        startLevel();
+    } else {
+        showEndScreen(isWon);
+    }
 }
 
 function showEndScreen(isWon) {
