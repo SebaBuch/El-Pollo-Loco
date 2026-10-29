@@ -79,11 +79,22 @@
                 <p class="intro-text">Click here to start</p>
             </div>
 
+            <div id="pauseScreen" class="overlay pause-screen d-none">
+                <p class="intro-text">Paused</p>
+                <div class="button-row">
+                    <button class="game-button" onclick="togglePause()">Resume</button>
+                    <button class="game-button" onclick="backToMenu()">Menu</button>
+                </div>
+            </div>
+
             <button id="muteButton" class="mute-button" onclick="SoundManager.toggleMute()">
                 <img id="muteIcon" class="mute-icon" src="assets/icons/sound-on.svg" alt="Toggle sound">
             </button>
             <button id="fullscreenButton" class="fullscreen-button" onclick="toggleFullscreen()">
                 <img class="mute-icon" src="assets/icons/fullscreen.svg" alt="Toggle fullscreen">
+            </button>
+            <button id="pauseButton" class="pause-button d-none" onclick="togglePause()">
+                <img class="mute-icon" src="assets/icons/pause.svg" alt="Pause game">
             </button>
         </div>
     </div>
@@ -112,6 +123,7 @@
                 <li><b>Space:</b> Jump</li>
                 <li><b>D:</b> Throw bottle</li>
                 <li><b>B:</b> Buy bottle (2 coins)</li>
+                <li><b>P:</b> Pause</li>
                 <li><b>M:</b> Mute / unmute</li>
                 <li><b>F:</b> Fullscreen</li>
             </ul>

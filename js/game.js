@@ -4,6 +4,8 @@ let keyboard = new Keyboard();
 let intervalIds = [];
 let difficulty = 'easy';
 let isTouchMode = false;
+let isPaused = false;
+let isGameRunning = false;
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -27,10 +29,16 @@ function startGame() {
     world = new World(canvas, keyboard);
     SoundManager.stopAllSounds();
     SoundManager.playMusic(SoundManager.sounds.background);
+    isGameRunning = true;
+    document.getElementById('pauseButton').classList.remove('d-none');
 }
 
 function startInterval(callback, time) {
-    let id = setInterval(callback, time);
+    let id = setInterval(() => {
+        if (!isPaused) {
+            callback();
+        }
+    }, time);
     intervalIds.push(id);
 }
 
@@ -49,6 +57,9 @@ window.addEventListener('keydown', (e) => {
     }
     if (e.code == 'KeyF' && !e.repeat && document.fullscreenEnabled) {
         toggleFullscreen();
+    }
+    if (e.code == 'KeyP' && !e.repeat) {
+        togglePause();
     }
 });
 
@@ -104,6 +115,33 @@ function stopGame() {
     intervalIds = [];
     cancelAnimationFrame(world.animationFrameId);
     SoundManager.stopLoopSounds();
+    isGameRunning = false;
+    document.getElementById('pauseButton').classList.add('d-none');
+}
+
+function togglePause() {
+    document.activeElement.blur();
+    if (!isGameRunning || world.isGameOver) {
+        return;
+    }
+    if (isPaused) {
+        resumeGame();
+    } else {
+        pauseGame();
+    }
+}
+
+function pauseGame() {
+    isPaused = true;
+    document.getElementById('pauseScreen').classList.remove('d-none');
+    SoundManager.pauseGameSounds();
+}
+
+function resumeGame() {
+    isPaused = false;
+    document.getElementById('pauseScreen').classList.add('d-none');
+    world.character.lastMove = new Date().getTime();
+    SoundManager.playLoop(SoundManager.sounds.background);
 }
 
 function showEndScreen(isWon) {
@@ -124,6 +162,11 @@ function restartGame() {
 }
 
 function backToMenu() {
+    if (isGameRunning) {
+        stopGame();
+    }
+    isPaused = false;
+    document.getElementById('pauseScreen').classList.add('d-none');
     document.getElementById('endScreen').classList.add('d-none');
     document.getElementById('startScreen').classList.remove('d-none');
     SoundManager.stopAllSounds();

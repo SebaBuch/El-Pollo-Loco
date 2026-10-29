@@ -246,7 +246,8 @@ dialog::backdrop {
 }
 
 .mute-button:hover .mute-icon,
-.fullscreen-button:hover .mute-icon {
+.fullscreen-button:hover .mute-icon,
+.pause-button:hover .mute-icon {
     opacity: 1;
 }
 
@@ -258,6 +259,20 @@ dialog::backdrop {
     border: none;
     background: none;
     cursor: pointer;
+}
+
+.pause-button {
+    position: absolute;
+    top: 8px;
+    right: 56px;
+    padding: 4px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.pause-screen {
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .fullscreen-wrapper:fullscreen {

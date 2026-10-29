@@ -105,6 +105,13 @@ class SoundManager {
         }
     }
 
+    static pauseGameSounds() {
+        this.sounds.background.pause();
+        this.sounds.characterWalking.pause();
+        this.sounds.snoring.pause();
+        this.sounds.endbossWalks.pause();
+    }
+
     static playMenuMusic() {
         if (this.currentMusic == this.menuMusic) {
             this.playLoop(this.menuMusic);
