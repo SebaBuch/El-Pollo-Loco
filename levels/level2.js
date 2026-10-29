@@ -11,6 +11,7 @@ function createImpossibleLevel() {
         [new Hole(2100, 250, 450)]
     );
     level.level_end_x = 4500;
+    level.goal = new GoalFlag(4300,4615);
     return level;
 }
 

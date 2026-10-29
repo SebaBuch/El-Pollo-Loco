@@ -19,6 +19,7 @@ class World {
     lastBuy = 0;
     animationFrameId;
     isGameOver = false;
+    wallTime = 0;
     stats = {
         coins: 0,
         chickens: 0,
@@ -56,8 +57,10 @@ class World {
     }
 
     checkTraps() {
-        for (let i = 0; i < this.level.traps.length; i++) {
-            this.level.traps[i].check(this);
+        if (!this.character.isFlung) {
+            for (let i = 0; i < this.level.traps.length; i++) {
+                this.level.traps[i].check(this);
+            }
         }
         this.checkHoles();
         this.checkFleeingBottles();
@@ -76,7 +79,8 @@ class World {
         for (let i = 0; i < this.level.holes.length; i++) {
             let hole = this.level.holes[i];
             hole.update(this.character);
-            if (hole.isUnder(this.character) && this.character.isOnGround()) {
+            let isOnGround = this.character.isOnGround() && !this.character.isFlung;
+            if (hole.isUnder(this.character) && isOnGround) {
                 this.character.fallIntoHole();
             }
         }
@@ -94,8 +98,32 @@ class World {
             this.removeSplashedBottles();
             this.checkEndbossContact();
             this.checkTraps();
+            this.checkGoal();
             this.checkGameOver();
         }, 1000 / 60);
+    }
+
+    checkGoal() {
+        let goal = this.level.goal;
+        if (!goal || this.character.isFlung) {
+            return;
+        }
+        goal.update(this.character);
+        this.checkWallTime();
+    }
+
+    checkWallTime() {
+        if (this.character.x < this.level.level_end_x) {
+            this.wallTime = 0;
+            return;
+        }
+        if (this.wallTime == 0) {
+            this.wallTime = new Date().getTime();
+        }
+        if (new Date().getTime() - this.wallTime > 2000) {
+            this.character.flingToStart();
+            this.level.goal.reset();
+        }
     }
 
     checkGameOver() {
@@ -113,6 +141,9 @@ class World {
     isLevelWon() {
         if (this.endboss) {
             return this.endboss.isDead();
+        }
+        if (this.level.goal) {
+            return this.character.isColliding(this.level.goal) && !this.character.isFlung;
         }
         return this.character.x >= this.level.level_end_x;
     }
@@ -196,7 +227,7 @@ class World {
     }
 
     checkEnemyCollisions() {
-        if (this.character.isDead()) {
+        if (this.character.isDead() || this.character.isFlung) {
             return;
         }
         for (let i = this.level.enemies.length - 1; i >= 0; i--) {
@@ -283,6 +314,7 @@ class World {
             let hasSpace = this.character.bottles < this.maxBottles;
             let isTrap = bottle instanceof FleeingBottle;
             if (hasSpace && !isTrap && this.character.isColliding(bottle)) {
+                this.level.bottles.splice(i, 1);
                 this.character.bottles++;
                 SoundManager.playSound(SoundManager.sounds.bottleCollect);
                 this.updateBottleBar();
@@ -325,6 +357,9 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.holes);
         this.addObjectsToMap(this.level.clouds);
+        if (this.level.goal) {
+            this.addToMap(this.level.goal);
+        }
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
         this.addToMap(this.character);

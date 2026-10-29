@@ -12,6 +12,7 @@ class Character extends MovableObject {
     cameraOffset = 100;
     lastDirection = false;
     directionStart = 0;
+    isFlung = false;
     offset = {
         top: 100,
         left: 20,
@@ -111,14 +112,36 @@ class Character extends MovableObject {
         if (this.isDead()) {
             return;
         }
+        if (this.isFlung) {
+            this.updateFling();
+            return;
+        }
         this.walkRight();
         this.walkLeft();
+        this.checkJump();
+        this.checkIfActive();
+        this.updateCamera();
+    }
+
+    checkJump() {
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
             SoundManager.playSound(SoundManager.sounds.jumping);
         }
-        this.checkIfActive();
-        this.updateCamera();
+    }
+
+    flingToStart() {
+        this.isFlung = true;
+        this.speedY = 35;
+    }
+
+    updateFling() {
+        this.x -= 60;
+        if (this.x <= 120) {
+            this.x = 120;
+            this.isFlung = false;
+        }
+        this.world.camera_x = -this.x + this.cameraOffset;
     }
 
     updateCamera() {
@@ -141,6 +164,7 @@ class Character extends MovableObject {
             this.cameraOffset = this.otherDirection ? 493 : 100;
         }
     }
+
     stopAtGround() {
         super.stopAtGround();
         if (this.isAboveGround()) {
@@ -259,5 +283,3 @@ class Character extends MovableObject {
         return this.isInvulnerable() && !this.isDead() && isBlinkFrame;
     }
 }
-
-
