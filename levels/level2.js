@@ -8,11 +8,17 @@ function createImpossibleLevel() {
         coins,
         bottles,
         createImpossibleTraps(coins, bottles),
-        [new Hole(2100, 250, 450)]
+        createImpossibleHoles()
     );
     level.level_end_x = 4500;
     level.goal = new GoalFlag(4300, 4615);
     return level;
+}
+
+function createImpossibleHoles() {
+    let hole = new Hole(2100, 250, 450);
+    hole.growsLeftAfterFling = true;
+    return [hole];
 }
 
 function createImpossibleCoins() {

@@ -1,14 +1,18 @@
 class Hole extends DrawableObject {
     y = 415;
     height = 65;
+    homeX;
     normalWidth;
     grownWidth;
     growTime = 0;
     isTriggered = false;
+    isLeftTriggered = false;
+    growsLeftAfterFling = false;
 
     constructor(x, width, grownWidth) {
         super();
         this.x = x;
+        this.homeX = x;
         this.width = width;
         this.normalWidth = width;
         this.grownWidth = grownWidth;
@@ -21,20 +25,43 @@ class Hole extends DrawableObject {
 
     update(character) {
         if (this.shouldGrow(character)) {
-            this.width = this.grownWidth;
-            this.isTriggered = true;
-            this.growTime = new Date().getTime();
+            this.growRight();
+        } else if (this.shouldGrowLeft(character)) {
+            this.growLeft();
         }
         let timepassed = new Date().getTime() - this.growTime;
-        if (this.isTriggered && timepassed > 2000) {
+        if (this.growTime > 0 && timepassed > 2000) {
+            this.x = this.homeX;
             this.width = this.normalWidth;
         }
     }
 
     shouldGrow(character) {
+        return !this.isTriggered && !character.wasFlung && this.isJumpingOver(character, 100);
+    }
+
+    shouldGrowLeft(character) {
+        let canGrowLeft = this.growsLeftAfterFling && character.wasFlung;
+        return !this.isLeftTriggered && canGrowLeft && this.isJumpingOver(character, 75);
+    }
+
+    isJumpingOver(character, distance) {
         let center = character.x + character.width / 2;
-        let isJumping = character.isAboveGround() && !character.isFalling();
-        return !this.isTriggered && isJumping && center > this.x + 100;
+        let isJumping = character.isAboveGround() && !character.isFalling() && !character.isFlung;
+        return isJumping && center > this.homeX + distance;
+    }
+
+    growRight() {
+        this.isTriggered = true;
+        this.width = this.grownWidth;
+        this.growTime = new Date().getTime();
+    }
+
+    growLeft() {
+        this.isLeftTriggered = true;
+        this.x = this.homeX - 300;
+        this.width = this.normalWidth + 300;
+        this.growTime = new Date().getTime();
     }
 
     isUnder(character) {

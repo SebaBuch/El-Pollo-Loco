@@ -120,7 +120,7 @@ class World {
         if (this.wallTime == 0) {
             this.wallTime = new Date().getTime();
         }
-        if (new Date().getTime() - this.wallTime > 2000) {
+        if (new Date().getTime() - this.wallTime > 1000) {
             this.character.flingToStart();
             this.level.goal.reset();
         }
