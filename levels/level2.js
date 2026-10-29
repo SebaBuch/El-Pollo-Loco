@@ -3,7 +3,7 @@ function createImpossibleLevel() {
         createImpossibleEnemies(),
         createClouds(),
         createBackgroundObjects(),
-        [],
+        [new BaitCoin(2200, 120)],
         [new FleeingBottle(1800, 500)],
         createImpossibleTraps(),
         [new Hole(1500, 120, 190)]
