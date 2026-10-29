@@ -153,7 +153,15 @@ function showEndScreen(isWon) {
         image.src = 'assets/img/end_screens/game_over.png';
     }
     SoundManager.playEndSound(isWon);
+    showStats();
     document.getElementById('endScreen').classList.remove('d-none');
+}
+
+function showStats() {
+    let stats = world.stats;
+    let seconds = Math.floor(stats.frames / 60);
+    let text = 'Coins: ' + stats.coins + ' | Chickens: ' + stats.chickens + ' | Time: ' + seconds + 's';
+    document.getElementById('endStats').innerHTML = text;
 }
 
 function restartGame() {

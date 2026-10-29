@@ -18,6 +18,11 @@ class World {
     lastBuy = 0;
     animationFrameId;
     isGameOver = false;
+    stats = {
+        coins: 0,
+        chickens: 0,
+        frames: 0
+    };
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -62,6 +67,7 @@ class World {
         if (this.isGameOver) {
             return;
         }
+        this.stats.frames++;
         if (this.character.isDead()) {
             this.endGame(false);
         } else if (this.endboss.isDead()) {
@@ -165,6 +171,7 @@ class World {
         if (enemy instanceof Chicken && this.character.isJumpingOn(enemy)) {
             enemy.die();
             this.character.bounce();
+            this.stats.chickens++;
         } else if (this.character.isColliding(enemy)) {
             this.handleEnemyContact(enemy);
         } else {
@@ -205,6 +212,7 @@ class World {
             if (this.character.isColliding(this.level.coins[i])) {
                 this.level.coins.splice(i, 1);
                 this.character.coins++;
+                this.stats.coins++;
                 SoundManager.playSound(SoundManager.sounds.coin);
                 this.updateCoinBar();
             }

@@ -116,6 +116,13 @@ canvas {
     max-height: 60%;
 }
 
+.end-stats {
+    margin: 0;
+    color: white;
+    font-size: 1.5rem;
+    text-shadow: 0 2px 6px black;
+}
+
 .intro-screen {
     justify-content: flex-end;
     padding-bottom: 24px;

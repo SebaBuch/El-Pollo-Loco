@@ -133,7 +133,7 @@ class Character extends MovableObject {
             this.lastDirection = this.otherDirection;
         }
         let lookTime = new Date().getTime() - this.directionStart;
-        if (lookTime > 500) {
+        if (lookTime > 600) {
             this.cameraOffset = this.otherDirection ? 493 : 100;
         }
     }
