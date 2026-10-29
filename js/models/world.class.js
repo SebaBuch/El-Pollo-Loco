@@ -292,7 +292,7 @@ class World {
     checkCoinCollisions() {
         for (let i = this.level.coins.length - 1; i >= 0; i--) {
             let coin = this.level.coins[i];
-            let isBait = coin instanceof BaitCoin;
+            let isBait = coin instanceof BaitCoin && coin.isFake(this.character);
             if (!isBait && this.character.isColliding(coin)) {
                 this.level.coins.splice(i, 1);
                 this.character.coins++;

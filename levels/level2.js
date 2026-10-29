@@ -11,13 +11,15 @@ function createImpossibleLevel() {
         [new Hole(2100, 250, 450)]
     );
     level.level_end_x = 4500;
-    level.goal = new GoalFlag(4300,4615);
+    level.goal = new GoalFlag(4300, 4615);
     return level;
 }
 
 function createImpossibleCoins() {
+    let firstCoin = new BaitCoin(1150, 120);
+    firstCoin.isFakeAfterFling = false;
     return [
-        new BaitCoin(1150, 120),
+        firstCoin,
         new BaitCoin(1350, 120),
         new Coin(2550, 120)
     ];
@@ -26,13 +28,21 @@ function createImpossibleCoins() {
 function createImpossibleTraps(coins, bottles) {
     return [
         new ChaserTrap(650),
-        new AirChickenTrap(coins[0]),
+        ...createFirstCoinTraps(coins[0]),
         new AirChickenTrap(coins[1]),
         new SkyChickenTrap(1650),
         new GroundChickenTrap(coins[2]),
         new BottleHoleTrap(bottles[0]),
         new DoubleTrap(3400)
     ];
+}
+
+function createFirstCoinTraps(coin) {
+    let airTrap = new AirChickenTrap(coin);
+    airTrap.phase = 'beforeFling';
+    let groundTrap = new GroundChickenTrap(coin);
+    groundTrap.phase = 'afterFling';
+    return [airTrap, groundTrap];
 }
 
 function createImpossibleEnemies() {

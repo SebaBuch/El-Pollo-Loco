@@ -13,6 +13,7 @@ class Character extends MovableObject {
     lastDirection = false;
     directionStart = 0;
     isFlung = false;
+    wasFlung = false;
     offset = {
         top: 100,
         left: 20,
@@ -132,6 +133,7 @@ class Character extends MovableObject {
 
     flingToStart() {
         this.isFlung = true;
+        this.wasFlung = true;
         this.speedY = 35;
     }
 
