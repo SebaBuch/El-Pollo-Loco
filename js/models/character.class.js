@@ -128,6 +128,10 @@ class Character extends MovableObject {
     }
 
     updateCameraOffset() {
+        if (difficulty == 'impossible') {
+            this.cameraOffset = 175;
+            return;
+        }
         if (this.otherDirection != this.lastDirection) {
             this.directionStart = new Date().getTime();
             this.lastDirection = this.otherDirection;
@@ -137,7 +141,6 @@ class Character extends MovableObject {
             this.cameraOffset = this.otherDirection ? 493 : 100;
         }
     }
-
     stopAtGround() {
         super.stopAtGround();
         if (this.isAboveGround()) {
