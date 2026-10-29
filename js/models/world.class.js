@@ -52,6 +52,18 @@ class World {
         }
     }
 
+    checkTraps() {
+        for (let i = 0; i < this.level.traps.length; i++) {
+            this.level.traps[i].check(this);
+        }
+    }
+
+    spawnSkyChicken() {
+        let x = this.character.x + 220;
+        let chicken = new TrapChicken(x, -100, 0.5, false);
+        this.level.enemies.push(chicken);
+    }
+
     run() {
         startInterval(() => {
             this.checkCollisions();
@@ -59,6 +71,7 @@ class World {
             this.checkBuyBottle();
             this.removeSplashedBottles();
             this.checkEndbossContact();
+            this.checkTraps();
             this.checkGameOver();
         }, 1000 / 60);
     }
@@ -266,6 +279,7 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.holes);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
