@@ -20,6 +20,7 @@ function enterMenu() {
 }
 
 function startGame() {
+    document.activeElement.blur();
     document.getElementById('startScreen').classList.add('d-none');
     keyboard = new Keyboard();
     initLevel();
@@ -115,6 +116,13 @@ function showEndScreen(isWon) {
 function restartGame() {
     document.getElementById('endScreen').classList.add('d-none');
     startGame();
+}
+
+function backToMenu() {
+    document.getElementById('endScreen').classList.add('d-none');
+    document.getElementById('startScreen').classList.remove('d-none');
+    SoundManager.stopAllSounds();
+    SoundManager.setMenuMusic('menu');
 }
 
 function pressKey(event, key) {
