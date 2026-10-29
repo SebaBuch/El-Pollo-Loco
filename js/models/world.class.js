@@ -266,20 +266,15 @@ class World {
 
     checkCoinCollisions() {
         for (let i = this.level.coins.length - 1; i >= 0; i--) {
-            if (this.character.isColliding(this.level.coins[i])) {
-                this.checkBaitCoin(this.level.coins[i]);
+            let coin = this.level.coins[i];
+            let isBait = coin instanceof BaitCoin;
+            if (!isBait && this.character.isColliding(coin)) {
                 this.level.coins.splice(i, 1);
                 this.character.coins++;
                 this.stats.coins++;
                 SoundManager.playSound(SoundManager.sounds.coin);
                 this.updateCoinBar();
             }
-        }
-    }
-
-    checkBaitCoin(coin) {
-        if (coin instanceof BaitCoin) {
-            this.spawnSkyChicken();
         }
     }
 
