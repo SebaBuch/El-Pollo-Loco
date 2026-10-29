@@ -60,6 +60,16 @@ class World {
             this.level.traps[i].check(this);
         }
         this.checkHoles();
+        this.checkFleeingBottles();
+    }
+
+    checkFleeingBottles() {
+        for (let i = 0; i < this.level.bottles.length; i++) {
+            let bottle = this.level.bottles[i];
+            if (bottle instanceof FleeingBottle) {
+                bottle.flee(this.character);
+            }
+        }
     }
 
     checkHoles() {
@@ -75,7 +85,7 @@ class World {
             this.damageCharacter(this.character.energy);
         }
     }
-    
+
     spawnSkyChicken() {
         let x = this.character.x + 220;
         let chicken = new TrapChicken(x, -100, 0.5, false);

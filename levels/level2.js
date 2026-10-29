@@ -4,7 +4,7 @@ function createImpossibleLevel() {
         createClouds(),
         createBackgroundObjects(),
         [],
-        [],
+        [new FleeingBottle(1800, 500)],
         createImpossibleTraps(),
         [new Hole(1500, 120, 190)]
     );
