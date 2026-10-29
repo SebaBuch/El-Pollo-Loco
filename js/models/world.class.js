@@ -220,6 +220,9 @@ class World {
     }
 
     checkCollisions() {
+        if (this.character.isFlung) {
+            return;
+        }
         this.checkEnemyCollisions();
         this.checkCoinCollisions();
         this.checkBottleCollisions();
