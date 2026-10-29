@@ -22,7 +22,7 @@ body {
     margin: 0;
     min-height: 100vh;
     background-color: #5a2a6e;
-    background-image: url('assets/img/website-background.jpg');
+    background-image: url('assets/img/background-easy.png');
     background-size: cover;
     background-position: center;
     font-family: 'Boogaloo', sans-serif;
@@ -334,6 +334,39 @@ dialog::backdrop {
 
 .d-none {
     display: none;
+}
+
+body.impossible-mode {
+    background-color: #120a14;
+    background-image: url('assets/img/background-impossible.png');
+}
+
+.impossible-mode h1 {
+    color: #ff4d4d;
+    text-shadow: 0 3px 12px black;
+}
+
+.impossible-mode .game-container {
+    border-color: #4a0d0d;
+    box-shadow: 0 0 40px rgba(180, 0, 0, 0.5);
+}
+
+.impossible-mode .start-screen {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('assets/img/9_intro_outro_screens/start/startscreen_1.png');
+}
+
+.impossible-mode .overlay .game-button {
+    background-color: #d62828;
+    box-shadow: 0 4px 0 #6a040f;
+    color: white;
+}
+
+.impossible-mode .overlay .game-button:hover {
+    background-color: #a4161a;
+}
+
+.impossible-mode .overlay .game-button:active {
+    box-shadow: 0 1px 0 #6a040f;
 }
 
 @media (max-height: 600px) {

@@ -53,7 +53,16 @@ function selectDifficulty(level) {
     document.getElementById('easyButton').classList.remove('selected-difficulty');
     document.getElementById('impossibleButton').classList.remove('selected-difficulty');
     document.getElementById(level + 'Button').classList.add('selected-difficulty');
+    updateTheme(level);
     closeDialog('difficultyDialog');
+}
+
+function updateTheme(level) {
+    if (level == 'impossible') {
+        document.body.classList.add('impossible-mode');
+    } else {
+        document.body.classList.remove('impossible-mode');
+    }
 }
 
 window.addEventListener('keydown', (e) => {
