@@ -231,6 +231,19 @@ class Character extends MovableObject {
     isInvulnerable() {
         return this.timeSinceLastHit() < 1500;
     }
+
+    draw(ctx) {
+        if (this.isBlinking()) {
+            ctx.globalAlpha = 0.3;
+        }
+        super.draw(ctx);
+        ctx.globalAlpha = 1;
+    }
+
+    isBlinking() {
+        let isBlinkFrame = Math.floor(new Date().getTime() / 100) % 2 == 0;
+        return this.isInvulnerable() && !this.isDead() && isBlinkFrame;
+    }
 }
 
 
