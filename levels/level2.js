@@ -14,7 +14,8 @@ function createImpossibleLevel() {
 function createImpossibleTraps() {
     return [
         new ChaserTrap(700),
-        new SkyChickenTrap(1050)
+        new SkyChickenTrap(1050),
+        new DoubleTrap(1850)
     ];
 }
 
@@ -37,7 +38,9 @@ function createImpossibleEnemies() {
 function createSpecialChickens() {
     let fastChicken = new Chicken(900);
     fastChicken.speed = 9;
-    return [fastChicken];
+    let guardChicken = new Chicken(2000);
+    guardChicken.speed = 0;
+    return [fastChicken, guardChicken];
 }
 
 
