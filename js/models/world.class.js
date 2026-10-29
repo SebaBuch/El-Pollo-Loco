@@ -14,6 +14,8 @@ class World {
     endbossBar = new StatusBar('endboss', 460, 0, 100);
     throwableObjects = [];
     lastThrow = 0;
+    bottlePrice = 2;
+    lastBuy = 0;
     animationFrameId;
     isGameOver = false;
 
@@ -49,6 +51,7 @@ class World {
         let runId = setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
+            this.checkBuyBottle();
             this.removeSplashedBottles();
             this.checkEndbossContact();
             this.checkGameOver();
@@ -97,6 +100,27 @@ class World {
         this.character.bottles--;
         this.updateBottleBar();
         this.lastThrow = new Date().getTime();
+    }
+
+    checkBuyBottle() {
+        if (this.keyboard.B && this.canBuyBottle()) {
+            this.buyBottle();
+        }
+    }
+
+    canBuyBottle() {
+        let timepassed = new Date().getTime() - this.lastBuy;
+        let hasSpace = this.character.bottles < this.totalBottles;
+        return this.character.coins >= this.bottlePrice && hasSpace && timepassed > 500 && !this.character.isDead();
+    }
+
+    buyBottle() {
+        this.character.coins -= this.bottlePrice;
+        this.character.bottles++;
+        this.updateCoinBar();
+        this.updateBottleBar();
+        SoundManager.playSound(SoundManager.sounds.bottleCollect);
+        this.lastBuy = new Date().getTime();
     }
 
     removeSplashedBottles() {
@@ -183,7 +207,8 @@ class World {
 
     checkBottleCollisions() {
         for (let i = this.level.bottles.length - 1; i >= 0; i--) {
-            if (this.character.isColliding(this.level.bottles[i])) {
+            let hasSpace = this.character.bottles < this.totalBottles;
+            if (hasSpace && this.character.isColliding(this.level.bottles[i])) {
                 this.level.bottles.splice(i, 1);
                 this.character.bottles++;
                 SoundManager.playSound(SoundManager.sounds.bottleCollect);

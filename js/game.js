@@ -71,6 +71,9 @@ function setActionKeys(code, isPressed) {
     if (code == 'KeyD') {
         keyboard.D = isPressed;
     }
+    if (code == 'KeyB') {
+        keyboard.B = isPressed;
+    }
 }
 
 function openDialog(id, musicName) {
