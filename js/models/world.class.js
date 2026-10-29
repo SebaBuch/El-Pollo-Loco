@@ -75,8 +75,8 @@ class World {
     checkHoles() {
         for (let i = 0; i < this.level.holes.length; i++) {
             let hole = this.level.holes[i];
-            hole.checkGrow(this.character);
-            if (hole.isUnder(this.character) && !this.character.isAboveGround()) {
+            hole.update(this.character);
+            if (hole.isUnder(this.character) && this.character.isOnGround()) {
                 this.character.fallIntoHole();
             }
         }

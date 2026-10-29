@@ -230,6 +230,10 @@ class Character extends MovableObject {
         this.speedY = 15;
     }
 
+    isOnGround() {
+        return !this.isAboveGround() && this.speedY <= 0;
+    }
+
     fallIntoHole() {
         this.groundY = 1000;
     }
