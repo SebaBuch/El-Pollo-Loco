@@ -216,7 +216,7 @@ class World {
     }
 
     checkEnemyCollision(enemy) {
-        if (enemy instanceof Chicken && this.character.isJumpingOn(enemy)) {
+        if (enemy instanceof Chicken && difficulty != 'impossible' && this.character.isJumpingOn(enemy)) {
             enemy.die();
             this.character.bounce();
             this.stats.chickens++;

@@ -83,7 +83,7 @@ class MovableObject extends DrawableObject {
     }
 
     jump() {
-        this.speedY = 25;
+        this.speedY = difficulty == 'impossible' ? 27.5 : 25;
     }
 
     moveRight() {
