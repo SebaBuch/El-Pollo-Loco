@@ -115,6 +115,9 @@ class World {
     }
 
     checkEnemyCollisions() {
+        if (this.character.isDead()) {
+            return;
+        }
         for (let i = 0; i < this.level.enemies.length; i++) {
             let enemy = this.level.enemies[i];
             if (!enemy.isDead()) {
@@ -140,9 +143,20 @@ class World {
         if (this.character.isInvulnerable()) {
             return;
         }
-        if (enemy instanceof Endboss || isNewContact) {
+        if (isNewContact || this.canEndbossHitAgain(enemy)) {
             this.damageCharacter(enemy.damage);
+            this.pauseEndboss(enemy);
         }
+    }
+
+    pauseEndboss(enemy) {
+        if (enemy instanceof Endboss) {
+            enemy.lastAttack = new Date().getTime();
+        }
+    }
+
+    canEndbossHitAgain(enemy) {
+        return enemy instanceof Endboss && this.character.timeSinceLastHit() >= 3000;
     }
 
     damageCharacter(damage) {

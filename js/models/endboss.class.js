@@ -8,6 +8,7 @@ class Endboss extends MovableObject {
     hadFirstContact = false;
     firstContactTime = 0;
     isTouchingCharacter = false;
+    lastAttack = 0;
     world;
     offset = {
         top: 70,
@@ -80,12 +81,25 @@ class Endboss extends MovableObject {
     }
 
     moveEndboss() {
-        if (this.isDead() || this.isHurt() || !this.hadFirstContact || this.isAlerting()) {
+        if (!this.canMove()) {
             SoundManager.sounds.endbossWalks.pause();
             return;
         }
         SoundManager.playLoop(SoundManager.sounds.endbossWalks);
         this.walkTowardsCharacter();
+    }
+
+    canMove() {
+        if (this.isDead() || this.isHurt() || this.isPausing()) {
+            return false;
+        }
+        let characterIsDead = this.world.character.isDead();
+        return this.hadFirstContact && !this.isAlerting() && !characterIsDead;
+    }
+
+    isPausing() {
+        let timepassed = new Date().getTime() - this.lastAttack;
+        return timepassed < 2000;
     }
 
     startAlert() {
@@ -104,10 +118,10 @@ class Endboss extends MovableObject {
         let characterCenter = this.world.character.x + this.world.character.width / 2;
         let endbossCenter = this.x + this.width / 2;
         this.speed = this.isAttacking() ? 4 : 1.5;
-        if (characterCenter < endbossCenter) {
+        if (characterCenter < endbossCenter - 10) {
             this.moveLeft();
             this.otherDirection = false;
-        } else {
+        } else if (characterCenter > endbossCenter + 10) {
             this.moveRight();
             this.otherDirection = true;
         }
@@ -136,7 +150,7 @@ class Endboss extends MovableObject {
             this.playAnimationOnce(this.IMAGES_DEAD);
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
-        } else if (!this.hadFirstContact || this.isAlerting()) {
+        } else if (!this.hadFirstContact || this.isAlerting() || this.isPausing()) {
             this.playAnimation(this.IMAGES_ALERT);
         } else if (this.isAttacking()) {
             this.playAnimation(this.IMAGES_ATTACK);
