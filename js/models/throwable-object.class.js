@@ -39,14 +39,13 @@ class ThrowableObject extends MovableObject {
     throw() {
         this.speedY = 20;
         this.applyGravity();
-        let moveId = setInterval(() => {
+        startInterval(() => {
             this.moveBottle();
         }, 25);
 
-        let animationId = setInterval(() => {
+        startInterval(() => {
             this.playBottleAnimation();
         }, 60);
-        intervalIds.push(moveId, animationId);
     }
 
     moveBottle() {

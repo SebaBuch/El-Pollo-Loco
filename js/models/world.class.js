@@ -48,7 +48,7 @@ class World {
     }
 
     run() {
-        let runId = setInterval(() => {
+        startInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkBuyBottle();
@@ -56,7 +56,6 @@ class World {
             this.checkEndbossContact();
             this.checkGameOver();
         }, 1000 / 60);
-        intervalIds.push(runId);
     }
 
     checkGameOver() {

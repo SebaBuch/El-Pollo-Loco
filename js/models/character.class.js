@@ -97,14 +97,13 @@ class Character extends MovableObject {
     }
 
     animate() {
-        let moveId = setInterval(() => {
+        startInterval(() => {
             this.moveCharacter();
         }, 1000 / 60);
 
-        let animationId = setInterval(() => {
+        startInterval(() => {
             this.playCharacterAnimations();
         }, 100);
-        intervalIds.push(moveId, animationId);
     }
 
     moveCharacter() {

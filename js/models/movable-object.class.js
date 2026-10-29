@@ -9,14 +9,13 @@ class MovableObject extends DrawableObject {
     damage = 20;
 
     applyGravity() {
-        let gravityId = setInterval(() => {
+        startInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
             this.stopAtGround();
         }, 1000 / 25);
-        intervalIds.push(gravityId);
     }
 
     stopAtGround() {

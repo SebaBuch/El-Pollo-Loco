@@ -29,6 +29,11 @@ function startGame() {
     SoundManager.playMusic(SoundManager.sounds.background);
 }
 
+function startInterval(callback, time) {
+    let id = setInterval(callback, time);
+    intervalIds.push(id);
+}
+
 function selectDifficulty(level) {
     difficulty = level;
     document.getElementById('easyButton').classList.remove('selected-difficulty');
