@@ -6,7 +6,7 @@ function createImpossibleLevel() {
         [],
         [],
         createImpossibleTraps(),
-        []
+        [new Hole(1500, 120, 190)]
     );
 }
 

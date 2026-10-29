@@ -59,8 +59,23 @@ class World {
         for (let i = 0; i < this.level.traps.length; i++) {
             this.level.traps[i].check(this);
         }
+        this.checkHoles();
     }
 
+    checkHoles() {
+        for (let i = 0; i < this.level.holes.length; i++) {
+            let hole = this.level.holes[i];
+            hole.checkGrow(this.character);
+            if (hole.isUnder(this.character) && !this.character.isAboveGround()) {
+                this.character.fallIntoHole();
+            }
+        }
+        let isBelowScreen = this.character.y > 480;
+        if (this.character.isFalling() && isBelowScreen && !this.character.isDead()) {
+            this.damageCharacter(this.character.energy);
+        }
+    }
+    
     spawnSkyChicken() {
         let x = this.character.x + 220;
         let chicken = new TrapChicken(x, -100, 0.5, false);
@@ -238,7 +253,7 @@ class World {
         let sound = isImpossible ? SoundManager.sounds.laughing : SoundManager.sounds.characterHit;
         SoundManager.playSound(sound);
     }
-    
+
     checkCoinCollisions() {
         for (let i = this.level.coins.length - 1; i >= 0; i--) {
             if (this.character.isColliding(this.level.coins[i])) {

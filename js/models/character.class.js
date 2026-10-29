@@ -227,6 +227,14 @@ class Character extends MovableObject {
         this.speedY = 15;
     }
 
+    fallIntoHole() {
+        this.groundY = 1000;
+    }
+
+    isFalling() {
+        return this.groundY == 1000;
+    }
+
     isInvulnerable() {
         return this.timeSinceLastHit() < 1500;
     }
