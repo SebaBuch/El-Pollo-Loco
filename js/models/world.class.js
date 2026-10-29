@@ -142,9 +142,11 @@ class World {
         if (this.character.isDead()) {
             return;
         }
-        for (let i = 0; i < this.level.enemies.length; i++) {
+        for (let i = this.level.enemies.length - 1; i >= 0; i--) {
             let enemy = this.level.enemies[i];
-            if (!enemy.isDead()) {
+            if (enemy instanceof Chicken && enemy.isRemovable()) {
+                this.level.enemies.splice(i, 1);
+            } else if (!enemy.isDead()) {
                 this.checkEnemyCollision(enemy);
             }
         }

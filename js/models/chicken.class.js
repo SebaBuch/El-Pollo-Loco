@@ -4,6 +4,7 @@ class Chicken extends MovableObject {
     width = 71;
     deathSound = SoundManager.sounds.bigChicken;
     isTouchingCharacter = false;
+    deathTime = 0;
     offset = {
         top: 5,
         left: 5,
@@ -53,6 +54,12 @@ class Chicken extends MovableObject {
 
     die() {
         this.energy = 0;
+        this.deathTime = new Date().getTime();
         SoundManager.playSound(this.deathSound);
+    }
+
+    isRemovable() {
+        let timepassed = new Date().getTime() - this.deathTime;
+        return this.isDead() && timepassed > 1000;
     }
 }
