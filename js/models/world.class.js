@@ -86,12 +86,6 @@ class World {
         }
     }
 
-    spawnSkyChicken() {
-        let x = this.character.x + 220;
-        let chicken = new TrapChicken(x, -100, 0.5, false);
-        this.level.enemies.push(chicken);
-    }
-
     run() {
         startInterval(() => {
             this.checkCollisions();
