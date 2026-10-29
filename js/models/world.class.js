@@ -100,7 +100,7 @@ class World {
 
     endGame(isWon) {
         this.isGameOver = true;
-        if (!isWon) {
+        if (!isWon && difficulty != 'impossible') {
             SoundManager.playSound(SoundManager.sounds.characterDies);
         }
         setTimeout(() => {
@@ -229,10 +229,16 @@ class World {
             damage = this.character.energy;
         }
         this.character.hit(damage);
-        SoundManager.playSound(SoundManager.sounds.characterHit);
+        this.playHitSound();
         this.healthBar.setPercentage(this.character.energy);
     }
 
+    playHitSound() {
+        let isImpossible = difficulty == 'impossible';
+        let sound = isImpossible ? SoundManager.sounds.laughing : SoundManager.sounds.characterHit;
+        SoundManager.playSound(sound);
+    }
+    
     checkCoinCollisions() {
         for (let i = this.level.coins.length - 1; i >= 0; i--) {
             if (this.character.isColliding(this.level.coins[i])) {

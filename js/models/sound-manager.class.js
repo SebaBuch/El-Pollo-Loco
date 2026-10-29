@@ -18,6 +18,7 @@ class SoundManager {
         bottleCollect: SoundManager.createSound('assets/audio/bottle-open.mp3', 0.4),
         buyError: SoundManager.createSound('assets/audio/buy-error.mp3', 0.3),
         characterHit: SoundManager.createSound('assets/audio/character-hit.mp3', 0.4),
+        laughing: SoundManager.createSound('assets/audio/laughing.mp3', 0.5),
         bigChicken: SoundManager.createSound('assets/audio/big-chicken.mp3', 0.4),
         smallChicken: SoundManager.createSound('assets/audio/small-chicken.mp3', 0.3),
         endbossFirstContact: SoundManager.createSound('assets/audio/endboss-hadfirstcontact.mp3', 0.3),

@@ -26,6 +26,7 @@ function startGame() {
     document.activeElement.blur();
     document.getElementById('startScreen').classList.add('d-none');
     lives = difficulty == 'impossible' ? 3 : 1;
+    SoundManager.stopAllSounds();
     startLevel();
 }
 
@@ -33,7 +34,6 @@ function startLevel() {
     keyboard = new Keyboard();
     initLevel();
     world = new World(canvas, keyboard);
-    SoundManager.stopAllSounds();
     SoundManager.playMusic(SoundManager.sounds.background);
     isGameRunning = true;
     document.getElementById('pauseButton').classList.remove('d-none');
