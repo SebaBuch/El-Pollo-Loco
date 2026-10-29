@@ -9,6 +9,9 @@ class Character extends MovableObject {
     bottles = 0;
     lastMove = new Date().getTime();
     isInAir = false;
+    cameraOffset = 100;
+    lastDirection = false;
+    directionStart = 0;
     offset = {
         top: 100,
         left: 20,
@@ -116,7 +119,24 @@ class Character extends MovableObject {
             SoundManager.playSound(SoundManager.sounds.jumping);
         }
         this.checkIfActive();
-        this.world.camera_x = -this.x + 100;
+        this.updateCamera();
+    }
+
+    updateCamera() {
+        this.updateCameraOffset();
+        let targetX = -this.x + this.cameraOffset;
+        this.world.camera_x += (targetX - this.world.camera_x) * 0.08;
+    }
+
+    updateCameraOffset() {
+        if (this.otherDirection != this.lastDirection) {
+            this.directionStart = new Date().getTime();
+            this.lastDirection = this.otherDirection;
+        }
+        let lookTime = new Date().getTime() - this.directionStart;
+        if (lookTime > 400) {
+            this.cameraOffset = this.otherDirection ? 493 : 100;
+        }
     }
 
     stopAtGround() {
