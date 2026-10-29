@@ -7,7 +7,7 @@ function createImpossibleLevel() {
         coins,
         [],
         createImpossibleTraps(coins),
-        [new Hole(2100, 120, 450)]
+        [new Hole(2100, 250, 450)]
     );
 }
 

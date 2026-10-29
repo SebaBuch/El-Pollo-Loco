@@ -34,7 +34,7 @@ class Hole extends DrawableObject {
     shouldGrow(character) {
         let center = character.x + character.width / 2;
         let isJumping = character.isAboveGround() && !character.isFalling();
-        return !this.isTriggered && isJumping && center > this.x + 5;
+        return !this.isTriggered && isJumping && center > this.x + 100;
     }
 
     isUnder(character) {
