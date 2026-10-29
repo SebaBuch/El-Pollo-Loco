@@ -32,14 +32,15 @@ function createClouds() {
         new Cloud('assets/img/5_background/layers/4_clouds/1.png', 0),
         new Cloud('assets/img/5_background/layers/4_clouds/2.png', 853),
         new Cloud('assets/img/5_background/layers/4_clouds/1.png', 853 * 2),
-        new Cloud('assets/img/5_background/layers/4_clouds/2.png', 853 * 3)
+        new Cloud('assets/img/5_background/layers/4_clouds/2.png', 853 * 3),
+        new Cloud('assets/img/5_background/layers/4_clouds/1.png', 853 * 4)
     ];
 }
 
 
 function createBackgroundObjects() {
     let backgroundObjects = [];
-    for (let i = -1; i < 4; i++) {
+    for (let i = -1; i < 5; i++) {
         let imageNumber = i % 2 == 0 ? 1 : 2;
         backgroundObjects.push(new BackgroundObject('assets/img/5_background/layers/air.png', 853 * i));
         backgroundObjects.push(new BackgroundObject('assets/img/5_background/layers/3_third_layer/' + imageNumber + '.png', 853 * i));
