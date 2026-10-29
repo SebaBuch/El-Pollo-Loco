@@ -1,31 +1,35 @@
 function createImpossibleLevel() {
-    let coins = createBaitCoins();
+    let coins = createImpossibleCoins();
+    let bottles = [new FleeingBottle(2800, 300)];
     return new Level(
         createImpossibleEnemies(),
         createClouds(),
         createBackgroundObjects(),
         coins,
-        [],
-        createImpossibleTraps(coins),
+        bottles,
+        createImpossibleTraps(coins, bottles),
         [new Hole(2100, 250, 450)]
     );
 }
 
 
-function createBaitCoins() {
+function createImpossibleCoins() {
     return [
         new BaitCoin(1150, 120),
-        new BaitCoin(1350, 120)
+        new BaitCoin(1350, 120),
+        new Coin(2550, 120)
     ];
 }
 
 
-function createImpossibleTraps(coins) {
+function createImpossibleTraps(coins, bottles) {
     return [
         new ChaserTrap(650),
         new AirChickenTrap(coins[0]),
         new AirChickenTrap(coins[1]),
-        new SkyChickenTrap(1650)
+        new SkyChickenTrap(1650),
+        new GroundChickenTrap(coins[2]),
+        new BottleHoleTrap(bottles[0])
     ];
 }
 

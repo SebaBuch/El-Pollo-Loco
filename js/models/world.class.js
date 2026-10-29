@@ -279,9 +279,10 @@ class World {
 
     checkBottleCollisions() {
         for (let i = this.level.bottles.length - 1; i >= 0; i--) {
+            let bottle = this.level.bottles[i];
             let hasSpace = this.character.bottles < this.maxBottles;
-            if (hasSpace && this.character.isColliding(this.level.bottles[i])) {
-                this.level.bottles.splice(i, 1);
+            let isTrap = bottle instanceof FleeingBottle;
+            if (hasSpace && !isTrap && this.character.isColliding(bottle)) {
                 this.character.bottles++;
                 SoundManager.playSound(SoundManager.sounds.bottleCollect);
                 this.updateBottleBar();
