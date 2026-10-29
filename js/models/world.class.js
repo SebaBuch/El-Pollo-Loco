@@ -1,6 +1,6 @@
 class World {
     character = new Character();
-    level = level1;
+    level = currentLevel;
     endboss = this.findEndboss();
     canvas;
     ctx;

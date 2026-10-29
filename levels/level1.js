@@ -1,16 +1,24 @@
-let level1;
-
+let currentLevel;
 
 function initLevel() {
-    level1 = new Level(
+    if (difficulty == 'impossible') {
+        currentLevel = createImpossibleLevel();
+    } else {
+        currentLevel = createEasyLevel();
+    }
+}
+
+function createEasyLevel() {
+    return new Level(
         createEnemies(),
         createClouds(),
         createBackgroundObjects(),
         createCoins(),
-        createBottles()
+        createBottles(),
+        [],
+        []
     );
 }
-
 
 function createEnemies() {
     let enemies = [];
@@ -26,7 +34,6 @@ function createEnemies() {
     return enemies;
 }
 
-
 function createClouds() {
     return [
         new Cloud('assets/img/5_background/layers/4_clouds/1.png', 0),
@@ -36,7 +43,6 @@ function createClouds() {
         new Cloud('assets/img/5_background/layers/4_clouds/1.png', 853 * 4)
     ];
 }
-
 
 function createBackgroundObjects() {
     let backgroundObjects = [];
@@ -49,7 +55,6 @@ function createBackgroundObjects() {
     }
     return backgroundObjects;
 }
-
 
 function createCoins() {
     return [
@@ -65,7 +70,6 @@ function createCoins() {
         new Coin(2650, 280)
     ];
 }
-
 
 function createBottles() {
     return [
