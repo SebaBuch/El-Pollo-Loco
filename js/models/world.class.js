@@ -102,15 +102,25 @@ class World {
     }
 
     checkBuyBottle() {
-        if (this.keyboard.B && this.canBuyBottle()) {
+        if (!this.keyboard.B || !this.isBuyReady()) {
+            return;
+        }
+        if (this.canBuyBottle()) {
             this.buyBottle();
+        } else {
+            SoundManager.playSound(SoundManager.sounds.buyError);
+            this.lastBuy = new Date().getTime();
         }
     }
 
-    canBuyBottle() {
+    isBuyReady() {
         let timepassed = new Date().getTime() - this.lastBuy;
+        return timepassed > 500 && !this.character.isDead();
+    }
+
+    canBuyBottle() {
         let hasSpace = this.character.bottles < this.totalBottles;
-        return this.character.coins >= this.bottlePrice && hasSpace && timepassed > 500 && !this.character.isDead();
+        return this.character.coins >= this.bottlePrice && hasSpace;
     }
 
     buyBottle() {
