@@ -127,11 +127,28 @@ class World {
         if (enemy instanceof Chicken && this.character.isJumpingOn(enemy)) {
             enemy.die();
             this.character.bounce();
-        } else if (this.character.isColliding(enemy) && !this.character.isInvulnerable()) {
-            this.character.hit(enemy.damage);
-            SoundManager.playSound(SoundManager.sounds.characterHit);
-            this.healthBar.setPercentage(this.character.energy);
+        } else if (this.character.isColliding(enemy)) {
+            this.handleEnemyContact(enemy);
+        } else {
+            enemy.isTouchingCharacter = false;
         }
+    }
+
+    handleEnemyContact(enemy) {
+        let isNewContact = !enemy.isTouchingCharacter;
+        enemy.isTouchingCharacter = true;
+        if (this.character.isInvulnerable()) {
+            return;
+        }
+        if (enemy instanceof Endboss || isNewContact) {
+            this.damageCharacter(enemy.damage);
+        }
+    }
+
+    damageCharacter(damage) {
+        this.character.hit(damage);
+        SoundManager.playSound(SoundManager.sounds.characterHit);
+        this.healthBar.setPercentage(this.character.energy);
     }
 
     checkCoinCollisions() {

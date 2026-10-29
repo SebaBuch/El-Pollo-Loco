@@ -3,6 +3,7 @@ class Chicken extends MovableObject {
     height = 70;
     width = 71;
     deathSound = SoundManager.sounds.bigChicken;
+    isTouchingCharacter = false;
     offset = {
         top: 5,
         left: 5,

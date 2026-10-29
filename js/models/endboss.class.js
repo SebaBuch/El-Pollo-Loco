@@ -7,6 +7,7 @@ class Endboss extends MovableObject {
     damage = 40;
     hadFirstContact = false;
     firstContactTime = 0;
+    isTouchingCharacter = false;
     world;
     offset = {
         top: 70,
