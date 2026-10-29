@@ -271,7 +271,7 @@ dialog::backdrop {
 .pause-button {
     position: absolute;
     top: 8px;
-    right: 56px;
+    right: calc(50% + 24px);
     padding: 4px;
     border: none;
     background: none;
