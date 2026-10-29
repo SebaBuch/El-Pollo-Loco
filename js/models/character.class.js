@@ -190,7 +190,7 @@ class Character extends MovableObject {
 
     checkIfActive() {
         let keyboard = this.world.keyboard;
-        if (keyboard.RIGHT || keyboard.LEFT || keyboard.SPACE || keyboard.D) {
+        if (keyboard.RIGHT || keyboard.LEFT || keyboard.SPACE || keyboard.D || keyboard.B) {
             this.lastMove = new Date().getTime();
         }
     }
