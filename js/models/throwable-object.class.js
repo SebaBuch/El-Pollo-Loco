@@ -1,3 +1,6 @@
+/**
+ * A salsa bottle that Pepe throws.
+ */
 class ThrowableObject extends MovableObject {
     width = 60;
     height = 60;
@@ -26,6 +29,12 @@ class ThrowableObject extends MovableObject {
         'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
     ];
 
+    /**
+     * Creates the bottle and throws it.
+     * @param {number} x - Start position on the x axis
+     * @param {number} y - Start position on the y axis
+     * @param {boolean} otherDirection - True if the bottle is thrown to the left
+     */
     constructor(x, y, otherDirection) {
         super().loadImage(this.IMAGES_ROTATION[0]);
         this.loadImages(this.IMAGES_ROTATION);
@@ -36,6 +45,9 @@ class ThrowableObject extends MovableObject {
         this.throw();
     }
 
+    /**
+     * Starts the flight and the animation of the bottle.
+     */
     throw() {
         this.speedY = 20;
         this.applyGravity();
@@ -48,6 +60,9 @@ class ThrowableObject extends MovableObject {
         }, 60);
     }
 
+    /**
+     * Moves the bottle and lets it splash when it hits the ground.
+     */
     moveBottle() {
         if (this.isSplashed) {
             return;
@@ -58,6 +73,9 @@ class ThrowableObject extends MovableObject {
         }
     }
 
+    /**
+     * Stops the bottle and starts the splash animation and sound.
+     */
     splash() {
         this.isSplashed = true;
         this.speedY = 0;
@@ -65,6 +83,9 @@ class ThrowableObject extends MovableObject {
         SoundManager.playSound(SoundManager.sounds.bottleSmash);
     }
 
+    /**
+     * Plays the rotation or the splash animation.
+     */
     playBottleAnimation() {
         if (this.isSplashed) {
             this.playAnimationOnce(this.IMAGES_SPLASH);
@@ -73,10 +94,17 @@ class ThrowableObject extends MovableObject {
         }
     }
 
+    /**
+     * Checks if the splash animation is finished.
+     * @returns {boolean} True if the bottle can be removed
+     */
     isSplashFinished() {
         return this.isSplashed && this.currentImage >= this.IMAGES_SPLASH.length;
     }
 
+    /**
+     * Moves the bottle in the direction it was thrown.
+     */
     moveInDirection() {
         if (this.otherDirection) {
             this.moveLeft();
