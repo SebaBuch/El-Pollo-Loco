@@ -20,6 +20,7 @@ class World {
     animationFrameId;
     isGameOver = false;
     wallTime = 0;
+    collisions = new CollisionManager(this);
     stats = {
         coins: 0,
         chickens: 0,
@@ -33,6 +34,12 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.preloadBottleImages();
+    }
+
+    preloadBottleImages() {
+        let bottle = new ThrowableObject(-1000, -1000, false);
+        bottle.isSplashed = true;
     }
 
     setWorld() {
@@ -92,7 +99,7 @@ class World {
 
     run() {
         startInterval(() => {
-            this.checkCollisions();
+            this.collisions.checkCollisions();
             this.checkThrowObjects();
             this.checkBuyBottle();
             this.removeSplashedBottles();
@@ -219,64 +226,6 @@ class World {
         }
     }
 
-    checkCollisions() {
-        if (this.character.isFlung) {
-            return;
-        }
-        this.checkEnemyCollisions();
-        this.checkCoinCollisions();
-        this.checkBottleCollisions();
-        this.checkBottleHits();
-    }
-
-    checkEnemyCollisions() {
-        if (this.character.isDead() || this.character.isFlung) {
-            return;
-        }
-        for (let i = this.level.enemies.length - 1; i >= 0; i--) {
-            let enemy = this.level.enemies[i];
-            if (enemy instanceof Chicken && enemy.isRemovable()) {
-                this.level.enemies.splice(i, 1);
-            } else if (!enemy.isDead()) {
-                this.checkEnemyCollision(enemy);
-            }
-        }
-    }
-
-    checkEnemyCollision(enemy) {
-        if (enemy instanceof Chicken && difficulty != 'impossible' && this.character.isJumpingOn(enemy)) {
-            enemy.die();
-            this.character.bounce();
-            this.stats.chickens++;
-        } else if (this.character.isColliding(enemy)) {
-            this.handleEnemyContact(enemy);
-        } else {
-            enemy.isTouchingCharacter = false;
-        }
-    }
-
-    handleEnemyContact(enemy) {
-        let isNewContact = !enemy.isTouchingCharacter;
-        enemy.isTouchingCharacter = true;
-        if (this.character.isInvulnerable()) {
-            return;
-        }
-        if (isNewContact || this.canEndbossHitAgain(enemy)) {
-            this.damageCharacter(enemy.damage);
-            this.pauseEndboss(enemy);
-        }
-    }
-
-    pauseEndboss(enemy) {
-        if (enemy instanceof Endboss) {
-            enemy.lastAttack = new Date().getTime();
-        }
-    }
-
-    canEndbossHitAgain(enemy) {
-        return enemy instanceof Endboss && this.character.timeSinceLastHit() >= 3000;
-    }
-
     damageCharacter(damage) {
         if (difficulty == 'impossible') {
             damage = this.character.energy;
@@ -292,66 +241,14 @@ class World {
         SoundManager.playSound(sound);
     }
 
-    checkCoinCollisions() {
-        for (let i = this.level.coins.length - 1; i >= 0; i--) {
-            let coin = this.level.coins[i];
-            let isBait = coin instanceof BaitCoin && coin.isFake(this.character);
-            if (!isBait && this.character.isColliding(coin)) {
-                this.level.coins.splice(i, 1);
-                this.character.coins++;
-                this.stats.coins++;
-                SoundManager.playSound(SoundManager.sounds.coin);
-                this.updateCoinBar();
-            }
-        }
-    }
-
     updateCoinBar() {
         let percentage = this.character.coins / this.maxCoins * 100;
         this.coinBar.setPercentage(percentage);
     }
 
-    checkBottleCollisions() {
-        for (let i = this.level.bottles.length - 1; i >= 0; i--) {
-            let bottle = this.level.bottles[i];
-            let hasSpace = this.character.bottles < this.maxBottles;
-            let isTrap = bottle instanceof FleeingBottle;
-            if (hasSpace && !isTrap && this.character.isColliding(bottle)) {
-                this.level.bottles.splice(i, 1);
-                this.character.bottles++;
-                SoundManager.playSound(SoundManager.sounds.bottleCollect);
-                this.updateBottleBar();
-            }
-        }
-    }
-
     updateBottleBar() {
         let percentage = this.character.bottles / this.maxBottles * 100;
         this.bottleBar.setPercentage(percentage);
-    }
-
-    checkBottleHits() {
-        if (!this.endboss) {
-            return;
-        }
-        for (let i = 0; i < this.throwableObjects.length; i++) {
-            let bottle = this.throwableObjects[i];
-            if (!bottle.isSplashed && !this.endboss.isDead() && bottle.isColliding(this.endboss)) {
-                this.hitEndbossWithBottle(bottle);
-            }
-        }
-    }
-
-    hitEndbossWithBottle(bottle) {
-        bottle.splash();
-        if (this.endboss.isInvulnerable()) {
-            return;
-        }
-        this.endboss.hit(bottle.damage);
-        this.endbossBar.setPercentage(this.endboss.energy);
-        if (!this.endboss.isDead()) {
-            SoundManager.playSound(SoundManager.sounds.endbossHurt);
-        }
     }
 
     draw() {
