@@ -1,4 +1,5 @@
 class DrawableObject {
+    static loadedImages = {};
     img;
     imageCache = {};
     currentImage = 0;
@@ -13,16 +14,22 @@ class DrawableObject {
         bottom: 0
     };
 
+    static getImage(path) {
+        if (!DrawableObject.loadedImages[path]) {
+            let img = new Image();
+            img.src = path;
+            DrawableObject.loadedImages[path] = img;
+        }
+        return DrawableObject.loadedImages[path];
+    }
+
     loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
+        this.img = DrawableObject.getImage(path);
     }
 
     loadImages(arr) {
         for (let i = 0; i < arr.length; i++) {
-            let img = new Image();
-            img.src = arr[i];
-            this.imageCache[arr[i]] = img;
+            this.imageCache[arr[i]] = DrawableObject.getImage(arr[i]);
         }
     }
 
