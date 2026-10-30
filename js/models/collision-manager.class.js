@@ -1,10 +1,20 @@
+/**
+ * Checks all collisions between Pepe, enemies, coins and bottles.
+ */
 class CollisionManager {
     world;
 
+    /**
+     * Creates the collision manager.
+     * @param {World} world - The game world
+     */
     constructor(world) {
         this.world = world;
     }
 
+    /**
+     * Runs all collision checks while Pepe is not flung.
+     */
     checkCollisions() {
         if (this.world.character.isFlung) {
             return;
@@ -15,7 +25,13 @@ class CollisionManager {
         this.checkBottleHits();
     }
 
+    /**
+     * Removes dead chickens and checks the contact with every living enemy.
+     */
     checkEnemyCollisions() {
+        if (this.world.character.isDead()) {
+            return;
+        }
         for (let i = this.world.level.enemies.length - 1; i >= 0; i--) {
             let enemy = this.world.level.enemies[i];
             if (enemy instanceof Chicken && enemy.isRemovable()) {
@@ -26,6 +42,10 @@ class CollisionManager {
         }
     }
 
+    /**
+     * Checks if Pepe jumps on an enemy or touches it.
+     * @param {MovableObject} enemy - The enemy to check
+     */
     checkEnemyCollision(enemy) {
         if (enemy instanceof Chicken && difficulty != 'impossible' && this.world.character.isJumpingOn(enemy)) {
             enemy.die();
@@ -38,6 +58,10 @@ class CollisionManager {
         }
     }
 
+    /**
+     * Damages Pepe once per contact. The endboss can hit again every 3 seconds.
+     * @param {MovableObject} enemy - The enemy that touches Pepe
+     */
     handleEnemyContact(enemy) {
         let isNewContact = !enemy.isTouchingCharacter;
         enemy.isTouchingCharacter = true;
@@ -50,16 +74,28 @@ class CollisionManager {
         }
     }
 
+    /**
+     * Lets the endboss pause after he hits Pepe.
+     * @param {MovableObject} enemy - The enemy that hit Pepe
+     */
     pauseEndboss(enemy) {
         if (enemy instanceof Endboss) {
             enemy.lastAttack = new Date().getTime();
         }
     }
 
+    /**
+     * Checks if the endboss may hit Pepe again during a long contact.
+     * @param {MovableObject} enemy - The enemy that touches Pepe
+     * @returns {boolean} True if the endboss can hit again
+     */
     canEndbossHitAgain(enemy) {
         return enemy instanceof Endboss && this.world.character.timeSinceLastHit() >= 3000;
     }
 
+    /**
+     * Collects every coin Pepe touches, except bait coins.
+     */
     checkCoinCollisions() {
         for (let i = this.world.level.coins.length - 1; i >= 0; i--) {
             let coin = this.world.level.coins[i];
@@ -74,6 +110,9 @@ class CollisionManager {
         }
     }
 
+    /**
+     * Collects every bottle Pepe touches while he has space for it.
+     */
     checkBottleCollisions() {
         for (let i = this.world.level.bottles.length - 1; i >= 0; i--) {
             let bottle = this.world.level.bottles[i];
@@ -88,6 +127,9 @@ class CollisionManager {
         }
     }
 
+    /**
+     * Checks if a thrown bottle hits the endboss.
+     */
     checkBottleHits() {
         if (!this.world.endboss) {
             return;
@@ -100,6 +142,10 @@ class CollisionManager {
         }
     }
 
+    /**
+     * Splashes the bottle and damages the endboss.
+     * @param {ThrowableObject} bottle - The bottle that hit the endboss
+     */
     hitEndbossWithBottle(bottle) {
         bottle.splash();
         if (this.world.endboss.isInvulnerable()) {
