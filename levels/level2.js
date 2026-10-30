@@ -1,3 +1,7 @@
+/**
+ * Creates the impossible level with traps, a hole and the goal flag.
+ * @returns {Level} The impossible level
+ */
 function createImpossibleLevel() {
     let coins = createImpossibleCoins();
     let bottles = [new FleeingBottle(2800, 300)];
@@ -15,12 +19,20 @@ function createImpossibleLevel() {
     return level;
 }
 
+/**
+ * Creates the hole that grows to both sides.
+ * @returns {Hole[]} All holes
+ */
 function createImpossibleHoles() {
     let hole = new Hole(2100, 250, 450);
     hole.growsLeftAfterFling = true;
     return [hole];
 }
 
+/**
+ * Creates the coins of the impossible level.
+ * @returns {Coin[]} All coins
+ */
 function createImpossibleCoins() {
     let firstCoin = new BaitCoin(1150, 120);
     firstCoin.isFakeAfterFling = false;
@@ -31,6 +43,12 @@ function createImpossibleCoins() {
     ];
 }
 
+/**
+ * Creates all traps of the impossible level.
+ * @param {Coin[]} coins - The coins of the level
+ * @param {Bottle[]} bottles - The bottles of the level
+ * @returns {Trap[]} All traps
+ */
 function createImpossibleTraps(coins, bottles) {
     return [
         new ChaserTrap(650),
@@ -43,6 +61,11 @@ function createImpossibleTraps(coins, bottles) {
     ];
 }
 
+/**
+ * Creates the air trap before and the ground trap after the fling for the first coin.
+ * @param {Coin} coin - The first coin
+ * @returns {Trap[]} Both traps
+ */
 function createFirstCoinTraps(coin) {
     let airTrap = new AirChickenTrap(coin);
     airTrap.phase = 'beforeFling';
@@ -51,6 +74,10 @@ function createFirstCoinTraps(coin) {
     return [airTrap, groundTrap];
 }
 
+/**
+ * Creates the fast chicken and the guard chicken.
+ * @returns {Chicken[]} All enemies
+ */
 function createImpossibleEnemies() {
     let fastChicken = new Chicken(900);
     fastChicken.speed = 9;
