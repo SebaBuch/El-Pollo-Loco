@@ -1,3 +1,6 @@
+/**
+ * Loads, plays and mutes all sounds of the game.
+ */
 class SoundManager {
     static isMuted = false;
     static currentMusic = null;
@@ -32,6 +35,9 @@ class SoundManager {
         intro4: SoundManager.createLoopSound('assets/audio/intro4.mp3', 0.15)
     };
 
+    /**
+     * Prepares the menu music, the lost outro and the saved mute state.
+     */
     static init() {
         this.sounds.lost.onended = () => this.playLoop(this.sounds.lostOutro);
         this.menuMusic = this.sounds.menu;
@@ -39,12 +45,24 @@ class SoundManager {
         this.loadMuteState();
     }
 
+    /**
+     * Creates a sound.
+     * @param {string} path - Path of the audio file
+     * @param {number} volume - Volume between 0 and 1
+     * @returns {HTMLAudioElement} The sound
+     */
     static createSound(path, volume) {
         let sound = new Audio(path);
         sound.volume = volume;
         return sound;
     }
 
+    /**
+     * Creates a looping sound that starts as soon as it is loaded, if it is the current music.
+     * @param {string} path - Path of the audio file
+     * @param {number} volume - Volume between 0 and 1
+     * @returns {HTMLAudioElement} The sound
+     */
     static createLoopSound(path, volume) {
         let sound = this.createSound(path, volume);
         sound.loop = true;
@@ -56,10 +74,19 @@ class SoundManager {
         return sound;
     }
 
+    /**
+     * Checks if a sound is fully loaded.
+     * @param {HTMLAudioElement} sound - The sound
+     * @returns {boolean} True if the sound can be played
+     */
     static isReady(sound) {
         return sound.readyState == 4;
     }
 
+    /**
+     * Plays a sound from the beginning.
+     * @param {HTMLAudioElement} sound - The sound
+     */
     static playSound(sound) {
         if (!this.isReady(sound)) {
             return;
@@ -68,17 +95,29 @@ class SoundManager {
         sound.play();
     }
 
+    /**
+     * Plays a looping sound if it is not already playing.
+     * @param {HTMLAudioElement} sound - The sound
+     */
     static playLoop(sound) {
         if (sound.paused && this.isReady(sound)) {
             sound.play();
         }
     }
 
+    /**
+     * Sets and plays the current music.
+     * @param {HTMLAudioElement} music - The music
+     */
     static playMusic(music) {
         this.currentMusic = music;
         this.playLoop(music);
     }
 
+    /**
+     * Plays the win sound or the lost sound.
+     * @param {boolean} isWon - True if the game was won
+     */
     static playEndSound(isWon) {
         if (isWon) {
             this.playSound(this.sounds.winScreen);
@@ -88,11 +127,18 @@ class SoundManager {
         }
     }
 
+    /**
+     * Stops a sound and rewinds it.
+     * @param {HTMLAudioElement} sound - The sound
+     */
     static stopSound(sound) {
         sound.pause();
         sound.currentTime = 0;
     }
 
+    /**
+     * Stops all looping game sounds.
+     */
     static stopLoopSounds() {
         this.stopSound(this.sounds.background);
         this.stopSound(this.sounds.characterWalking);
@@ -101,12 +147,18 @@ class SoundManager {
         this.currentMusic = null;
     }
 
+    /**
+     * Stops every sound.
+     */
     static stopAllSounds() {
         for (let key in this.sounds) {
             this.stopSound(this.sounds[key]);
         }
     }
 
+    /**
+     * Pauses the game sounds without rewinding them.
+     */
     static pauseGameSounds() {
         this.sounds.background.pause();
         this.sounds.characterWalking.pause();
@@ -114,12 +166,19 @@ class SoundManager {
         this.sounds.endbossWalks.pause();
     }
 
+    /**
+     * Plays the menu music if it is the current music.
+     */
     static playMenuMusic() {
         if (this.currentMusic == this.menuMusic) {
             this.playLoop(this.menuMusic);
         }
     }
 
+    /**
+     * Switches to another menu music.
+     * @param {string} name - Key of the music in the sounds object
+     */
     static setMenuMusic(name) {
         this.stopSound(this.menuMusic);
         this.menuMusic = this.sounds[name];
@@ -127,6 +186,9 @@ class SoundManager {
         this.playLoop(this.menuMusic);
     }
 
+    /**
+     * Mutes or unmutes all sounds and saves the choice.
+     */
     static toggleMute() {
         this.isMuted = !this.isMuted;
         localStorage.setItem('isMuted', this.isMuted);
@@ -134,18 +196,27 @@ class SoundManager {
         this.updateMuteButton();
     }
 
+    /**
+     * Applies the mute state to every sound.
+     */
     static applyMute() {
         for (let key in this.sounds) {
             this.sounds[key].muted = this.isMuted;
         }
     }
 
+    /**
+     * Shows the matching icon on the mute button.
+     */
     static updateMuteButton() {
         let icon = document.getElementById('muteIcon');
         icon.src = this.isMuted ? 'assets/icons/sound-off.svg' : 'assets/icons/sound-on.svg';
         document.getElementById('muteButton').blur();
     }
 
+    /**
+     * Loads the saved mute state from the local storage.
+     */
     static loadMuteState() {
         this.isMuted = localStorage.getItem('isMuted') == 'true';
         this.applyMute();
