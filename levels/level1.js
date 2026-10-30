@@ -1,5 +1,8 @@
 let currentLevel;
 
+/**
+ * Creates the level of the chosen difficulty.
+ */
 function initLevel() {
     if (difficulty == 'impossible') {
         currentLevel = createImpossibleLevel();
@@ -8,6 +11,10 @@ function initLevel() {
     }
 }
 
+/**
+ * Creates the easy level.
+ * @returns {Level} The easy level
+ */
 function createEasyLevel() {
     return new Level(
         createEnemies(),
@@ -20,6 +27,10 @@ function createEasyLevel() {
     );
 }
 
+/**
+ * Creates the chickens and the endboss of the easy level.
+ * @returns {MovableObject[]} All enemies
+ */
 function createEnemies() {
     let enemies = [];
     for (let i = 0; i < 12; i++) {
@@ -34,6 +45,11 @@ function createEnemies() {
     return enemies;
 }
 
+/**
+ * Creates the clouds.
+ * @param {number} count - Number of clouds
+ * @returns {Cloud[]} All clouds
+ */
 function createClouds(count) {
     let clouds = [];
     for (let i = 0; i < count; i++) {
@@ -43,6 +59,11 @@ function createClouds(count) {
     return clouds;
 }
 
+/**
+ * Creates all background layers.
+ * @param {number} count - Number of background parts
+ * @returns {BackgroundObject[]} All background layers
+ */
 function createBackgroundObjects(count) {
     let backgroundObjects = [];
     for (let i = -1; i < count; i++) {
@@ -55,6 +76,10 @@ function createBackgroundObjects(count) {
     return backgroundObjects;
 }
 
+/**
+ * Creates the coins of the easy level.
+ * @returns {Coin[]} All coins
+ */
 function createCoins() {
     return [
         new Coin(450, 280),
@@ -70,6 +95,10 @@ function createCoins() {
     ];
 }
 
+/**
+ * Creates the bottles of the easy level.
+ * @returns {Bottle[]} All bottles
+ */
 function createBottles() {
     return [
         new Bottle(400),
