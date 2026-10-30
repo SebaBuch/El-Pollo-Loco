@@ -3,7 +3,7 @@ function createImpossibleLevel() {
     let bottles = [new FleeingBottle(2800, 300)];
     let level = new Level(
         createImpossibleEnemies(),
-        createClouds(),
+        createClouds(8),
         createBackgroundObjects(7),
         coins,
         bottles,

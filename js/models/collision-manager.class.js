@@ -16,9 +16,6 @@ class CollisionManager {
     }
 
     checkEnemyCollisions() {
-        if (this.world.character.isDead() || this.world.character.isFlung) {
-            return;
-        }
         for (let i = this.world.level.enemies.length - 1; i >= 0; i--) {
             let enemy = this.world.level.enemies[i];
             if (enemy instanceof Chicken && enemy.isRemovable()) {
