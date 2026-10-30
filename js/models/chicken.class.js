@@ -1,3 +1,6 @@
+/**
+ * A normal chicken that walks to the left.
+ */
 class Chicken extends MovableObject {
     y = 360;
     height = 70;
@@ -22,6 +25,10 @@ class Chicken extends MovableObject {
         'assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
     ];
 
+    /**
+     * Loads the images, sets a random speed and starts the animations.
+     * @param {number} x - Start position on the x axis
+     */
     constructor(x) {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
@@ -31,6 +38,9 @@ class Chicken extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Starts the intervals for movement and animations.
+     */
     animate() {
         startInterval(() => {
             this.moveChicken();
@@ -41,12 +51,18 @@ class Chicken extends MovableObject {
         }, 100);
     }
 
+    /**
+     * Moves the chicken to the left while it is alive.
+     */
     moveChicken() {
         if (!this.isDead()) {
             this.moveLeft();
         }
     }
 
+    /**
+     * Plays the walking or the dead animation.
+     */
     playChickenAnimation() {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
@@ -55,12 +71,19 @@ class Chicken extends MovableObject {
         }
     }
 
+    /**
+     * Kills the chicken and plays its death sound.
+     */
     die() {
         this.energy = 0;
         this.deathTime = new Date().getTime();
         SoundManager.playSound(this.deathSound);
     }
 
+    /**
+     * Checks if the chicken has been dead for more than one second.
+     * @returns {boolean} True if the chicken can be removed
+     */
     isRemovable() {
         let timepassed = new Date().getTime() - this.deathTime;
         return this.isDead() && timepassed > 1000;
