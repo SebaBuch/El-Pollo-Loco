@@ -1,3 +1,6 @@
+/**
+ * A salsa bottle on the ground that Pepe can collect.
+ */
 class Bottle extends DrawableObject {
     y = 350;
     width = 80;
@@ -14,6 +17,10 @@ class Bottle extends DrawableObject {
         'assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png'
     ];
 
+    /**
+     * Creates the bottle with one of two random images.
+     * @param {number} x - Position on the x axis
+     */
     constructor(x) {
         super();
         let imageIndex = Math.random() < 0.5 ? 0 : 1;
