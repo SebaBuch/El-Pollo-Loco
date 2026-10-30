@@ -1,3 +1,6 @@
+/**
+ * The giant chicken at the end of the easy level.
+ */
 class Endboss extends MovableObject {
 
     height = 400;
@@ -58,6 +61,9 @@ class Endboss extends MovableObject {
         'assets/img/4_enemie_boss_chicken/5_dead/G26.png'
     ];
 
+    /**
+     * Loads all images and starts the animations.
+     */
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_WALKING);
@@ -69,6 +75,9 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Starts the intervals for movement and animations.
+     */
     animate() {
         startInterval(() => {
             this.moveEndboss();
@@ -79,6 +88,9 @@ class Endboss extends MovableObject {
         }, 150);
     }
 
+    /**
+     * Walks towards Pepe and plays the walking sound when the boss is allowed to move.
+     */
     moveEndboss() {
         if (!this.canMove()) {
             SoundManager.sounds.endbossWalks.pause();
@@ -88,6 +100,10 @@ class Endboss extends MovableObject {
         this.walkTowardsCharacter();
     }
 
+    /**
+     * Checks if the boss is allowed to move.
+     * @returns {boolean} True if the boss can move
+     */
     canMove() {
         if (this.isDead() || this.isHurt() || this.isPausing()) {
             return false;
@@ -96,11 +112,18 @@ class Endboss extends MovableObject {
         return this.hadFirstContact && !this.isAlerting() && !characterIsDead;
     }
 
+    /**
+     * Checks if the boss pauses after an attack.
+     * @returns {boolean} True during 2 seconds after an attack
+     */
     isPausing() {
         let timepassed = new Date().getTime() - this.lastAttack;
         return timepassed < 2000;
     }
 
+    /**
+     * Starts the alert when Pepe comes close for the first time.
+     */
     startAlert() {
         this.hadFirstContact = true;
         this.firstContactTime = new Date().getTime();
@@ -108,11 +131,18 @@ class Endboss extends MovableObject {
         SoundManager.playSound(SoundManager.sounds.endbossFirstContact);
     }
 
+    /**
+     * Checks if the alert after the first contact is still running.
+     * @returns {boolean} True during the alert
+     */
     isAlerting() {
         let timepassed = new Date().getTime() - this.firstContactTime;
         return timepassed < 1500;
     }
 
+    /**
+     * Moves the boss towards Pepe and turns him in the right direction.
+     */
     walkTowardsCharacter() {
         let characterCenter = this.world.character.x + this.world.character.width / 2;
         let endbossCenter = this.x + this.width / 2;
@@ -126,24 +156,43 @@ class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * Checks if Pepe is closer than 300 pixels.
+     * @returns {boolean} True if Pepe is near
+     */
     isNearCharacter() {
         let characterCenter = this.world.character.x + this.world.character.width / 2;
         let endbossCenter = this.x + this.width / 2;
         return Math.abs(characterCenter - endbossCenter) < 300;
     }
 
+    /**
+     * Checks if the boss strikes back after a hit.
+     * @returns {boolean} True during 3 seconds after a hit
+     */
     isCounterAttacking() {
         return this.timeSinceLastHit() < 3000;
     }
 
+    /**
+     * Checks if the boss is protected after a hit.
+     * @returns {boolean} True during 3 seconds after a hit
+     */
     isInvulnerable() {
         return this.timeSinceLastHit() < 3000;
     }
 
+    /**
+     * Checks if the boss attacks.
+     * @returns {boolean} True if the boss attacks
+     */
     isAttacking() {
         return this.isNearCharacter() || this.isCounterAttacking();
     }
 
+    /**
+     * Chooses and plays the animation that fits the current state.
+     */
     playEndbossAnimation() {
         if (this.isDead()) {
             this.playAnimationOnce(this.IMAGES_DEAD);
