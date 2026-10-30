@@ -1,3 +1,6 @@
+/**
+ * The goal flag of the impossible level that runs away from Pepe.
+ */
 class GoalFlag extends DrawableObject {
     y = 60;
     width = 10;
@@ -6,6 +9,11 @@ class GoalFlag extends DrawableObject {
     fleeX;
     hasFled = false;
 
+    /**
+     * Creates the flag.
+     * @param {number} homeX - Start position on the x axis
+     * @param {number} fleeX - Position the flag runs to
+     */
     constructor(homeX, fleeX) {
         super();
         this.x = homeX;
@@ -13,6 +21,10 @@ class GoalFlag extends DrawableObject {
         this.fleeX = fleeX;
     }
 
+    /**
+     * Draws the pole, the base and the red flag.
+     * @param {CanvasRenderingContext2D} ctx - Drawing context of the canvas
+     */
     draw(ctx) {
         ctx.fillStyle = '#4a3020';
         ctx.fillRect(this.x - 15, this.y + this.height - 15, 40, 15);
@@ -26,6 +38,10 @@ class GoalFlag extends DrawableObject {
         ctx.fill();
     }
 
+    /**
+     * Moves the flag away from Pepe or back towards him.
+     * @param {Character} character - The playable character
+     */
     update(character) {
         if (this.x - character.x < 300) {
             this.hasFled = true;
@@ -41,6 +57,9 @@ class GoalFlag extends DrawableObject {
         }
     }
 
+    /**
+     * Puts the flag back to its start position.
+     */
     reset() {
         this.x = this.homeX;
         this.hasFled = false;
