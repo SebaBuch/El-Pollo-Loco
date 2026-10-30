@@ -1,3 +1,6 @@
+/**
+ * Connects all game objects, runs the game loop and draws everything.
+ */
 class World {
     character = new Character();
     level = currentLevel;
@@ -14,19 +17,22 @@ class World {
     endbossBar = new StatusBar('endboss', 460, 0, 100);
     lifeIcon = this.createLifeIcon();
     throwableObjects = [];
-    lastThrow = 0;
-    bottlePrice = 2;
-    lastBuy = 0;
     animationFrameId;
     isGameOver = false;
     wallTime = 0;
     collisions = new CollisionManager(this);
+    bottleManager = new BottleManager(this);
     stats = {
         coins: 0,
         chickens: 0,
         frames: 0
     };
 
+    /**
+     * Creates the world and starts drawing and the game loop.
+     * @param {HTMLCanvasElement} canvas - The game canvas
+     * @param {Keyboard} keyboard - The pressed keys
+     */
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -37,11 +43,17 @@ class World {
         this.preloadBottleImages();
     }
 
+    /**
+     * Loads the bottle images before the first throw.
+     */
     preloadBottleImages() {
         let bottle = new ThrowableObject(-1000, -1000, false);
         bottle.isSplashed = true;
     }
 
+    /**
+     * Gives Pepe and the endboss access to the world.
+     */
     setWorld() {
         this.character.world = this;
         if (this.endboss) {
@@ -49,6 +61,10 @@ class World {
         }
     }
 
+    /**
+     * Finds the endboss in the enemies of the level.
+     * @returns {Endboss} The endboss or undefined
+     */
     findEndboss() {
         for (let i = 0; i < this.level.enemies.length; i++) {
             if (this.level.enemies[i] instanceof Endboss) {
@@ -57,12 +73,18 @@ class World {
         }
     }
 
+    /**
+     * Starts the alert of the endboss when Pepe comes close.
+     */
     checkEndbossContact() {
         if (this.endboss && this.character.x > 2400 && !this.endboss.hadFirstContact) {
             this.endboss.startAlert();
         }
     }
 
+    /**
+     * Checks all traps, holes and fleeing bottles.
+     */
     checkTraps() {
         if (!this.character.isFlung) {
             for (let i = 0; i < this.level.traps.length; i++) {
@@ -73,6 +95,9 @@ class World {
         this.checkFleeingBottles();
     }
 
+    /**
+     * Lets every fleeing bottle run away from Pepe.
+     */
     checkFleeingBottles() {
         for (let i = 0; i < this.level.bottles.length; i++) {
             let bottle = this.level.bottles[i];
@@ -82,6 +107,9 @@ class World {
         }
     }
 
+    /**
+     * Lets Pepe fall into holes and kills him when he falls out of the screen.
+     */
     checkHoles() {
         for (let i = 0; i < this.level.holes.length; i++) {
             let hole = this.level.holes[i];
@@ -97,12 +125,13 @@ class World {
         }
     }
 
+    /**
+     * Starts the game loop with 60 checks per second.
+     */
     run() {
         startInterval(() => {
             this.collisions.checkCollisions();
-            this.checkThrowObjects();
-            this.checkBuyBottle();
-            this.removeSplashedBottles();
+            this.bottleManager.checkBottles();
             this.checkEndbossContact();
             this.checkTraps();
             this.checkGoal();
@@ -110,6 +139,9 @@ class World {
         }, 1000 / 60);
     }
 
+    /**
+     * Updates the goal flag and the invisible wall.
+     */
     checkGoal() {
         let goal = this.level.goal;
         if (!goal || this.character.isFlung) {
@@ -119,6 +151,9 @@ class World {
         this.checkWallTime();
     }
 
+    /**
+     * Flings Pepe back to the start after one second at the wall.
+     */
     checkWallTime() {
         if (this.character.x < this.level.level_end_x) {
             this.wallTime = 0;
@@ -133,6 +168,9 @@ class World {
         }
     }
 
+    /**
+     * Ends the game when Pepe dies or the level is won.
+     */
     checkGameOver() {
         if (this.isGameOver) {
             return;
@@ -145,6 +183,10 @@ class World {
         }
     }
 
+    /**
+     * Checks if the level is won.
+     * @returns {boolean} True if the level is won
+     */
     isLevelWon() {
         if (this.endboss) {
             return this.endboss.isDead();
@@ -155,6 +197,10 @@ class World {
         return this.character.x >= this.level.level_end_x;
     }
 
+    /**
+     * Stops the game and shows the end after a short delay.
+     * @param {boolean} isWon - True if the level was won
+     */
     endGame(isWon) {
         this.isGameOver = true;
         if (!isWon && difficulty != 'impossible') {
@@ -165,67 +211,10 @@ class World {
         }, 1500);
     }
 
-    checkThrowObjects() {
-        if (this.keyboard.D && this.canThrow()) {
-            this.throwBottle();
-        }
-    }
-
-    canThrow() {
-        let timepassed = new Date().getTime() - this.lastThrow;
-        return this.character.bottles > 0 && timepassed > 800 && !this.character.isDead();
-    }
-
-    throwBottle() {
-        let direction = this.character.otherDirection;
-        let x = direction ? this.character.x - 10 : this.character.x + 80;
-        let bottle = new ThrowableObject(x, this.character.y + 100, direction);
-        this.throwableObjects.push(bottle);
-        SoundManager.playSound(SoundManager.sounds.throw);
-        this.character.bottles--;
-        this.updateBottleBar();
-        this.lastThrow = new Date().getTime();
-    }
-
-    checkBuyBottle() {
-        if (!this.keyboard.B || !this.isBuyReady()) {
-            return;
-        }
-        if (this.canBuyBottle()) {
-            this.buyBottle();
-        } else {
-            SoundManager.playSound(SoundManager.sounds.buyError);
-            this.lastBuy = new Date().getTime();
-        }
-    }
-
-    isBuyReady() {
-        let timepassed = new Date().getTime() - this.lastBuy;
-        return timepassed > 500 && !this.character.isDead();
-    }
-
-    canBuyBottle() {
-        let hasSpace = this.character.bottles < this.maxBottles;
-        return this.character.coins >= this.bottlePrice && hasSpace;
-    }
-
-    buyBottle() {
-        this.character.coins -= this.bottlePrice;
-        this.character.bottles++;
-        this.updateCoinBar();
-        this.updateBottleBar();
-        SoundManager.playSound(SoundManager.sounds.bottleCollect);
-        this.lastBuy = new Date().getTime();
-    }
-
-    removeSplashedBottles() {
-        for (let i = this.throwableObjects.length - 1; i >= 0; i--) {
-            if (this.throwableObjects[i].isSplashFinished()) {
-                this.throwableObjects.splice(i, 1);
-            }
-        }
-    }
-
+    /**
+     * Damages Pepe. In impossible mode every hit kills.
+     * @param {number} damage - Amount of energy to remove
+     */
     damageCharacter(damage) {
         if (difficulty == 'impossible') {
             damage = this.character.energy;
@@ -235,22 +224,34 @@ class World {
         this.healthBar.setPercentage(this.character.energy);
     }
 
+    /**
+     * Plays the hit sound or the laughing in impossible mode.
+     */
     playHitSound() {
         let isImpossible = difficulty == 'impossible';
         let sound = isImpossible ? SoundManager.sounds.laughing : SoundManager.sounds.characterHit;
         SoundManager.playSound(sound);
     }
 
+    /**
+     * Updates the coin bar.
+     */
     updateCoinBar() {
         let percentage = this.character.coins / this.maxCoins * 100;
         this.coinBar.setPercentage(percentage);
     }
 
+    /**
+     * Updates the bottle bar.
+     */
     updateBottleBar() {
         let percentage = this.character.bottles / this.maxBottles * 100;
         this.bottleBar.setPercentage(percentage);
     }
 
+    /**
+     * Draws the whole game in every frame.
+     */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         let cameraX = Math.round(this.camera_x);
@@ -263,6 +264,9 @@ class World {
         });
     }
 
+    /**
+     * Draws all objects that move with the camera.
+     */
     drawWorldObjects() {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.holes);
@@ -277,6 +281,9 @@ class World {
         this.addObjectsToMap(this.throwableObjects);
     }
 
+    /**
+     * Draws the status bars or the lives in impossible mode.
+     */
     drawStatusBars() {
         if (difficulty == 'impossible') {
             this.drawLives();
@@ -290,6 +297,10 @@ class World {
         }
     }
 
+    /**
+     * Creates the heart icon for the lives.
+     * @returns {DrawableObject} The heart icon
+     */
     createLifeIcon() {
         let icon = new DrawableObject();
         icon.loadImage('assets/img/7_statusbars/3_icons/icon_health.png');
@@ -299,6 +310,9 @@ class World {
         return icon;
     }
 
+    /**
+     * Draws one heart for every remaining life.
+     */
     drawLives() {
         for (let i = 0; i < lives; i++) {
             this.lifeIcon.x = 20 + i * 45;
@@ -306,12 +320,20 @@ class World {
         }
     }
 
+    /**
+     * Draws a list of objects.
+     * @param {DrawableObject[]} objects - The objects to draw
+     */
     addObjectsToMap(objects) {
         for (let i = 0; i < objects.length; i++) {
             this.addToMap(objects[i]);
         }
     }
 
+    /**
+     * Draws one object and mirrors it if needed.
+     * @param {DrawableObject} mo - The object to draw
+     */
     addToMap(mo) {
         if (mo.otherDirection) {
             this.flipImage(mo);
@@ -322,6 +344,10 @@ class World {
         }
     }
 
+    /**
+     * Mirrors the canvas so the object looks to the left.
+     * @param {DrawableObject} mo - The object to mirror
+     */
     flipImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
@@ -329,6 +355,10 @@ class World {
         mo.x = mo.x * -1;
     }
 
+    /**
+     * Resets the canvas after drawing a mirrored object.
+     * @param {DrawableObject} mo - The mirrored object
+     */
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
