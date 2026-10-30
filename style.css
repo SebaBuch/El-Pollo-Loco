@@ -414,3 +414,11 @@ body.impossible-mode {
         display: none;
     }
 }
+
+@media (max-height: 399px) {
+    .menu-links {
+        left: 8px;
+        right: 8px;
+        justify-content: space-between;
+    }
+}
