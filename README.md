@@ -2,7 +2,7 @@
  
 A 2D jump-and-run game built with HTML5 Canvas and object-oriented JavaScript. Help Pepe cross the desert, collect coins and salsa bottles, and defeat the giant chicken. Or try the Impossible mode, where nothing is what it seems.
  
-**Play it here:** [El Pollo Loco]()
+**Play it here:** [El Pollo Loco](sebastianbuchholz.developerakademie.net/El%20Pollo%20Loco)
  
 ## Game modes
  
