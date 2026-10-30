@@ -8,6 +8,9 @@ let isPaused = false;
 let isGameRunning = false;
 let lives = 1;
 
+/**
+ * Prepares canvas, sounds and controls when the page is loaded.
+ */
 function init() {
     canvas = document.getElementById('canvas');
     SoundManager.init();
@@ -17,11 +20,17 @@ function init() {
     }
 }
 
+/**
+ * Hides the intro screen and starts the menu music.
+ */
 function enterMenu() {
     document.getElementById('introScreen').classList.add('d-none');
     SoundManager.playMenuMusic();
 }
 
+/**
+ * Starts a new game with the lives of the chosen difficulty.
+ */
 function startGame() {
     document.activeElement.blur();
     document.getElementById('startScreen').classList.add('d-none');
@@ -30,6 +39,9 @@ function startGame() {
     startLevel();
 }
 
+/**
+ * Creates the level and the world and starts the game music.
+ */
 function startLevel() {
     keyboard = new Keyboard();
     initLevel();
@@ -39,6 +51,11 @@ function startLevel() {
     document.getElementById('pauseButton').classList.remove('d-none');
 }
 
+/**
+ * Starts an interval that pauses with the game and can be stopped later.
+ * @param {Function} callback - Function that runs in every interval
+ * @param {number} time - Time between two runs in milliseconds
+ */
 function startInterval(callback, time) {
     let id = setInterval(() => {
         if (!isPaused) {
@@ -48,6 +65,10 @@ function startInterval(callback, time) {
     intervalIds.push(id);
 }
 
+/**
+ * Saves the chosen difficulty and marks its button.
+ * @param {string} level - 'easy' or 'impossible'
+ */
 function selectDifficulty(level) {
     difficulty = level;
     document.getElementById('easyButton').classList.remove('selected-difficulty');
@@ -57,6 +78,10 @@ function selectDifficulty(level) {
     closeDialog('difficultyDialog');
 }
 
+/**
+ * Switches the page design to the chosen difficulty.
+ * @param {string} level - 'easy' or 'impossible'
+ */
 function updateTheme(level) {
     if (level == 'impossible') {
         document.body.classList.add('impossible-mode');
@@ -65,6 +90,9 @@ function updateTheme(level) {
     }
 }
 
+/**
+ * Saves pressed keys and handles the shortcuts M, F and P.
+ */
 window.addEventListener('keydown', (e) => {
     setKey(e.code, true);
     if (e.code == 'KeyM' && !e.repeat) {
@@ -78,15 +106,28 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
+/**
+ * Saves released keys.
+ */
 window.addEventListener('keyup', (e) => {
     setKey(e.code, false);
 });
 
+/**
+ * Saves the state of a control key.
+ * @param {string} code - Code of the key
+ * @param {boolean} isPressed - True if the key is pressed
+ */
 function setKey(code, isPressed) {
     setArrowKeys(code, isPressed);
     setActionKeys(code, isPressed);
 }
 
+/**
+ * Saves the state of the arrow keys.
+ * @param {string} code - Code of the key
+ * @param {boolean} isPressed - True if the key is pressed
+ */
 function setArrowKeys(code, isPressed) {
     if (code == 'ArrowRight') {
         keyboard.RIGHT = isPressed;
@@ -96,6 +137,11 @@ function setArrowKeys(code, isPressed) {
     }
 }
 
+/**
+ * Saves the state of space, D and B.
+ * @param {string} code - Code of the key
+ * @param {boolean} isPressed - True if the key is pressed
+ */
 function setActionKeys(code, isPressed) {
     if (code == 'Space') {
         keyboard.SPACE = isPressed;
@@ -108,21 +154,37 @@ function setActionKeys(code, isPressed) {
     }
 }
 
+/**
+ * Opens a dialog and plays its music.
+ * @param {string} id - Id of the dialog
+ * @param {string} musicName - Key of the music in the sounds object
+ */
 function openDialog(id, musicName) {
     document.getElementById(id).showModal();
     SoundManager.setMenuMusic(musicName);
 }
 
+/**
+ * Closes a dialog.
+ * @param {string} id - Id of the dialog
+ */
 function closeDialog(id) {
     document.getElementById(id).close();
 }
 
+/**
+ * Closes a dialog when the click is outside of its content.
+ * @param {MouseEvent} event - The click event
+ */
 function closeDialogOnBackdrop(event) {
     if (event.target.tagName == 'DIALOG') {
         event.target.close();
     }
 }
 
+/**
+ * Stops all intervals, the drawing and the game sounds.
+ */
 function stopGame() {
     for (let i = 0; i < intervalIds.length; i++) {
         clearInterval(intervalIds[i]);
@@ -134,6 +196,9 @@ function stopGame() {
     document.getElementById('pauseButton').classList.add('d-none');
 }
 
+/**
+ * Pauses or resumes the running game.
+ */
 function togglePause() {
     document.activeElement.blur();
     if (!isGameRunning || world.isGameOver) {
@@ -146,12 +211,18 @@ function togglePause() {
     }
 }
 
+/**
+ * Pauses the game and shows the pause screen.
+ */
 function pauseGame() {
     isPaused = true;
     document.getElementById('pauseScreen').classList.remove('d-none');
     SoundManager.pauseGameSounds();
 }
 
+/**
+ * Resumes the game and hides the pause screen.
+ */
 function resumeGame() {
     isPaused = false;
     document.getElementById('pauseScreen').classList.add('d-none');
@@ -159,6 +230,10 @@ function resumeGame() {
     SoundManager.playLoop(SoundManager.sounds.background);
 }
 
+/**
+ * Restarts the level while lives are left or shows the end screen.
+ * @param {boolean} isWon - True if the level was won
+ */
 function handleGameEnd(isWon) {
     if (!isWon && lives > 1) {
         lives--;
@@ -169,6 +244,10 @@ function handleGameEnd(isWon) {
     }
 }
 
+/**
+ * Shows the win or game over screen.
+ * @param {boolean} isWon - True if the level was won
+ */
 function showEndScreen(isWon) {
     stopGame();
     let image = document.getElementById('endScreenImage');
@@ -182,6 +261,9 @@ function showEndScreen(isWon) {
     document.getElementById('endScreen').classList.remove('d-none');
 }
 
+/**
+ * Shows coins, chickens and time on the end screen.
+ */
 function showStats() {
     let stats = world.stats;
     let seconds = Math.floor(stats.frames / 60);
@@ -189,11 +271,17 @@ function showStats() {
     document.getElementById('endStats').innerHTML = text;
 }
 
+/**
+ * Hides the end screen and starts a new game.
+ */
 function restartGame() {
     document.getElementById('endScreen').classList.add('d-none');
     startGame();
 }
 
+/**
+ * Stops the game and shows the start screen.
+ */
 function backToMenu() {
     if (isGameRunning) {
         stopGame();
@@ -206,6 +294,11 @@ function backToMenu() {
     SoundManager.setMenuMusic('menu');
 }
 
+/**
+ * Saves a pressed mobile button.
+ * @param {PointerEvent} event - The pointer event
+ * @param {string} key - Name of the key in the keyboard object
+ */
 function pressKey(event, key) {
     if (event.cancelable) {
         event.preventDefault();
@@ -213,6 +306,11 @@ function pressKey(event, key) {
     keyboard[key] = true;
 }
 
+/**
+ * Saves a released mobile button.
+ * @param {PointerEvent} event - The pointer event
+ * @param {string} key - Name of the key in the keyboard object
+ */
 function releaseKey(event, key) {
     if (event.cancelable) {
         event.preventDefault();
@@ -220,6 +318,9 @@ function releaseKey(event, key) {
     keyboard[key] = false;
 }
 
+/**
+ * Loads the saved control mode or detects a touch device.
+ */
 function loadControlMode() {
     let savedMode = localStorage.getItem('isTouchMode');
     if (savedMode == null) {
@@ -230,6 +331,9 @@ function loadControlMode() {
     updateControlMode();
 }
 
+/**
+ * Switches between keyboard and touch controls and saves the choice.
+ */
 function toggleControlMode() {
     isTouchMode = !isTouchMode;
     localStorage.setItem('isTouchMode', isTouchMode);
@@ -237,6 +341,9 @@ function toggleControlMode() {
     document.getElementById('controlModeButton').blur();
 }
 
+/**
+ * Shows or hides the mobile buttons and updates the button text.
+ */
 function updateControlMode() {
     let container = document.getElementById('gameContainer');
     let button = document.getElementById('controlModeButton');
@@ -248,6 +355,9 @@ function updateControlMode() {
     button.innerHTML = isTouchMode ? 'Controls: Touch' : 'Controls: Keyboard';
 }
 
+/**
+ * Opens or closes the fullscreen mode.
+ */
 function toggleFullscreen() {
     if (document.fullscreenElement) {
         document.exitFullscreen();
