@@ -1,3 +1,6 @@
+/**
+ * A small chicken that is a bit faster than a normal chicken.
+ */
 class SmallChicken extends Chicken {
     y = 380;
     height = 50;
@@ -20,6 +23,10 @@ class SmallChicken extends Chicken {
         'assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png'
     ];
 
+    /**
+     * Loads the images of the small chicken and sets a random speed.
+     * @param {number} x - Start position on the x axis
+     */
     constructor(x) {
         super(x);
         this.loadImage(this.IMAGES_WALKING[0]);
