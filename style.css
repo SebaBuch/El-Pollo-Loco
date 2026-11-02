@@ -422,3 +422,15 @@ body.impossible-mode {
         justify-content: space-between;
     }
 }
+
+@media (min-width: 1440px) and (min-height: 850px) {
+    .game-container {
+        width: 960px;
+    }
+}
+
+@media (min-width: 1920px) and (min-height: 1050px) {
+    .game-container {
+        width: 1200px;
+    }
+}
