@@ -41,7 +41,6 @@ class SoundManager {
     static init() {
         this.sounds.lost.onended = () => this.playLoop(this.sounds.lostOutro);
         this.menuMusic = this.sounds.menu;
-        this.currentMusic = this.menuMusic;
         this.loadMuteState();
     }
 
@@ -170,9 +169,7 @@ class SoundManager {
      * Plays the menu music if it is the current music.
      */
     static playMenuMusic() {
-        if (this.currentMusic == this.menuMusic) {
-            this.playLoop(this.menuMusic);
-        }
+        this.playLoop(this.menuMusic);
     }
 
     /**
