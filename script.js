@@ -319,24 +319,18 @@ function releaseKey(event, key) {
 }
 
 /**
- * Loads the saved control mode or detects a touch device.
+ * Shows the touch buttons when the device is controlled by touch.
  */
 function loadControlMode() {
-    let savedMode = localStorage.getItem('isTouchMode');
-    if (savedMode == null) {
-        isTouchMode = window.matchMedia('(hover: none)').matches;
-    } else {
-        isTouchMode = savedMode == 'true';
-    }
+    isTouchMode = window.matchMedia('(pointer: coarse)').matches;
     updateControlMode();
 }
 
 /**
- * Switches between keyboard and touch controls and saves the choice.
+ * Switches between keyboard and touch controls.
  */
 function toggleControlMode() {
     isTouchMode = !isTouchMode;
-    localStorage.setItem('isTouchMode', isTouchMode);
     updateControlMode();
     document.getElementById('controlModeButton').blur();
 }
