@@ -13,8 +13,6 @@ class Character extends MovableObject {
     lastMove = new Date().getTime();
     isInAir = false;
     cameraOffset = 100;
-    lastDirection = false;
-    directionStart = 0;
     isFlung = false;
     wasFlung = false;
     offset = {
@@ -177,21 +175,10 @@ class Character extends MovableObject {
     }
 
     /**
-     * Sets the camera position depending on the direction Pepe looks at.
+     * Sets the position of Pepe on the screen. In impossible mode he stands further to the right.
      */
     updateCameraOffset() {
-        if (difficulty == 'impossible') {
-            this.cameraOffset = 175;
-            return;
-        }
-        if (this.otherDirection != this.lastDirection) {
-            this.directionStart = new Date().getTime();
-            this.lastDirection = this.otherDirection;
-        }
-        let lookTime = new Date().getTime() - this.directionStart;
-        if (lookTime > 600) {
-            this.cameraOffset = this.otherDirection ? 493 : 100;
-        }
+        this.cameraOffset = difficulty == 'impossible' ? 175 : 100;
     }
 
     /**
